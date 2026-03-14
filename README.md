@@ -22,7 +22,7 @@
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License: MIT">
   </a>
-  <img src="https://img.shields.io/badge/odoo-v16--v19-714B67?logo=odoo&logoColor=white&style=flat-square" alt="Odoo v16-v19">
+  <img src="https://img.shields.io/badge/odoo-v17--v18-714B67?logo=odoo&logoColor=white&style=flat-square" alt="Odoo v17-v18">
   <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey?style=flat-square" alt="Platform">
 </p>
 
@@ -39,9 +39,9 @@
 - [What It Does](#what-it-does)
 - [The Problem](#the-problem)
 - [The Solution](#the-solution)
-- [Quick Start](#quick-start)
-  - [1. Clone in your Odoo project](#1-clone-in-your-odoo-project)
-  - [2. Set up for your AI tool](#2-set-up-for-your-ai-tool)
+- [Deployment Options](#deployment-options)
+  - [Option 1: Standalone (Manual)](#option-1-standalone-manual)
+  - [Option 2: Automated Installation (Recommended) 🚀](#option-2-automated-installation-recommended-)
 - [Supported AI Tools](#supported-ai-tools)
 - [Supported Odoo Versions](#supported-odoo-versions)
 - [Skill Library](#skill-library)
@@ -83,18 +83,40 @@ A structured library of **30+ Skill Files** (Markdown + Assets) that provide:
 
 ---
 
-## Quick Start
+---
 
-### 1. Clone in your Odoo project
+## Deployment Options
+
+### Option 1: Standalone (Manual)
+Best if you only want the Odoo skills without any additional tools.
+
+1. **Clone in your project root**:
+   ```bash
+   git clone https://github.com/Yven-Labs/odoo-skills.git .odoo-skills
+   ```
+
+2. **Run the setup script**:
+   ```bash
+   # Linux/macOS
+   ./.odoo-skills/setup.sh --all
+
+   # Windows (PowerShell)
+   .\.odoo-skills\setup.ps1 -All
+   ```
+
+### Option 2: Automated Environment (Recommended) 🚀
+For a more professional and efficient workflow, we recommend using the **[gentle-ai](https://github.com/Gentleman-Programming/gentle-ai)** community configurator. It automates the environment setup and configures your AI agents following the highest engineering standards, saving significant man-hours.
+
+**macOS / Linux**:
 ```bash
-git clone https://github.com/Yven-Labs/odoo-skills.git .odoo-skills
+curl -fsSL https://raw.githubusercontent.com/Gentleman-Programming/gentle-ai/main/scripts/install.sh | bash
 ```
 
-### 2. Set up for your AI tool
-```bash
-./.odoo-skills/setup.sh --all     # Linux/macOS
-.\.odoo-skills\setup.ps1 -All      # Windows
+**Windows (PowerShell)**:
+```powershell
+irm https://raw.githubusercontent.com/Gentleman-Programming/gentle-ai/main/scripts/install.ps1 | iex
 ```
+*After setting up your environment, follow **Option 1** to deploy the Odoo skills to your workspace.*
 
 ---
 
@@ -112,12 +134,12 @@ git clone https://github.com/Yven-Labs/odoo-skills.git .odoo-skills
 
 ## Supported Odoo Versions
 
-| Version | Python | Status      |
-| ------- | ------ | ----------- |
-| Odoo 16 | 3.8+   | ✅ Supported |
-| Odoo 17 | 3.10+  | ✅ Supported |
-| Odoo 18 | 3.10+  | ✅ Supported |
-| Odoo 19 | 3.11+  | ✅ Supported |
+| Version     | Python | Status                 |
+| ----------- | ------ | ---------------------- |
+| **Odoo 17** | 3.10+  | ✅ Supported (Priority) |
+| **Odoo 18** | 3.10+  | ✅ Supported (Priority) |
+| Odoo 16     | 3.8+   | 🚧 Planned (Phase 4)    |
+| Odoo 19     | 3.11+  | 🚧 Planned (Phase 4)    |
 
 ---
 
@@ -200,7 +222,7 @@ odoo-skills/
 
 ## License
 
-MIT License — Copyright (c) 2026 [Geraldow](https://github.com/Geraldow)
+MIT License — Copyright (c) 2026
 
 ---
 
