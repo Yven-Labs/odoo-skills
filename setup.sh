@@ -23,14 +23,17 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 # Branding
 echo -e "${MAGENTA}"
 cat << "EOF"
- ██████  ██████   ██████   ██████      ███████ ██   ██ ██ ██      ██      ███████ 
-██    ██ ██   ██ ██    ██ ██    ██     ██      ██  ██  ██ ██      ██      ██      
-██    ██ ██   ██ ██    ██ ██    ██     ███████ █████   ██ ██      ██      ███████ 
-██    ██ ██   ██ ██    ██ ██    ██          ██ ██  ██  ██ ██      ██           ██ 
- ██████  ██████   ██████   ██████      ███████ ██   ██ ██ ███████ ███████ ███████ 
+   ▄██████▄   ▀█████████▄   ▄██████▄   ▄██████▄     ▄████████  ▄█   ▄█▄  ▄█  ███        ▄█     ▄████████ 
+  ▄██▀    ▀██▄   ███    ███ ▄██▀    ▀██▄ ▄██▀    ▀██▄  ███    ███ ███ ▄███▀ ███  ███       ███    ███    ███ 
+  ███      ███   ███    ███ ███      ███ ███      ███  ███    █▀  ███▐██▀   ███  ███       ███    ███    █▀  
+  ███      ███  ▄███▄▄▄██▀  ███      ███ ███      ███  ███        █████▀    ███  ███       ███    ███        
+  ███      ███ ▀▀███▀▀▀██▄  ███      ███ ███      ███  ▀████████  █████▄    ███  ███       ███  ▀███████████ 
+  ███      ███   ███    ██▄ ███      ███ ███      ███         ███ ███▐██▄   ███  ███       ███           ███ 
+  ▀██▄    ▄██▀   ███    ██▄ ▀██▄    ▄██▀ ▀██▄    ▄██▀   ▄█    ███ ███ ▀███▄ ███  ███▌    ▄ ███     ▄█    ███ 
+   ▀██████▀    ▄█████████▀   ▀██████▀     ▀██████▀   ▄████████▀  ▀█████▀   █▀   █████▄▄███ ▀██████████  
 EOF
 echo -e "${NC}"
-echo -e "--- Odoo Skills Installer for Unix ---\n"
+echo -e "${YELLOW}--- Odoo Skills Installer for Unix (v17/v18) ---${NC}\n"
 
 # Initialization
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -82,7 +85,7 @@ done
 # Interactive menu if no flags provided
 if [ ${#tasks[@]} -eq 0 ]; then
     echo -e "\nSelect integration targets:"
-    echo "1) Claude Code (AGENTS.md)"
+    echo "1) Claude Code (AGENTS.md + CLAUDE.md)"
     echo "2) Cursor (.cursorrules)"
     echo "3) All of the above"
     echo "q) Quit"
@@ -99,9 +102,11 @@ fi
 
 # --- Task Execution ---
 
-# Helper: Link AGENTS.md
-link_agents() {
+# Helper: Link master routing files
+link_master_router() {
     local target_agents="$PARENT_DIR/AGENTS.md"
+    local target_claude="$PARENT_DIR/CLAUDE.md"
+
     info "Linking AGENTS.md to Odoo project root..."
     if [ -f "$target_agents" ]; then
         warn "AGENTS.md already exists. Backing up..."
@@ -109,6 +114,15 @@ link_agents() {
     fi
     ln -sf "$AGENTS_FILE" "$target_agents"
     success "Linked: $target_agents -> $AGENTS_FILE"
+
+    info "Setting up CLAUDE.md entry point..."
+    if [ -f "$target_claude" ]; then
+        warn "CLAUDE.md already exists. Appending integration..."
+        echo -e "\n# Odoo Skills Ecosystem\n!include AGENTS.md" >> "$target_claude"
+    else
+        echo -e "# Odoo Skills Ecosystem\n!include AGENTS.md" > "$target_claude"
+    fi
+    success "Configured CLAUDE.md for Claude Code"
 }
 
 # Helper: Cursor rules
@@ -121,7 +135,7 @@ setup_cursor() {
 
 for task in "${tasks[@]}"; do
     case "$task" in
-        1) link_agents;;
+        1) link_master_router;;
         2) setup_cursor;;
     esac
 done

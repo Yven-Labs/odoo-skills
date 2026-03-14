@@ -60,7 +60,6 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 | General Odoo architecture questions | `odoo` |
 | Understanding v16→v17 changes | `odoo-v17-changes` |
 | Understanding v17→v18 changes | `odoo-v18-changes` |
-| Understanding v18→v19 changes | `odoo-v19-changes` |
 
 ---
 

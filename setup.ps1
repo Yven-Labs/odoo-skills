@@ -54,13 +54,22 @@ $RepoRoot = $PSScriptRoot
 $ParentDir = Split-Path -Path $RepoRoot -Parent
 $AgentsFile = Join-Path $RepoRoot "AGENTS.md"
 
+# --- Initial Styling ---
+$Magenta = "`e[38;5;201m"
+$Cyan = "`e[38;5;51m"
+$Gold = "`e[38;5;220m"
+$Reset = "`e[0m"
+
 Write-Host "`n"
-Write-Host "   ██████  ██████   ██████   ██████      ███████ ██   ██ ██ ██      ██      ███████" -ForegroundColor Magenta
-Write-Host "  ██    ██ ██   ██ ██    ██ ██    ██     ██      ██  ██  ██ ██      ██      ██     " -ForegroundColor Magenta
-Write-Host "  ██    ██ ██   ██ ██    ██ ██    ██     ███████ █████   ██ ██      ██      ███████" -ForegroundColor Magenta
-Write-Host "  ██    ██ ██   ██ ██    ██ ██    ██          ██ ██  ██  ██ ██      ██           ██" -ForegroundColor Magenta
-Write-Host "   ██████  ██████   ██████   ██████      ███████ ██   ██ ██ ███████ ███████ ███████" -ForegroundColor Magenta
-Write-Host "`n--- Odoo Skills Installer for Windows ---`n" -ForegroundColor Gray
+Write-Host "   $Magenta  ▄██████▄   ▀█████████▄   ▄██████▄   ▄██████▄     ▄████████  ▄█   ▄█▄  ▄█  ███        ▄█     ▄████████    $Reset"
+Write-Host "   $Cyan ▄██▀    ▀██▄   ███    ███ ▄██▀    ▀██▄ ▄██▀    ▀██▄  ███    ███ ███ ▄███▀ ███  ███       ███    ███    ███    $Reset"
+Write-Host "   $Magenta ███      ███   ███    ███ ███      ███ ███      ███  ███    █▀  ███▐██▀   ███  ███       ███    ███    █▀     $Reset"
+Write-Host "   $Cyan ███      ███  ▄███▄▄▄██▀  ███      ███ ███      ███  ███        █████▀    ███  ███       ███    ███           $Reset"
+Write-Host "   $Magenta ███      ███ ▀▀███▀▀▀██▄  ███      ███ ███      ███  ▀████████  █████▄    ███  ███       ███  ▀███████████    $Reset"
+Write-Host "   $Cyan ███      ███   ███    ██▄ ███      ███ ███      ███         ███ ███▐██▄   ███  ███       ███           ███    $Reset"
+Write-Host "   $Magenta ▀██▄    ▄██▀   ███    ██▄ ▀██▄    ▄██▀ ▀██▄    ▄██▀   ▄█    ███ ███ ▀███▄ ███  ███▌    ▄ ███     ▄█    ███    $Reset"
+Write-Host "   $Cyan  ▀██████▀    ▄█████████▀   ▀██████▀     ▀██████▀   ▄████████▀  ▀█████▀   █▀   █████▄▄███ ▀██████████  $Reset"
+Write-Host "`n   $Gold --- Odoo Skills Installer for Windows (v17/v18) ---$Reset`n"
 
 # --- Check Repo Integrity ---
 if (-not (Test-Path $AgentsFile)) {
@@ -94,7 +103,7 @@ if ($All) {
 } else {
     # Interactive menu (no flags provided)
     Write-Host "`nSelect integration targets:"
-    Write-Host "1. Claude Code (AGENTS.md)"
+    Write-Host "1. Claude Code (AGENTS.md + CLAUDE.md)"
     Write-Host "2. Cursor (.cursorrules)"
     Write-Host "3. VS Code / Copilot (.vscode/settings.json)"
     Write-Host "4. All of the above"
@@ -117,7 +126,11 @@ if ($All) {
 # Task 1: Claude Code / Generic AI Master Router
 if ($tasks -contains 1) {
     $TargetAgents = Join-Path $ParentDir "AGENTS.md"
-    Write-Info "Linking AGENTS.md to Odoo project root..."
+    $TargetClaude = Join-Path $ParentDir "CLAUDE.md"
+    
+    Write-Info "Linking master routing files to Odoo project root..."
+    
+    # Process AGENTS.md
     try {
         if (Test-Path $TargetAgents) {
             Write-Warn "AGENTS.md already exists in target. Backing up..."
@@ -126,10 +139,21 @@ if ($tasks -contains 1) {
         New-Item -ItemType SymbolicLink -Path $TargetAgents -Target $AgentsFile -Force | Out-Null
         Write-Success "Linked: $TargetAgents -> $AgentsFile"
     } catch {
-        Write-Warn "Could not create symbolic link (Permissions?). Copying file instead..."
+        Write-Warn "Could not create symbolic link for AGENTS.md. Copying file instead..."
         Copy-Item $AgentsFile $TargetAgents -Force
         Write-Success "Copied: $TargetAgents"
     }
+
+    # Process CLAUDE.md (Specific for Claude Code)
+    Write-Info "Setting up CLAUDE.md entry point..."
+    $ClaudeContent = "`n# Odoo Skills Ecosystem`n# Use the master router for Odoo modules logic`n!include AGENTS.md`n"
+    if (Test-Path $TargetClaude) {
+        Write-Warn "CLAUDE.md already exists. Appending integration..."
+        Add-Content -Path $TargetClaude -Value $ClaudeContent
+    } else {
+        Set-Content -Path $TargetClaude -Value $ClaudeContent
+    }
+    Write-Success "Configured CLAUDE.md for Claude Code"
 }
 
 # Task 2: Cursor Integration
