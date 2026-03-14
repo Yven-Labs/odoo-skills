@@ -28,10 +28,11 @@ for skill_path in "$SKILLS_DIR"/*/; do
     fi
 done
 
-# 2. Check ODSK Unique IDs (Skill IDs)
-echo -e "Checking for duplicate Skill IDs (ODSK)..."
-# Use precise regex to match real ODSK-XXX-YYY patterns and ignore doc mentions
-duplicates=$(grep -rohE 'ODSK-[A-Z][A-Z0-9]*-[A-Z][A-Z0-9_-]*' "$SKILLS_DIR" | sort | uniq -d)
+# 2. Check Skill IDs
+echo -e "Checking for duplicate Skill IDs..."
+# Extract ONLY the values of the **Skill ID** field to avoid false positives from body text
+ids=$(grep -rhE "\*\*Skill ID\*\*:\s*ODSK-[A-Z0-9_-]+" "$SKILLS_DIR" 2>/dev/null | sed 's/.*Skill ID\*\*:\s*//' | tr -d '\r' || true)
+duplicates=$(echo "$ids" | sort | uniq -d)
 if [ -n "$duplicates" ]; then
     echo -e "${RED}[DUPLICATE]${NC} Found duplicate Skill IDs:"
     echo "$duplicates"

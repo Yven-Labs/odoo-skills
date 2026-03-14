@@ -78,31 +78,30 @@ jobs:
           echo ""
           echo "✅ All skills have a SKILL.md."
 
-      - name: Check for duplicate ODSK IDs
+      - name: Check for duplicate Skill IDs
         run: |
           set -euo pipefail
 
-          echo "🔍 Checking for duplicate ODSK IDs across the library..."
+          echo "🔍 Checking for duplicate Skill IDs across the library..."
 
           if [ -d "skills" ]; then
-            # Only capture ODSK IDs that are actual definitions:
-            # Matches values after 'Skill ID:' or lines with ODSK-SKL-* pattern
-            IDS=$(grep -roh "ODSK-[A-Z][A-Z0-9]*-[A-Z][A-Z0-9_-]*" skills/ 2>/dev/null || true)
+            # Extract ONLY the values of the **Skill ID** field
+            IDS=$(grep -rhE "\*\*Skill ID\*\*:\s*ODSK-[A-Z0-9_-]+" skills/ 2>/dev/null | sed 's/.*Skill ID\*\*:\s*//' | tr -d '\r' || true)
 
             if [ -z "$IDS" ]; then
-              echo "  ℹ️  No ODSK IDs found yet — skipping duplicate check."
+              echo "  ℹ️  No Skill IDs found yet — skipping duplicate check."
               exit 0
             fi
 
             DUPLICATES=$(echo "$IDS" | sort | uniq -d)
 
             if [ -n "$DUPLICATES" ]; then
-              echo "  ❌ Duplicate ODSK IDs found:"
+              echo "  ❌ Duplicate Skill IDs found:"
               echo "$DUPLICATES"
               exit 1
             fi
 
-            echo "  ✅ No duplicate ODSK IDs found."
+            echo "  ✅ No duplicate Skill IDs found."
           else
             echo "  ℹ️  No skills/ directory yet — skipping check."
           fi
