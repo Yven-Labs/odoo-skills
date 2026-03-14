@@ -85,7 +85,9 @@ jobs:
           echo "🔍 Checking for duplicate ODSK IDs across the library..."
 
           if [ -d "skills" ]; then
-            IDS=$(grep -roh "ODSK-[A-Z0-9_\-]*" skills/ 2>/dev/null || true)
+            # Only capture ODSK IDs that are actual definitions:
+            # Matches values after 'Skill ID:' or lines with ODSK-SKL-* pattern
+            IDS=$(grep -roh "ODSK-[A-Z][A-Z0-9]*-[A-Z][A-Z0-9_-]*" skills/ 2>/dev/null || true)
 
             if [ -z "$IDS" ]; then
               echo "  ℹ️  No ODSK IDs found yet — skipping duplicate check."
