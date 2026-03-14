@@ -83,28 +83,28 @@ While **odoo-skills** is a fully independent open-source project, it is compatib
 
 Odoo has **20+ major applications** that define the system's architecture:
 
-| Application        | Modules                                            | Models | Complexity |
-| ------------------ | -------------------------------------------------- | ------ | ---------- |
-| **Framework**      | `base`, `web`, `web_studio`, `web_mobile`          | ~440   | Critical   |
-| **Accounting**     | `account`, `account_reports`, `account_accountant` | ~310   | Critical   |
-| **Communication**  | `mail`, `discuss`, `whatsapp`, `sms`               | ~247   | High       |
-| **Inventory**      | `stock`, `stock_picking_batch`, `delivery`         | ~150   | High       |
-| **Point of Sale**  | `point_of_sale`, `pos_loyalty`, `pos_self_order`    | ~140   | High       |
-| **HR - Core**      | `hr`, `hr_contract`, `hr_payroll`, `hr_sign`       | ~145   | High       |
-| **Website**        | `website`, `website_generator`, `website_studio`   | ~125   | Medium     |
-| **Manufacturing**  | `mrp`, `mrp_workorder`, `mrp_plm`                  | ~105   | High       |
-| **Services**       | `project`, `industry_fsm`, `project_forecast`      | ~100   | Medium     |
-| **Productivity**   | `knowledge`, `sign`, `approvals`, `calendar`       | ~95    | Medium     |
-| **eCommerce**      | `website_sale`, `payment`                          | ~90    | High       |
-| **Sales**          | `sale`, `sale_subscription`, `sale_renting`        | ~80    | Medium     |
-| **Operations**     | `fleet`, `maintenance`, `planning`, `appointment`  | ~75    | Low/Medium |
-| **Marketing**      | `mass_mailing`, `marketing_automation`, `social`   | ~70    | Medium     |
-| **Talent**         | `hr_recruitment`, `hr_appraisal`, `hr_referral`    | ~65    | Medium     |
-| **Purchase**       | `purchase`, `purchase_stock`                       | ~50    | Medium     |
-| **Documents**      | `documents`, `documents_spreadsheet`               | ~47    | Medium     |
-| **Helpdesk**       | `helpdesk`, `helpdesk_timesheet`                   | ~40    | Medium     |
-| **CRM**            | `crm`, `crm_iap_mine`                              | ~40    | Low/Medium |
-| **Tools**          | `data_cleaning`, `data_recycle`                    | ~35    | Low        |
+| Application       | Modules                                            | Models | Complexity |
+| ----------------- | -------------------------------------------------- | ------ | ---------- |
+| **Framework**     | `base`, `web`, `web_studio`, `web_mobile`          | ~440   | Critical   |
+| **Accounting**    | `account`, `account_reports`, `account_accountant` | ~310   | Critical   |
+| **Communication** | `mail`, `discuss`, `whatsapp`, `sms`               | ~247   | High       |
+| **Inventory**     | `stock`, `stock_picking_batch`, `delivery`         | ~150   | High       |
+| **Point of Sale** | `point_of_sale`, `pos_loyalty`, `pos_self_order`   | ~140   | High       |
+| **HR - Core**     | `hr`, `hr_contract`, `hr_payroll`, `hr_sign`       | ~145   | High       |
+| **Website**       | `website`, `website_generator`, `website_studio`   | ~125   | Medium     |
+| **Manufacturing** | `mrp`, `mrp_workorder`, `mrp_plm`                  | ~105   | High       |
+| **Services**      | `project`, `industry_fsm`, `project_forecast`      | ~100   | Medium     |
+| **Productivity**  | `knowledge`, `sign`, `approvals`, `calendar`       | ~95    | Medium     |
+| **eCommerce**     | `website_sale`, `payment`                          | ~90    | High       |
+| **Sales**         | `sale`, `sale_subscription`, `sale_renting`        | ~80    | Medium     |
+| **Operations**    | `fleet`, `maintenance`, `planning`, `appointment`  | ~75    | Low/Medium |
+| **Marketing**     | `mass_mailing`, `marketing_automation`, `social`   | ~70    | Medium     |
+| **Talent**        | `hr_recruitment`, `hr_appraisal`, `hr_referral`    | ~65    | Medium     |
+| **Purchase**      | `purchase`, `purchase_stock`                       | ~50    | Medium     |
+| **Documents**     | `documents`, `documents_spreadsheet`               | ~47    | Medium     |
+| **Helpdesk**      | `helpdesk`, `helpdesk_timesheet`                   | ~40    | Medium     |
+| **CRM**           | `crm`, `crm_iap_mine`                              | ~40    | Low/Medium |
+| **Tools**         | `data_cleaning`, `data_recycle`                    | ~35    | Low        |
 
 **Final Consolidation: ~800 audited modules and ~4,200 models in a full professional ecosystem.**
 
