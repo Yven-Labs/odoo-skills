@@ -71,26 +71,33 @@ Runs only on **push to `main`** (i.e., after a PR is merged).
 ```text
 PR merged to main
        ↓
-release.yml reads **Version**: X.Y.Z from PRD.md
+release.yml reads the last stable git tag (e.g. v0.2.0)
        ↓
-Checks if tag vX.Y.Z already exists
+Analyzes ALL commits since that tag (subject + body)
        ↓
-If new → packages skills/ + AGENTS.md + README.md into .zip
+Determines bump type from conventional commits:
+  BREAKING CHANGE or feat!/fix! → MAJOR
+  feat:                          → MINOR
+  fix: / docs: / chore: / style: → PATCH
        ↓
-Creates GitHub Release with tag vX.Y.Z and auto-generated notes
+Computes next version (e.g. 0.3.0)
+       ↓
+Packages skills/ + AGENTS.md + README.md into .zip
+       ↓
+Creates GitHub Release with tag vX.Y.Z and commit log as notes
 ```
 
-### Version Bump Strategy (SemVer)
+### Version Bump Rules (SemVer — Automatic)
 
-The version in `PRD.md` MUST be updated manually (or by the AI using `odoo-commit`) before merging to `main`:
+No manual edits required. The pipeline decides based on your commits:
 
-| Commit Type in PR            | Required Bump       | Example           |
-| :--------------------------- | :------------------ | :---------------- |
-| `feat:`                      | **MINOR** → `0.Y.0` | `0.1.0` → `0.2.0` |
-| `fix:` / `docs:` / `chore:`  | **PATCH** → `0.0.Z` | `0.2.0` → `0.2.1` |
-| Breaking architecture change | **MAJOR** → `X.0.0` | `0.x.x` → `1.0.0` |
+| Commit Pattern | Bump Type | Example |
+| :--- | :--- | :--- |
+| `feat:` or `feat(scope):` | **MINOR** | `0.2.0` → `0.3.0` |
+| `fix:` / `docs:` / `chore:` / `style:` | **PATCH** | `0.2.0` → `0.2.1` |
+| `feat!:` / `BREAKING CHANGE:` in body | **MAJOR** | `0.2.0` → `1.0.0` |
 
-> **Rule**: If the version in `PRD.md` is the same as the last tag, the release step is **skipped automatically** (no error). This prevents duplicate releases.
+> **Rule**: If no new commits exist since the last stable tag, the release step is **skipped automatically**.
 
 ---
 
