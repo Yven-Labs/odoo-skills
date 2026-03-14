@@ -1,84 +1,162 @@
 ---
 name: odoo-commit
 description: >
-  Creates professional git commits for the odoo-skills project following conventional-commits.
-  Trigger: When creating commits, after completing changes, or when asked to commit.
+  Creates professional git commits for Odoo projects following conventional-commits format.
+  Trigger: When committing changes in an Odoo module, project, or related configuration.
 license: MIT
 metadata:
   author: Geraldow
-  version: "1.0.0"
+  version: "1.1.0"
   scope: [root, core, skills, installer, docs, ci]
   auto_invoke:
     - "Creating a git commit"
-    - "Committing changes"
+    - "Committing changes to the skill library"
 ---
 
-## 1. Universal Rules
+## Critical Rules
 
-- **Conventional Format**: ALWAYS use `type(scope): description`.
-- **Length**: Keep the first line under 72 characters.
-- **Verification**: ALWAYS check for ODSK UID uniqueness before committing new assets.
-- **Draft Status**: Commit messages MUST reflect the functional impact, not the file names.
-- **Proactiveness**: NEVER commit without explicit user confirmation of the proposed message.
+- ALWAYS use conventional-commits format: `type(scope): description`
+- ALWAYS keep the first line under 72 characters
+- ALWAYS ask for user confirmation before committing
+- NEVER be overly specific (avoid counts like "6 files", "3 rules")
+- NEVER include implementation details in the title
+- NEVER use `git push --force` or `git push -f`
+- NEVER proactively offer to commit — wait for user to explicitly request it
 
-## 2. Type & Scope Matrix
+---
+
+## Commit Format
+
+```
+type(scope): concise description
+
+- Key change 1
+- Key change 2
+- Key change 3
+```
 
 ### Types
+
 | Type | Use When |
 | :--- | :--- |
-| `feat` | Adding a new skill or major automation feature. |
-| `fix` | Correcting a technical error in a skill, template, or script. |
-| `docs` | Updating PRD.md, README.md, or reference files. |
-| `chore` | Maintenance, version bumps, or CI updates. |
-| `refactor` | Restructuring skill files without changing functionality. |
-| `style` | Formatting changes (linting Markdown). |
+| `feat` | New skill added or major new functionality |
+| `fix` | Correcting a technical error in a skill or script |
+| `docs` | Changes to PRD.md, README.md, or reference files |
+| `chore` | Version bumps, CI maintenance, metadata updates |
+| `refactor` | Restructuring skill files without changing behavior |
+| `style` | Markdown formatting fixes, no content change |
 
 ### Scopes
+
 | Scope | Target Area |
 | :--- | :--- |
-| `core` | AGENTS.md, CLAUDE.md, and root configuration. |
-| `skills` | Any change inside the `skills/` directory. |
-| `installer` | `setup.sh` or `setup.ps1` changes. |
-| `docs` | PRD.md or README.md focus. |
-| `ci` | Changes in `.github/workflows/`. |
-| *omit* | Changes affecting multiple scopes or global refactors. |
+| `module` | Changes to `__manifest__.py` or module-level structure |
+| `orm` | Models, fields, computed fields, constraints |
+| `views` | XML views (form, tree, kanban, search) |
+| `security` | `ir.model.access.csv`, `ir.rule`, groups |
+| `tests` | Python test files (`test_*.py`) |
+| `controllers` | HTTP routes and JSON-RPC controllers |
+| `owl` | OWL components and frontend logic |
+| `data` | Data/demo XML files |
+| `ci` | `.github/workflows/` changes |
+| `docs` | Documentation-only changes |
+| *omit* | Changes affecting multiple scopes |
 
 ---
 
-## 3. Intelligent Versioning (Smart-Bump)
+## Good vs Bad Examples
 
-Before proposing a commit, analyze the impact on the project's lifecycle:
+### Title Line
 
-1. **PATCH (0.x.Z)**: Any `fix`, `style`, or small `docs` change. 
-   - *Example*: Fixing a typo in `odoo-orm`.
-2. **MINOR (0.Y.0)**: Any `feat` or significant `refactor`.
-   - *Example*: Adding the `odoo-accounting` skill.
-3. **MAJOR (X.0.0)**: Groundbreaking architecture changes or full v1.0.0 release.
-
-**Action**: If a bump is required, advise the user: *"Estimado, he detectado que este cambio requiere un aumento de versión a X.Y.Z en el PRD.md. ¿Procedo a actualizarlo antes del commit?"*.
-
----
-
-## 4. Workflow
-
-1. **Analyze Diff**: Run `git diff --cached` (or current changes) to understand the scope.
-2. **Verify Integrity**: Ensure all new `.md` files have their ODSK-UID and language identifiers.
-3. **Draft Message**: Create a concise title and a bulleted body for complex changes.
-4. **Suggest Bump**: Check if `PRD.md` needs a version update based on the changes.
-5. **Confirm**: Show the final message and the list of files to the user for approval.
-
-### Commit Example
 ```
-feat(skills): add odoo-commit for automated versioning logic
+# GOOD — Concise and clear
+feat(orm): add sale order line computed field for margin
+fix(views): correct invisible condition in invoice form (v17+)
+chore(security): add ir.model.access for res.partner extension
+docs: update module readme with installation steps
 
-- Implement intelligent versioning check (Smart-Bump)
-- Define Odoo-specific scopes (installer, core, skills)
-- Add ODSK-UID verification rules before commit
+# BAD — Too specific or verbose
+feat(orm): add computed field for margin on sale.order.line with @api.depends on price_unit
+fix(views): fix line 45 in sale_order_form.xml where invisible was using deprecated attrs
 ```
 
+### Body Bullets
+
+```
+# GOOD — High-level changes
+- Add version-aware routing for v17 and v18
+- Define Odoo-specific scopes for commit strategy
+- Include ODSK-UID verification rules
+
+# BAD — Too granular
+- Add routing logic on line 45 for v17.0.x manifest patterns
+- Update 3 lines in setup.sh to fix the if-block on line 23
+```
+
 ---
 
-## 5. Metadata
+## Workflow
+
+1. **Check status**:
+```bash
+git status
+git diff --stat HEAD
+git log -3 --oneline
+```
+
+2. **Draft message**: Choose type and scope, write concise title, add 2–5 bullets.
+
+3. **Present to user**: Show files to be committed, the proposed message, and wait for explicit confirmation.
+
+4. **Execute**:
+```bash
+git add <files>
+git commit -m "$(cat <<'EOF'
+type(scope): description
+
+- Change 1
+- Change 2
+EOF
+)"
+```
+
+---
+
+## Decision Tree
+
+```
+Single file changed?
+├─ Yes → Title only (omit body)
+└─ No  → Include body bullets
+
+Multiple scopes affected?
+├─ Yes → Omit scope: `feat: description`
+└─ No  → Include scope: `feat(skills): description`
+
+Fixing a bug?
+├─ User-facing error → fix(scope): description
+└─ Internal issue   → chore(scope): fix description
+
+Adding documentation?
+├─ Code comments only → Part of the feat or fix
+└─ Standalone docs   → docs: or docs(scope):
+```
+
+---
+
+## ODSK Integrity Check (Only When Contributing to odoo-skills)
+
+If you are contributing to the `odoo-skills` library itself:
+1. Verify every new `SKILL.md` has an `ODSK-UID` in its metadata.
+2. Verify all Markdown code blocks have a language identifier.
+3. Run `sync.sh` (when available) to validate UID uniqueness.
+
+For standard Odoo project commits (models, views, security, etc.), this check does NOT apply.
+
+---
+
+## Metadata
+
 - **ODSK-UID**: ODSK-SKL-COMMIT
 - **Author**: [Geraldow](https://github.com/Geraldow)
 - **Repo**: https://github.com/Yven-Labs/odoo-skills
