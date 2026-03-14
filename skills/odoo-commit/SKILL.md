@@ -27,7 +27,7 @@ metadata:
 
 ## Commit Format
 
-```
+```text
 type(scope): concise description
 
 - Key change 1
@@ -68,7 +68,7 @@ type(scope): concise description
 
 ### Title Line
 
-```
+```text
 # GOOD — Concise and clear
 feat(orm): add sale order line computed field for margin
 fix(views): correct invisible condition in invoice form (v17+)
@@ -82,11 +82,11 @@ fix(views): fix line 45 in sale_order_form.xml where invisible was using depreca
 
 ### Body Bullets
 
-```
+```text
 # GOOD — High-level changes
 - Add version-aware routing for v17 and v18
 - Define Odoo-specific scopes for commit strategy
-- Include ODSK-UID verification rules
+- Include Skill ID verification rules
 
 # BAD — Too granular
 - Add routing logic on line 45 for v17.0.x manifest patterns
@@ -124,14 +124,14 @@ EOF
 
 ## Decision Tree
 
-```
+```text
 Single file changed?
 ├─ Yes → Title only (omit body)
 └─ No  → Include body bullets
 
 Multiple scopes affected?
 ├─ Yes → Omit scope: `feat: description`
-└─ No  → Include scope: `feat(skills): description`
+└─ No  → Include scope: `feat(orm): description`
 
 Fixing a bug?
 ├─ User-facing error → fix(scope): description

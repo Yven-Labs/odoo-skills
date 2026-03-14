@@ -68,7 +68,7 @@ Runs only on **push to `main`** (i.e., after a PR is merged).
 
 ### How the Automated Release Works
 
-```
+```text
 PR merged to main
        ↓
 release.yml reads **Version**: X.Y.Z from PRD.md
