@@ -13,7 +13,7 @@ This is the central routing and rules file for the Odoo AI Skills Ecosystem. It 
 
 - **Auto-invocation**: The table below instructs the AI which skill to load based on your actions.
 - **Rules**: Generic code quality rules that apply to all files.
-- **Verification**: All library files (`assets/`, `references/`) use the **ODSK Unified ID System**. The AI MUST verify the file's UID before applying patterns to ensure Odoo version compatibility.
+- **Verification**: All library files (`assets/`, `references/`) use the **Skill ID System (ODSK)**. The AI MUST verify the file's Skill ID before applying patterns to ensure Odoo version compatibility.
 
 ---
 

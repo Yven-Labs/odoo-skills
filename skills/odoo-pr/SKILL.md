@@ -113,7 +113,7 @@ Follow conventional commits:
 ## Before Creating PR
 
 1. ✅ All CI checks pass (or are understood).
-2. ✅ ODSK-UIDs are unique across the library.
+2. ✅ Skill IDs are unique across the library.
 3. ✅ Markdown code blocks have language identifiers.
 4. ✅ Branch is up to date with `develop`.
 5. ✅ Commits are clean and follow Conventional Commits.

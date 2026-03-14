@@ -229,7 +229,7 @@ skills/{skill-name}/
     └── architecture.md      # (UID: ODSK-REF-{SKILL}-ARCH)
 ```
 
-### 5.3 ODSK Unified ID System
+### 5.3 Skill ID System (ODSK)
 
 - **Verification**: Allows the AI to positively verify it has loaded the correct context for the specific Odoo version.
 
@@ -237,7 +237,7 @@ skills/{skill-name}/
 
 - **R-ARC-01**: Every skill MUST contain a `SKILL.md` file with a frontmatter defining its scope and unique ID.
 - **R-ARC-02**: Version-specific code MUST be placed in its corresponding `assets/v{N}/` directory.
-- **R-ARC-03**: All assets and references MUST implement the ODSK Unified ID System for AI verification.
+- **R-ARC-03**: All assets and references MUST implement the Skill ID System for AI verification.
 - **R-ARC-04**: The skill library MUST be structured to avoid circular dependencies between core skills (Tier 1).
 - **R-ARC-05**: Asset files MUST be small enough to be loaded into the AI context without exceeding 200 lines per file where possible.
 
@@ -470,7 +470,7 @@ flowchart TD
 
 - **R-INT-01**: Skills MUST be compatible with the standard SDD workflow phases (examine, plan, execute).
 - **R-INT-02**: The `AGENTS.md` router MUST prioritize SDD-specific rules during an active `/sdd-apply` session.
-- **R-INT-03**: The library MUST implement the ODSK Unified ID System to ensure consistent context recall across different AI sessions.
+- **R-INT-03**: The library MUST implement the Skill ID System to ensure consistent context recall across different AI sessions.
 
 ### 8.3 Recommended Workflow Enhancements
 
@@ -568,7 +568,7 @@ The odoo-skills project follows Semantic Versioning (SemVer) `MAJOR.MINOR.PATCH`
 - **MINOR (0.Y.0)**: New functional skills (e.g., `odoo-accounting`), new deployment automation, or significant feature additions.
 - **PATCH (0.0.Z)**: Technical fixes, typo corrections, "hallucination" prevention in existing skills, or metadata updates.
 
-**Automation**: The `odoo-commit` skill automatically assists the developer in determining the correct version bump based on the current changes.
+**Automation**: The `release` workflow automatically assists the developer in determining the correct version bump based on conventional commits. Manual edits to `PRD.md` for versioning are no longer required but can be done for documentation purposes.
 
 ---
 

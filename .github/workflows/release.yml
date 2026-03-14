@@ -19,23 +19,64 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Extract version from PRD.md
+      - name: Compute next version from conventional commits
         id: version
         run: |
           set -euo pipefail
 
-          VERSION=$(grep -m1 "^\*\*Version\*\*:" PRD.md | sed 's/\*\*Version\*\*: //' | tr -d '\r')
+          # Get the last STABLE tag (exclude pre-releases: draft, alpha, beta, rc)
+          PREV_TAG=$(git tag --sort=-version:refname \
+            | grep -Ev '\-(draft|alpha|beta|rc)' \
+            | head -1 || true)
 
-          if [ -z "$VERSION" ]; then
-            echo "❌ Could not extract version from PRD.md"
-            exit 1
+          if [ -z "$PREV_TAG" ]; then
+            echo "ℹ️  No previous stable tag — starting at v0.1.0"
+            echo "VERSION=0.1.0" >> "$GITHUB_OUTPUT"
+            echo "PREV_TAG=" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
-          echo "Detected version: $VERSION"
-          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Previous stable tag: $PREV_TAG"
+
+          # Parse MAJOR.MINOR.PATCH
+          CLEAN="${PREV_TAG#v}"
+          MAJOR=$(echo "$CLEAN" | cut -d. -f1)
+          MINOR=$(echo "$CLEAN" | cut -d. -f2)
+          PATCH=$(echo "$CLEAN" | cut -d. -f3)
+
+          # Collect commit subjects AND bodies since last stable tag
+          COMMITS=$(git log "${PREV_TAG}..HEAD" --pretty=format:"%s%n%b" 2>/dev/null || true)
+
+          if [ -z "$COMMITS" ]; then
+            echo "⚠️  No commits since $PREV_TAG — skipping release."
+            echo "VERSION=${CLEAN}" >> "$GITHUB_OUTPUT"
+            echo "PREV_TAG=$PREV_TAG" >> "$GITHUB_OUTPUT"
+            echo "SKIP=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Determine bump type by conventional commit rules
+          BUMP="patch"
+          if echo "$COMMITS" | grep -qiE "(^|\n)BREAKING CHANGE[:\!]|(^feat|^fix|^refactor|^chore)\!(\([^)]+\))?:"; then
+            BUMP="major"
+          elif echo "$COMMITS" | grep -qE "^feat(\([^)]+\))?:"; then
+            BUMP="minor"
+          fi
+
+          case "$BUMP" in
+            major) NEXT_VERSION="$((MAJOR + 1)).0.0" ;;
+            minor) NEXT_VERSION="${MAJOR}.$((MINOR + 1)).0" ;;
+            patch) NEXT_VERSION="${MAJOR}.${MINOR}.$((PATCH + 1))" ;;
+          esac
+
+          echo "Bump type  : $BUMP"
+          echo "New version: v$NEXT_VERSION"
+          echo "VERSION=$NEXT_VERSION" >> "$GITHUB_OUTPUT"
+          echo "PREV_TAG=$PREV_TAG" >> "$GITHUB_OUTPUT"
 
       - name: Check if this version tag already exists
         id: tag_check
+        if: ${{ !contains(steps.version.outputs, 'SKIP') }}
         run: |
           set -euo pipefail
 
@@ -57,26 +98,22 @@ jobs:
           mkdir -p dist
 
           if [ -d "skills" ]; then
-            zip -r "dist/odoo-skills-v${{ steps.version.outputs.VERSION }}.zip" skills/ AGENTS.md README.md LICENSE
+            zip -r "dist/odoo-skills-v${{ steps.version.outputs.VERSION }}.zip" \
+              skills/ AGENTS.md README.md LICENSE
             echo "📦 Skills package created:"
             ls -lh dist/
           else
-            echo "ℹ️  No skills/ directory found yet — creating empty release."
-            zip -r "dist/odoo-skills-v${{ steps.version.outputs.VERSION }}.zip" AGENTS.md README.md LICENSE
+            echo "ℹ️  No skills/ directory yet — creating base release."
+            zip -r "dist/odoo-skills-v${{ steps.version.outputs.VERSION }}.zip" \
+              AGENTS.md README.md LICENSE
           fi
 
-      - name: Generate release notes from CHANGELOG or git log
+      - name: Generate release notes
         if: steps.tag_check.outputs.SKIP == 'false'
-        id: notes
         run: |
           set -euo pipefail
 
-          TAG="v${{ steps.version.outputs.VERSION }}"
-          # Only compare against stable tags (exclude draft/alpha/beta/rc pre-releases)
-          PREV_TAG=$(git tag --sort=-version:refname \
-            | grep -v -E '\-(draft|alpha|beta|rc)' \
-            | grep -v "^${TAG}$" \
-            | head -1)
+          PREV_TAG="${{ steps.version.outputs.PREV_TAG }}"
 
           if [ -z "$PREV_TAG" ]; then
             NOTES=$(git log --oneline --no-decorate | head -20)
@@ -84,7 +121,6 @@ jobs:
             NOTES=$(git log "${PREV_TAG}..HEAD" --oneline --no-decorate)
           fi
 
-          # Write to file to preserve multiline
           echo "$NOTES" > /tmp/release_notes.txt
           echo "Notes preview:"
           cat /tmp/release_notes.txt
@@ -98,7 +134,7 @@ jobs:
           body_path: /tmp/release_notes.txt
           files: dist/odoo-skills-v${{ steps.version.outputs.VERSION }}.zip
           draft: false
-          prerelease: ${{ contains(steps.version.outputs.VERSION, 'draft') || contains(steps.version.outputs.VERSION, 'alpha') || contains(steps.version.outputs.VERSION, 'beta') }}
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

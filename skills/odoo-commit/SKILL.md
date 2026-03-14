@@ -147,7 +147,7 @@ Adding documentation?
 ## ODSK Integrity Check (Only When Contributing to odoo-skills)
 
 If you are contributing to the `odoo-skills` library itself:
-1. Verify every new `SKILL.md` has an `ODSK-UID` in its metadata.
+1. Verify every new `SKILL.md` has a `Skill ID` in its metadata.
 2. Verify all Markdown code blocks have a language identifier.
 3. Run `sync.sh` (when available) to validate UID uniqueness.
 
