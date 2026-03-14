@@ -28,11 +28,11 @@ Use this skill whenever you are:
 
 ## Quick Map (Where to Look)
 
-| Thing to Understand | File |
-| :--- | :--- |
-| Skill library integrity checks | `.github/workflows/ci.yml` |
-| Automated release creation | `.github/workflows/release.yml` |
-| Version source of truth | `PRD.md` (line: `**Version**: X.Y.Z`) |
+| Thing to Understand            | File                                  |
+| :----------------------------- | :------------------------------------ |
+| Skill library integrity checks | `.github/workflows/ci.yml`            |
+| Automated release creation     | `.github/workflows/release.yml`       |
+| Version source of truth        | `PRD.md` (line: `**Version**: X.Y.Z`) |
 
 ---
 
@@ -42,12 +42,12 @@ Runs on every **push to `develop`** and every **PR to `main` or `develop`**.
 
 ### Steps & What They Check
 
-| Step | What It Validates | Common Failure Reason |
-| :--- | :--- | :--- |
-| Check skill dirs in AGENTS.md | Every `skills/*/` name must appear in `AGENTS.md` | New skill added but not registered |
-| Check every skill has SKILL.md | Every `skills/*/` must have a `SKILL.md` file | Folder created without the required file |
-| Check for duplicate ODSK IDs | `ODSK-...` UIDs must be unique across all skills | Copy-paste without updating the UID |
-| Check Markdown code blocks | No ` ``` ` without a language identifier | Code block opened without `python`, `bash`, etc. |
+| Step                           | What It Validates                                 | Common Failure Reason                            |
+| :----------------------------- | :------------------------------------------------ | :----------------------------------------------- |
+| Check skill dirs in AGENTS.md  | Every `skills/*/` name must appear in `AGENTS.md` | New skill added but not registered               |
+| Check every skill has SKILL.md | Every `skills/*/` must have a `SKILL.md` file     | Folder created without the required file         |
+| Check for duplicate ODSK IDs   | `ODSK-...` UIDs must be unique across all skills  | Copy-paste without updating the UID              |
+| Check Markdown code blocks     | No ` ``` ` without a language identifier          | Code block opened without `python`, `bash`, etc. |
 
 ### Debug Checklist
 
@@ -84,10 +84,10 @@ Creates GitHub Release with tag vX.Y.Z and auto-generated notes
 
 The version in `PRD.md` MUST be updated manually (or by the AI using `odoo-commit`) before merging to `main`:
 
-| Commit Type in PR | Required Bump | Example |
-| :--- | :--- | :--- |
-| `feat:` | **MINOR** → `0.Y.0` | `0.1.0` → `0.2.0` |
-| `fix:` / `docs:` / `chore:` | **PATCH** → `0.0.Z` | `0.2.0` → `0.2.1` |
+| Commit Type in PR            | Required Bump       | Example           |
+| :--------------------------- | :------------------ | :---------------- |
+| `feat:`                      | **MINOR** → `0.Y.0` | `0.1.0` → `0.2.0` |
+| `fix:` / `docs:` / `chore:`  | **PATCH** → `0.0.Z` | `0.2.0` → `0.2.1` |
 | Breaking architecture change | **MAJOR** → `X.0.0` | `0.x.x` → `1.0.0` |
 
 > **Rule**: If the version in `PRD.md` is the same as the last tag, the release step is **skipped automatically** (no error). This prevents duplicate releases.
@@ -125,6 +125,6 @@ git push origin develop
 
 ## Metadata
 
-- **ODSK-UID**: ODSK-SKL-CI
+- **Skill ID**: ODSK-SKL-CI
 - **Author**: [Geraldow](https://github.com/Geraldow)
 - **Repo**: https://github.com/Yven-Labs/odoo-skills

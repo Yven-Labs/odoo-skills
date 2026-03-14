@@ -37,30 +37,30 @@ type(scope): concise description
 
 ### Types
 
-| Type | Use When |
-| :--- | :--- |
-| `feat` | New skill added or major new functionality |
-| `fix` | Correcting a technical error in a skill or script |
-| `docs` | Changes to PRD.md, README.md, or reference files |
-| `chore` | Version bumps, CI maintenance, metadata updates |
+| Type       | Use When                                            |
+| :--------- | :-------------------------------------------------- |
+| `feat`     | New skill added or major new functionality          |
+| `fix`      | Correcting a technical error in a skill or script   |
+| `docs`     | Changes to PRD.md, README.md, or reference files    |
+| `chore`    | Version bumps, CI maintenance, metadata updates     |
 | `refactor` | Restructuring skill files without changing behavior |
-| `style` | Markdown formatting fixes, no content change |
+| `style`    | Markdown formatting fixes, no content change        |
 
 ### Scopes
 
-| Scope | Target Area |
-| :--- | :--- |
-| `module` | Changes to `__manifest__.py` or module-level structure |
-| `orm` | Models, fields, computed fields, constraints |
-| `views` | XML views (form, tree, kanban, search) |
-| `security` | `ir.model.access.csv`, `ir.rule`, groups |
-| `tests` | Python test files (`test_*.py`) |
-| `controllers` | HTTP routes and JSON-RPC controllers |
-| `owl` | OWL components and frontend logic |
-| `data` | Data/demo XML files |
-| `ci` | `.github/workflows/` changes |
-| `docs` | Documentation-only changes |
-| *omit* | Changes affecting multiple scopes |
+| Scope         | Target Area                                            |
+| :------------ | :----------------------------------------------------- |
+| `module`      | Changes to `__manifest__.py` or module-level structure |
+| `orm`         | Models, fields, computed fields, constraints           |
+| `views`       | XML views (form, tree, kanban, search)                 |
+| `security`    | `ir.model.access.csv`, `ir.rule`, groups               |
+| `tests`       | Python test files (`test_*.py`)                        |
+| `controllers` | HTTP routes and JSON-RPC controllers                   |
+| `owl`         | OWL components and frontend logic                      |
+| `data`        | Data/demo XML files                                    |
+| `ci`          | `.github/workflows/` changes                           |
+| `docs`        | Documentation-only changes                             |
+| *omit*        | Changes affecting multiple scopes                      |
 
 ---
 
@@ -157,6 +157,6 @@ For standard Odoo project commits (models, views, security, etc.), this check do
 
 ## Metadata
 
-- **ODSK-UID**: ODSK-SKL-COMMIT
+- **Skill ID**: ODSK-SKL-COMMIT
 - **Author**: [Geraldow](https://github.com/Geraldow)
 - **Repo**: https://github.com/Yven-Labs/odoo-skills

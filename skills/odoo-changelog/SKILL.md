@@ -31,13 +31,13 @@ metadata:
 
 ### Emoji Prefixes (Required)
 
-| Section | Emoji | Usage |
-| :--- | :--- | :--- |
-| Added | `### 🚀 Added` | New skills, new features, new automation |
-| Changed | `### 🔄 Changed` | Modifications to existing skills or config |
-| Removed | `### ❌ Removed` | Deleted skills or breaking removals (MAJOR only) |
-| Fixed | `### 🐞 Fixed` | Bug fixes in scripts, CI, or skill logic |
-| Security | `### 🔐 Security` | Security patches or safe coding improvements |
+| Section  | Emoji            | Usage                                            |
+| :------- | :--------------- | :----------------------------------------------- |
+| Added    | `### 🚀 Added`    | New skills, new features, new automation         |
+| Changed  | `### 🔄 Changed`  | Modifications to existing skills or config       |
+| Removed  | `### ❌ Removed`  | Deleted skills or breaking removals (MAJOR only) |
+| Fixed    | `### 🐞 Fixed`    | Bug fixes in scripts, CI, or skill logic         |
+| Security | `### 🔐 Security` | Security patches or safe coding improvements     |
 
 ### Entry Format
 
@@ -66,11 +66,11 @@ metadata:
 
 ## Semantic Versioning Rules
 
-| Change Type | Bump | Example |
-| :--- | :--- | :--- |
+| Change Type                         | Bump            | Example           |
+| :---------------------------------- | :-------------- | :---------------- |
 | Bug fixes, typos, small doc updates | PATCH (`0.0.Z`) | `0.2.0` → `0.2.1` |
-| New skill or significant feature | MINOR (`0.Y.0`) | `0.2.1` → `0.3.0` |
-| Breaking architecture or rename | MAJOR (`X.0.0`) | `0.x.x` → `1.0.0` |
+| New skill or significant feature    | MINOR (`0.Y.0`) | `0.2.1` → `0.3.0` |
+| Breaking architecture or rename     | MAJOR (`X.0.0`) | `0.x.x` → `1.0.0` |
 
 > **Note:** `### ❌ Removed` entries MUST only appear in MAJOR version releases.
 
@@ -122,6 +122,6 @@ head -40 CHANGELOG.md
 
 ## Metadata
 
-- **ODSK-UID**: ODSK-SKL-CHANGELOG
+- **Skill ID**: ODSK-SKL-CHANGELOG
 - **Author**: [Geraldow](https://github.com/Geraldow)
 - **Repo**: https://github.com/Yven-Labs/odoo-skills

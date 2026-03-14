@@ -66,12 +66,12 @@ By submitting this pull request, I confirm that my contribution is made under th
 
 ## Component-Specific Rules
 
-| Component | Extra Checks |
-| :--- | :--- |
-| `models/*.py` | Security rules added? Deprecated API avoided? |
-| `views/*.xml` | `attrs` removed? `t-raw` replaced by `t-out`? |
-| `security/*.csv` | Every new model covered? |
-| `tests/test_*.py` | `TransactionCase` or `HttpCase` used correctly? |
+| Component         | Extra Checks                                     |
+| :---------------- | :----------------------------------------------- |
+| `models/*.py`     | Security rules added? Deprecated API avoided?    |
+| `views/*.xml`     | `attrs` removed? `t-raw` replaced by `t-out`?    |
+| `security/*.csv`  | Every new model covered?                         |
+| `tests/test_*.py` | `TransactionCase` or `HttpCase` used correctly?  |
 | `__manifest__.py` | Version format `X.Y.A.B.C`? `license` field set? |
 
 ---
@@ -123,6 +123,6 @@ Follow conventional commits:
 
 ## Metadata
 
-- **ODSK-UID**: ODSK-SKL-PR
+- **Skill ID**: ODSK-SKL-PR
 - **Author**: [Geraldow](https://github.com/Geraldow)
 - **Repo**: https://github.com/Yven-Labs/odoo-skills
