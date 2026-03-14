@@ -114,7 +114,7 @@ jobs:
 
           # Find ``` without a language tag — matches ``` followed immediately by newline
           while IFS= read -r file; do
-            if grep -Pn "^```\s*$" "$file" > /tmp/found.txt 2>/dev/null; then
+            if grep -Pn '^```\s*$' "$file" > /tmp/found.txt 2>/dev/null; then
               echo "  ❌ $file — code block(s) missing language:"
               cat /tmp/found.txt
               ISSUES=$((ISSUES + 1))
