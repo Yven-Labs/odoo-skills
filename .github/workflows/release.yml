@@ -1,0 +1,108 @@
+name: Release — Publish Skill Library
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from PRD.md
+        id: version
+        run: |
+          set -euo pipefail
+
+          VERSION=$(grep -m1 "^\*\*Version\*\*:" PRD.md | sed 's/\*\*Version\*\*: //' | tr -d '\r')
+
+          if [ -z "$VERSION" ]; then
+            echo "❌ Could not extract version from PRD.md"
+            exit 1
+          fi
+
+          echo "Detected version: $VERSION"
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Check if this version tag already exists
+        id: tag_check
+        run: |
+          set -euo pipefail
+
+          TAG="v${{ steps.version.outputs.VERSION }}"
+
+          if git tag | grep -q "^${TAG}$"; then
+            echo "⚠️  Tag $TAG already exists — skipping release creation."
+            echo "SKIP=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "✅ Tag $TAG is new — proceeding with release."
+            echo "SKIP=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Package skill library
+        if: steps.tag_check.outputs.SKIP == 'false'
+        run: |
+          set -euo pipefail
+
+          mkdir -p dist
+
+          if [ -d "skills" ]; then
+            zip -r "dist/odoo-skills-v${{ steps.version.outputs.VERSION }}.zip" skills/ AGENTS.md README.md LICENSE
+            echo "📦 Skills package created:"
+            ls -lh dist/
+          else
+            echo "ℹ️  No skills/ directory found yet — creating empty release."
+            zip -r "dist/odoo-skills-v${{ steps.version.outputs.VERSION }}.zip" AGENTS.md README.md LICENSE
+          fi
+
+      - name: Generate release notes from CHANGELOG or git log
+        if: steps.tag_check.outputs.SKIP == 'false'
+        id: notes
+        run: |
+          set -euo pipefail
+
+          TAG="v${{ steps.version.outputs.VERSION }}"
+          PREV_TAG=$(git tag --sort=-version:refname | head -1)
+
+          if [ -z "$PREV_TAG" ]; then
+            NOTES=$(git log --oneline --no-decorate | head -20)
+          else
+            NOTES=$(git log "${PREV_TAG}..HEAD" --oneline --no-decorate)
+          fi
+
+          # Write to file to preserve multiline
+          echo "$NOTES" > /tmp/release_notes.txt
+          echo "Notes preview:"
+          cat /tmp/release_notes.txt
+
+      - name: Create GitHub Release
+        if: steps.tag_check.outputs.SKIP == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.VERSION }}
+          name: "odoo-skills v${{ steps.version.outputs.VERSION }}"
+          body_path: /tmp/release_notes.txt
+          files: dist/odoo-skills-v${{ steps.version.outputs.VERSION }}.zip
+          draft: false
+          prerelease: ${{ contains(steps.version.outputs.VERSION, 'draft') || contains(steps.version.outputs.VERSION, 'alpha') || contains(steps.version.outputs.VERSION, 'beta') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        if: always()
+        run: |
+          echo ""
+          echo "════════════════════════════════════════"
+          echo "  odoo-skills Release Pipeline Complete"
+          echo "  Version: v${{ steps.version.outputs.VERSION }}"
+          echo "════════════════════════════════════════"
