@@ -1,0 +1,25 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Python (for local testing)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.odoo_history
+
+# Temp files from sync.sh
+*.tmp
+
+# AI tool symlinks (created by setup.sh, not committed)
+.claude/
+.gemini/
+.codex/
