@@ -82,5 +82,5 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 ## 5. Metadata
 
 - **Author**: [Geraldow](https://github.com/Geraldow)
-- **Repository**: [https://github.com/Geraldow/odoo-skills](https://github.com/Geraldow/odoo-skills)
+- **Repository**: [https://github.com/Yven-Labs/odoo-skills](https://github.com/Yven-Labs/odoo-skills)
 - **License**: MIT
