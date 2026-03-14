@@ -80,30 +80,30 @@ A raw AI assistant will:
 
 Odoo has **14+ major functional areas**, each with multiple modules:
 
-| Area | Key Modules | Models (est.) | Complexity |
-|------|-------------|--------------|------------|
-| **Sales & Sub** | `sale`, `sale_management`, `sale_subscription`, `sale_renting` | ~85 | Medium/High |
-| **CRM & Leads** | `crm`, `crm_iap_mine`, `crm_livechat`, `crm_sms` | ~30 | Medium |
-| **Accounting** | `account`, `account_accountant`, `account_asset`, `account_reports`, `account_consolidation` | ~160 | Critical |
-| **Inventory** | `stock`, `stock_picking_batch`, `stock_barcode`, `stock_delivery` | ~90 | High |
-| **Purchase** | `purchase`, `purchase_requisition`, `purchase_stock` | ~35 | Medium |
-| **Manufacturing** | `mrp`, `mrp_bom`, `mrp_workorder`, `mrp_subcontracting`, `mrp_mps` | ~85 | High |
-| **Quality & PLM** | `quality`, `quality_control`, `mrp_plm`, `mrp_workorder_hr` | ~45 | High |
-| **HR Base** | `hr`, `hr_contract`, `hr_holidays`, `hr_expense`, `hr_attendance` | ~85 | Medium |
-| **HR Talent** | `hr_recruitment`, `hr_appraisal`, `hr_referral`, `hr_skills` | ~40 | Medium |
-| **Payroll** | `hr_payroll`, `hr_payroll_account`, `hr_payroll_attendance` | ~45 | High |
-| **Services (FSM)** | `industry_fsm`, `project`, `project_timesheet`, `project_forecast` | ~75 | Medium |
-| **Helpdesk** | `helpdesk`, `helpdesk_timesheet`, `helpdesk_stock` | ~25 | Medium |
-| **Website & CMS** | `website`, `website_blog`, `website_forum`, `website_slides` | ~55 | Medium |
-| **eCommerce** | `website_sale`, `payment`, `delivery`, `website_sale_stock` | ~65 | High |
-| **Point of Sale** | `point_of_sale`, `pos_restaurant`, `pos_loyalty`, `pos_self_order` | ~60 | High |
-| **Marketing** | `mass_mailing`, `marketing_automation`, `social`, `survey` | ~60 | Medium |
-| **Productivity** | `knowledge`, `sign`, `approvals`, `lunch`, `calendar` | ~50 | Medium |
-| **Documents** | `documents`, `documents_spreadsheet`, `documents_hr` | ~35 | Medium |
-| **Operations** | `fleet`, `maintenance`, `planning`, `appointment` | ~60 | Low |
-| **Voice & Social** | `mail`, `discuss`, `whatsapp`, `voip` | ~50 | High |
-| **Data Tools** | `data_cleaning`, `data_recycle`, `spreadsheet_dashboard` | ~20 | Low |
-| **Studio & IoT** | `studio`, `web_studio`, `iot`, `hw_drivers` | ~30 | Framework |
+| Area               | Key Modules                                                                                  | Models (est.) | Complexity  |
+| ------------------ | -------------------------------------------------------------------------------------------- | ------------- | ----------- |
+| **Sales & Sub**    | `sale`, `sale_management`, `sale_subscription`, `sale_renting`                               | ~85           | Medium/High |
+| **CRM & Leads**    | `crm`, `crm_iap_mine`, `crm_livechat`, `crm_sms`                                             | ~30           | Medium      |
+| **Accounting**     | `account`, `account_accountant`, `account_asset`, `account_reports`, `account_consolidation` | ~160          | Critical    |
+| **Inventory**      | `stock`, `stock_picking_batch`, `stock_barcode`, `stock_delivery`                            | ~90           | High        |
+| **Purchase**       | `purchase`, `purchase_requisition`, `purchase_stock`                                         | ~35           | Medium      |
+| **Manufacturing**  | `mrp`, `mrp_bom`, `mrp_workorder`, `mrp_subcontracting`, `mrp_mps`                           | ~85           | High        |
+| **Quality & PLM**  | `quality`, `quality_control`, `mrp_plm`, `mrp_workorder_hr`                                  | ~45           | High        |
+| **HR Base**        | `hr`, `hr_contract`, `hr_holidays`, `hr_expense`, `hr_attendance`                            | ~85           | Medium      |
+| **HR Talent**      | `hr_recruitment`, `hr_appraisal`, `hr_referral`, `hr_skills`                                 | ~40           | Medium      |
+| **Payroll**        | `hr_payroll`, `hr_payroll_account`, `hr_payroll_attendance`                                  | ~45           | High        |
+| **Services (FSM)** | `industry_fsm`, `project`, `project_timesheet`, `project_forecast`                           | ~75           | Medium      |
+| **Helpdesk**       | `helpdesk`, `helpdesk_timesheet`, `helpdesk_stock`                                           | ~25           | Medium      |
+| **Website & CMS**  | `website`, `website_blog`, `website_forum`, `website_slides`                                 | ~55           | Medium      |
+| **eCommerce**      | `website_sale`, `payment`, `delivery`, `website_sale_stock`                                  | ~65           | High        |
+| **Point of Sale**  | `point_of_sale`, `pos_restaurant`, `pos_loyalty`, `pos_self_order`                           | ~60           | High        |
+| **Marketing**      | `mass_mailing`, `marketing_automation`, `social`, `survey`                                   | ~60           | Medium      |
+| **Productivity**   | `knowledge`, `sign`, `approvals`, `lunch`, `calendar`                                        | ~50           | Medium      |
+| **Documents**      | `documents`, `documents_spreadsheet`, `documents_hr`                                         | ~35           | Medium      |
+| **Operations**     | `fleet`, `maintenance`, `planning`, `appointment`                                            | ~60           | Low         |
+| **Voice & Social** | `mail`, `discuss`, `whatsapp`, `voip`                                                        | ~50           | High        |
+| **Data Tools**     | `data_cleaning`, `data_recycle`, `spreadsheet_dashboard`                                     | ~20           | Low         |
+| **Studio & IoT**   | `studio`, `web_studio`, `iot`, `hw_drivers`                                                  | ~30           | Framework   |
 
 **Total: 420+ módulos y 3,200+ modelos en un ecosistema profesional completo.**
 
@@ -134,63 +134,63 @@ Module-specific skills are created ONLY when a module has **unique development p
 
 #### Tier 1: Core — Without these, you can't develop Odoo (6 skills)
 
-| # | Skill | What it teaches | Version Impact |
-|---|-------|----------------|----------------|
-| 1 | `odoo` | Overview: stack, components, versions, Python matrix | Version matrix |
-| 2 | `odoo-module` | Module structure, `__manifest__.py`, data files | v17+ changes |
-| 3 | `odoo-orm` | Models, fields, decorators, recordsets, CRUD | ⚠️ Heavy: name_get→_compute_display_name, Command objects, ir_property→JSONB, group_ids |
-| 4 | `odoo-views` | Form, tree, kanban, search, inheritance | ⚠️ Heavy: attrs removed v17 |
-| 5 | `odoo-security` | `ir.model.access.csv`, `ir.rule`, groups | Record rule defaults changed v17 |
-| 6 | `odoo-testing` | TransactionCase, HttpCase, tours, test tags | Stable |
+| #   | Skill           | What it teaches                                      | Version Impact                                                                         |
+| --- | --------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| 1   | `odoo`          | Overview: stack, components, versions, Python matrix | Version matrix                                                                         |
+| 2   | `odoo-module`   | Module structure, `__manifest__.py`, data files      | v17+ changes                                                                           |
+| 3   | `odoo-orm`      | Models, fields, decorators, recordsets, CRUD         | ⚠️ Heavy: name_get→_compute_display_name, Command objects, ir_property→JSONB, group_ids |
+| 4   | `odoo-views`    | Form, tree, kanban, search, inheritance              | ⚠️ Heavy: attrs removed v17                                                             |
+| 5   | `odoo-security` | `ir.model.access.csv`, `ir.rule`, groups             | Record rule defaults changed v17                                                       |
+| 6   | `odoo-testing`  | TransactionCase, HttpCase, tours, test tags          | Stable                                                                                 |
 
 #### Tier 2: Essential — 80% of projects (6 skills)
 
-| # | Skill | What it teaches | Version Impact |
-|---|-------|----------------|----------------|
-| 7 | `odoo-controllers` | HTTP routes, auth, JSON-RPC | ⚠️ type="json" → type="jsonrpc" in v17 |
-| 8 | `odoo-owl` | OWL 2 components, hooks, registry | v16 legacy widgets; OWL 2 from v17+ |
-| 9 | `odoo-qweb` | QWeb templates, reports, PDF | t-raw → t-out in v17 |
-| 10 | `odoo-data` | Data/demo files, noupdate, XML IDs | Stable |
-| 11 | `odoo-oca` | OCA conventions: naming, versioning, manifest | Stable |
-| 12 | `odoo-wizards` | TransientModel, wizard views, multi-step | Stable |
+| #   | Skill              | What it teaches                               | Version Impact                        |
+| --- | ------------------ | --------------------------------------------- | ------------------------------------- |
+| 7   | `odoo-controllers` | HTTP routes, auth, JSON-RPC                   | ⚠️ type="json" → type="jsonrpc" in v17 |
+| 8   | `odoo-owl`         | OWL 2 components, hooks, registry             | v16 legacy widgets; OWL 2 from v17+   |
+| 9   | `odoo-qweb`        | QWeb templates, reports, PDF                  | t-raw → t-out in v17                  |
+| 10  | `odoo-data`        | Data/demo files, noupdate, XML IDs            | Stable                                |
+| 11  | `odoo-oca`         | OCA conventions: naming, versioning, manifest | Stable                                |
+| 12  | `odoo-wizards`     | TransientModel, wizard views, multi-step      | Stable                                |
 
 #### Tier 3: Advanced — Complex projects (7 skills)
 
-| # | Skill | What it teaches | Version Impact |
-|---|-------|----------------|----------------|
-| 13 | `odoo-mail` | mail.thread, activities, chatter | ⚠️ mail.channel → discuss.channel v17 |
-| 14 | `odoo-api` | XML-RPC, JSON-RPC, REST external integrations | REST improved v18+ |
-| 15 | `odoo-cron` | ir.cron, scheduling, best practices | Stable |
-| 16 | `odoo-performance` | N+1 avoidance, prefetch, read_group, SQL | search_fetch() added v17 |
-| 17 | `odoo-migration` | Module migration between versions, hooks | BY DEFINITION version-specific |
-| 18 | `odoo-assets` | CSS/SCSS bundles, JS modules, inheritance | Stable |
-| 19 | `odoo-inherit` | _inherit, _inherits, delegation, xpath | Stable |
+| #   | Skill              | What it teaches                               | Version Impact                       |
+| --- | ------------------ | --------------------------------------------- | ------------------------------------ |
+| 13  | `odoo-mail`        | mail.thread, activities, chatter              | ⚠️ mail.channel → discuss.channel v17 |
+| 14  | `odoo-api`         | XML-RPC, JSON-RPC, REST external integrations | REST improved v18+                   |
+| 15  | `odoo-cron`        | ir.cron, scheduling, best practices           | Stable                               |
+| 16  | `odoo-performance` | N+1 avoidance, prefetch, read_group, SQL      | search_fetch() added v17             |
+| 17  | `odoo-migration`   | Module migration between versions, hooks      | BY DEFINITION version-specific       |
+| 18  | `odoo-assets`      | CSS/SCSS bundles, JS modules, inheritance     | Stable                               |
+| 19  | `odoo-inherit`     | _inherit, _inherits, delegation, xpath        | Stable                               |
 
 #### Tier 4: DevOps & Workflow (4 skills)
 
-| # | Skill | What it teaches |
-|---|-------|----------------|
-| 20 | `odoo-commit` | Conventional commits for Odoo |
-| 21 | `odoo-pr` | PR template for Odoo modules |
-| 22 | `odoo-docker` | Docker compose, `odoo.conf`, multi-version |
-| 23 | `odoo-debug` | Debug mode, logging, shell, `--dev=all` |
+| #   | Skill         | What it teaches                            |
+| --- | ------------- | ------------------------------------------ |
+| 20  | `odoo-commit` | Conventional commits for Odoo              |
+| 21  | `odoo-pr`     | PR template for Odoo modules               |
+| 22  | `odoo-docker` | Docker compose, `odoo.conf`, multi-version |
+| 23  | `odoo-debug`  | Debug mode, logging, shell, `--dev=all`    |
 
 #### Tier 5: Version Delta Skills (3 skills)
 
-| # | Skill | What it teaches |
-|---|-------|----------------|
-| 24 | `odoo-v17-changes` | ALL breaking changes v16→v17 |
-| 25 | `odoo-v18-changes` | ALL changes v17→v18 |
-| 26 | `odoo-v19-changes` | ALL changes v18→v19 |
+| #   | Skill              | What it teaches              |
+| --- | ------------------ | ---------------------------- |
+| 24  | `odoo-v17-changes` | ALL breaking changes v16→v17 |
+| 25  | `odoo-v18-changes` | ALL changes v17→v18          |
+| 26  | `odoo-v19-changes` | ALL changes v18→v19          |
 
 #### Tier 6: Module-Specific (optional, 4-6 skills)
 
-| # | Skill | Why unique |
-|---|-------|-----------|
-| 27 | `odoo-accounting` | Journal entries, fiscal positions |
-| 28 | `odoo-website-dev` | Controller+template blend, snippets |
-| 29 | `odoo-pos-dev` | JS-heavy, POS session patterns |
-| 30 | `odoo-ecommerce-dev` | Payment flow, cart, checkout |
+| #   | Skill                | Why unique                          |
+| --- | -------------------- | ----------------------------------- |
+| 27  | `odoo-accounting`    | Journal entries, fiscal positions   |
+| 28  | `odoo-website-dev`   | Controller+template blend, snippets |
+| 29  | `odoo-pos-dev`       | JS-heavy, POS session patterns      |
+| 30  | `odoo-ecommerce-dev` | Payment flow, cart, checkout        |
 
 **Total: 26 core + 4-6 optional = 30-32 max skills.**
 
@@ -247,9 +247,9 @@ skills/{skill-name}/
 
 ### 5.3 Content Split Strategy
 
-| Content Type | Location | % |
-|---|---|---|
-| Version-agnostic | `SKILL.md` body | ~80% |
+| Content Type            | Location                  | %    |
+| ----------------------- | ------------------------- | ---- |
+| Version-agnostic        | `SKILL.md` body           | ~80% |
 | Version-specific deltas | `assets/v{N}_patterns.md` | ~20% |
 
 ---
@@ -266,17 +266,17 @@ skills/{skill-name}/
 
 ### 6.2 Version Differences Quick Reference
 
-| Feature | v16 | v17 | v18 | v19 |
-|---|---|---|---|---|
-| Python | 3.8+ | 3.10+ | 3.10+ | 3.11+ |
-| `name_get()` | ✅ | ❌ deprecated | ❌ | ❌ |
-| `attrs="{}"` in XML | ✅ | ❌ REMOVED | ❌ | ❌ |
-| `type="json"` controller | ✅ | ❌ → `"jsonrpc"` | ❌ | ❌ |
-| `mail.channel` | ✅ | ❌ → `discuss.channel` | ❌ | ❌ |
-| `groups_id` field | ✅ | ✅ | ✅ | ❌ → `group_ids` |
-| `Command` objects | ❌ use tuples | ✅ | ✅ | ✅ |
-| OWL version | OWL 1 | OWL 2 | OWL 2 | OWL 2 |
-| `ir_property` | Table | Table | ❌ → JSONB | ❌ → JSONB |
+| Feature                  | v16          | v17                   | v18       | v19             |
+| ------------------------ | ------------ | --------------------- | --------- | --------------- |
+| Python                   | 3.8+         | 3.10+                 | 3.10+     | 3.11+           |
+| `name_get()`             | ✅            | ❌ deprecated          | ❌         | ❌               |
+| `attrs="{}"` in XML      | ✅            | ❌ REMOVED             | ❌         | ❌               |
+| `type="json"` controller | ✅            | ❌ → `"jsonrpc"`       | ❌         | ❌               |
+| `mail.channel`           | ✅            | ❌ → `discuss.channel` | ❌         | ❌               |
+| `groups_id` field        | ✅            | ✅                     | ✅         | ❌ → `group_ids` |
+| `Command` objects        | ❌ use tuples | ✅                     | ✅         | ✅               |
+| OWL version              | OWL 1        | OWL 2                 | OWL 2     | OWL 2           |
+| `ir_property`            | Table        | Table                 | ❌ → JSONB | ❌ → JSONB       |
 
 ### 6.3 Adding Odoo v20 (Future-proofing)
 
@@ -307,23 +307,23 @@ Unlike monorepos that split context per code layer, **odoo-skills** uses a singl
 ### 7.2 Auto-Invoke Table
 
 ```markdown
-| Action | Skill |
-|--------|-------|
-| Creating Odoo models or fields | `odoo-orm` |
-| Creating XML views | `odoo-views` |
-| Adding security rules | `odoo-security` |
-| Writing Python tests | `odoo-testing` |
-| Creating HTTP controllers | `odoo-controllers` |
-| Creating OWL components | `odoo-owl` |
-| Creating QWeb / PDF reports | `odoo-qweb` |
-| Creating TransientModel wizards | `odoo-wizards` |
-| Adding mail.thread to model | `odoo-mail` |
-| Creating scheduled actions | `odoo-cron` |
-| Optimizing ORM queries | `odoo-performance` |
-| Migrating module to new version | `odoo-migration` |
-| Creating new Odoo module | `odoo-module` |
-| Following OCA conventions | `odoo-oca` |
-| Understanding version changes | `odoo-v{N}-changes` |
+| Action                          | Skill               |
+| ------------------------------- | ------------------- |
+| Creating Odoo models or fields  | `odoo-orm`          |
+| Creating XML views              | `odoo-views`        |
+| Adding security rules           | `odoo-security`     |
+| Writing Python tests            | `odoo-testing`      |
+| Creating HTTP controllers       | `odoo-controllers`  |
+| Creating OWL components         | `odoo-owl`          |
+| Creating QWeb / PDF reports     | `odoo-qweb`         |
+| Creating TransientModel wizards | `odoo-wizards`      |
+| Adding mail.thread to model     | `odoo-mail`         |
+| Creating scheduled actions      | `odoo-cron`         |
+| Optimizing ORM queries          | `odoo-performance`  |
+| Migrating module to new version | `odoo-migration`    |
+| Creating new Odoo module        | `odoo-module`       |
+| Following OCA conventions       | `odoo-oca`          |
+| Understanding version changes   | `odoo-v{N}-changes` |
 ```
 
 ### 7.3 sync.sh Validation
@@ -373,16 +373,16 @@ Skills auto-invoke during `/sdd-apply` based on file context:
 
 ### Phase 1: Foundation (Week 1-2) — MVP
 
-| Deliverable | Description |
-|---|---|
+| Deliverable               | Description                                       |
+| ------------------------- | ------------------------------------------------- |
 | Repository infrastructure | AGENTS.md hierarchy, setup.sh, setup.ps1, sync.sh |
-| `odoo` | Overview skill |
-| `odoo-module` | Module structure + manifest templates |
-| `odoo-orm` | ORM skill + v16/v17/v18/v19 assets |
-| `odoo-views` | Views skill + attrs/inline assets |
-| `odoo-security` | Security skill + CSV/XML templates |
-| `odoo-testing` | Testing skill + TransactionCase template |
-| `odoo-oca` | OCA conventions |
+| `odoo`                    | Overview skill                                    |
+| `odoo-module`             | Module structure + manifest templates             |
+| `odoo-orm`                | ORM skill + v16/v17/v18/v19 assets                |
+| `odoo-views`              | Views skill + attrs/inline assets                 |
+| `odoo-security`           | Security skill + CSV/XML templates                |
+| `odoo-testing`            | Testing skill + TransactionCase template          |
+| `odoo-oca`                | OCA conventions                                   |
 
 ### Phase 2: Essential Layer (Week 3-4)
 
@@ -446,7 +446,6 @@ Skills auto-invoke during `/sdd-apply` based on file context:
 4. **Localization**: Add l10n-specific skills (e.g., `odoo-l10n-pe` for Peru)?
 5. **Automated testing**: CI that runs code templates against real Odoo instances?
 6. **Odoo MCP server**: Build MCP server for live Odoo docs lookup?
-7. **gentle-ai integration**: Odoo Skills as a selectable preset in gentle-ai installer?
 
 ---
 
