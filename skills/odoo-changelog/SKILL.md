@@ -87,7 +87,7 @@ git diff main...HEAD --name-only
 
 3. **Add entry at the bottom of the correct section** in `CHANGELOG.md`.
 
-4. **Update `PRD.md` version** if the change requires a MINOR or MAJOR bump.
+4. **Versioning is automatic**: The release pipeline will determine the bump (PATCH/MINOR/MAJOR) from your commits. No manual update to `PRD.md` is required.
 
 ---
 
