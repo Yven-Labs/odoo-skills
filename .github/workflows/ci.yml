@@ -114,11 +114,20 @@ jobs:
           echo "🔍 Checking for code blocks without language identifiers..."
           ISSUES=0
 
-          # Find ``` without a language tag — matches ``` followed immediately by newline
+          # Use awk to track state: only flag ``` that OPEN a block without a language.
+          # Closing ``` lines are skipped by checking if we are already inside a block.
           while IFS= read -r file; do
-            if grep -Pn '^```\s*$' "$file" > /tmp/found.txt 2>/dev/null; then
+            RESULT=$(awk '
+              /^```/{
+                if (in_block) { in_block=0; next }
+                if (/^```[a-zA-Z]/) { in_block=1; next }
+                print NR ":``` (missing language)"
+                in_block=1
+              }
+            ' "$file")
+            if [ -n "$RESULT" ]; then
               echo "  ❌ $file — code block(s) missing language:"
-              cat /tmp/found.txt
+              echo "$RESULT"
               ISSUES=$((ISSUES + 1))
             fi
           done < <(find skills/ -name "*.md" 2>/dev/null || true)
