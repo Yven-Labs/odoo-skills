@@ -57,7 +57,7 @@ Runs on every **push to `develop`** and every **PR to `main` or `develop`**.
 4. Common quick fixes:
    - **AGENTS.md missing entry**: Add `skills/your-skill/` to the router table.
    - **Missing SKILL.md**: Create `skills/your-skill/SKILL.md`.
-   - **Duplicate ODSK-UID**: Change the UID in the new file.
+   - **Duplicate Skill ID**: Change the ID in the new file.
    - **Code block no language**: Change ` ``` ` to ` ```bash ` or ` ```python `.
 
 ---
@@ -91,11 +91,11 @@ Creates GitHub Release with tag vX.Y.Z and commit log as notes
 
 No manual edits required. The pipeline decides based on your commits:
 
-| Commit Pattern | Bump Type | Example |
-| :--- | :--- | :--- |
-| `feat:` or `feat(scope):` | **MINOR** | `0.2.0` → `0.3.0` |
+| Commit Pattern                         | Bump Type | Example           |
+| :------------------------------------- | :-------- | :---------------- |
+| `feat:` or `feat(scope):`              | **MINOR** | `0.2.0` → `0.3.0` |
 | `fix:` / `docs:` / `chore:` / `style:` | **PATCH** | `0.2.0` → `0.2.1` |
-| `feat!:` / `BREAKING CHANGE:` in body | **MAJOR** | `0.2.0` → `1.0.0` |
+| `feat!:` / `BREAKING CHANGE:` in body  | **MAJOR** | `0.2.0` → `1.0.0` |
 
 > **Rule**: If no new commits exist since the last stable tag, the release step is **skipped automatically**.
 
