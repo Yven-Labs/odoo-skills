@@ -3,7 +3,7 @@
 > **Every Odoo version. Every module. Every AI assistant. One skill library — and your AI codes Odoo like a senior developer.**
 
 **Version**: 0.1.0-draft
-**Author**: Gentleman Programming / Yven Labs
+**Author**: [Geraldow](https://github.com/Geraldow)
 **Date**: 2026-03-13
 **Status**: Draft
 
@@ -82,22 +82,37 @@ Odoo has **14+ major functional areas**, each with multiple modules:
 
 | Area | Key Modules | Models (est.) | Complexity |
 |------|-------------|--------------|------------|
-| **Sales** | `sale`, `sale_management`, `sale_commission` | ~50 | Medium |
-| **CRM** | `crm`, `crm_iap_mine` | ~30 | Medium |
-| **Accounting** | `account`, `account_asset`, `account_budget` | ~80 | High |
-| **Inventory** | `stock`, `stock_account`, `stock_barcode` | ~60 | High |
-| **Purchase** | `purchase`, `purchase_requisition` | ~30 | Medium |
-| **Manufacturing** | `mrp`, `mrp_account`, `quality_control` | ~50 | High |
-| **HR** | `hr`, `hr_payroll`, `hr_recruitment`, `hr_attendance` | ~70 | High |
-| **Project** | `project`, `project_timesheet` | ~25 | Medium |
-| **Website** | `website`, `website_sale`, `website_blog` | ~40 | Medium |
-| **Point of Sale** | `point_of_sale`, `pos_restaurant` | ~30 | Medium |
-| **eCommerce** | `website_sale`, `payment` | ~35 | Medium |
-| **Discuss** | `mail`, `discuss` | ~20 | Medium |
-| **Studio** | `studio`, `web_studio` | ~15 | Low (Enterprise) |
-| **IoT** | `iot`, `hw_drivers` | ~10 | Low (Enterprise) |
+| **Sales & Sub** | `sale`, `sale_management`, `sale_subscription`, `sale_renting` | ~85 | Medium/High |
+| **CRM & Leads** | `crm`, `crm_iap_mine`, `crm_livechat`, `crm_sms` | ~30 | Medium |
+| **Accounting** | `account`, `account_accountant`, `account_asset`, `account_reports`, `account_consolidation` | ~160 | Critical |
+| **Inventory** | `stock`, `stock_picking_batch`, `stock_barcode`, `stock_delivery` | ~90 | High |
+| **Purchase** | `purchase`, `purchase_requisition`, `purchase_stock` | ~35 | Medium |
+| **Manufacturing** | `mrp`, `mrp_bom`, `mrp_workorder`, `mrp_subcontracting`, `mrp_mps` | ~85 | High |
+| **Quality & PLM** | `quality`, `quality_control`, `mrp_plm`, `mrp_workorder_hr` | ~45 | High |
+| **HR Base** | `hr`, `hr_contract`, `hr_holidays`, `hr_expense`, `hr_attendance` | ~85 | Medium |
+| **HR Talent** | `hr_recruitment`, `hr_appraisal`, `hr_referral`, `hr_skills` | ~40 | Medium |
+| **Payroll** | `hr_payroll`, `hr_payroll_account`, `hr_payroll_attendance` | ~45 | High |
+| **Services (FSM)** | `industry_fsm`, `project`, `project_timesheet`, `project_forecast` | ~75 | Medium |
+| **Helpdesk** | `helpdesk`, `helpdesk_timesheet`, `helpdesk_stock` | ~25 | Medium |
+| **Website & CMS** | `website`, `website_blog`, `website_forum`, `website_slides` | ~55 | Medium |
+| **eCommerce** | `website_sale`, `payment`, `delivery`, `website_sale_stock` | ~65 | High |
+| **Point of Sale** | `point_of_sale`, `pos_restaurant`, `pos_loyalty`, `pos_self_order` | ~60 | High |
+| **Marketing** | `mass_mailing`, `marketing_automation`, `social`, `survey` | ~60 | Medium |
+| **Productivity** | `knowledge`, `sign`, `approvals`, `lunch`, `calendar` | ~50 | Medium |
+| **Documents** | `documents`, `documents_spreadsheet`, `documents_hr` | ~35 | Medium |
+| **Operations** | `fleet`, `maintenance`, `planning`, `appointment` | ~60 | Low |
+| **Voice & Social** | `mail`, `discuss`, `whatsapp`, `voip` | ~50 | High |
+| **Data Tools** | `data_cleaning`, `data_recycle`, `spreadsheet_dashboard` | ~20 | Low |
+| **Studio & IoT** | `studio`, `web_studio`, `iot`, `hw_drivers` | ~30 | Framework |
 
-**Total: 600+ models across 100+ official modules.**
+**Total: 420+ módulos y 3,200+ modelos en un ecosistema profesional completo.**
+
+### 4.3 Universe Requirements
+
+- **R-UNI-01**: The skill library MUST provide domain-specific knowledge for all 14+ functional areas listed in the Universe Table.
+- **R-UNI-02**: Complex areas (Accounting, MRP, Payroll) MUST have dedicated "Deep Dive" references in the `references/` directory.
+- **R-UNI-03**: The ecosystem MUST detect dependencies between modules (e.g., `sale` → `account`) and suggest loading cross-domain skills.
+- **R-UNI-04**: Every module listed in the table MUST be mapped to at least one Skill (Core or Tier 6).
 
 ### Critical Insight: Skills ≠ Modules
 
@@ -179,20 +194,56 @@ Module-specific skills are created ONLY when a module has **unique development p
 
 **Total: 26 core + 4-6 optional = 30-32 max skills.**
 
+### 5.1.1 Skill Content Requirements
+
+- **R-SKL-01**: Every skill MUST include a "Why" section explaining the underlying Odoo logic, not just the code syntax.
+- **R-SKL-02**: All code examples MUST be functional and follow the "Clean Code" principles adapted for Odoo.
+- **R-SKL-03**: Skills MUST avoid "Hallucinated" parameters; any technical claim MUST be verifiable in the Odoo Source Code.
+- **R-SKL-04**: When a feature is version-sensitive, the `SKILL.md` MUST explicitly point to the `assets/v{N}` directory.
+
+### 5.1.2 Security-First Requirements (Tier 1 & 2)
+
+- **R-SEC-01**: AI assistants MUST generate `ir.model.access.csv` for every new model created by default.
+- **R-SEC-02**: Security rules (`ir.rule`) MUST be suggested if a model contains sensitive data (HR, Accounting, Privacy).
+- **R-SEC-03**: Skills MUST enforce the use of `sudo()` only as a last resort, documenting the reason in a comment.
+
+### 5.1.3 OCA Convention Requirements
+
+- **R-CON-01**: Every module generated MUST follow the OCA naming convention for the manifest (`__manifest__.py`).
+- **R-CON-02**: Licensing MUST be explicitly checked; if not specified, it SHOULD suggest LGPL-3 or AGPL-3 (standard OCA).
+- **R-CON-03**: Folder structure (models, views, security, data, static) MUST be strictly enforced to match Odoo standards.
+
 ### 5.2 Skill File Structure
+
+Each skill is a modular directory designed for version-aware AI context loading:
 
 ```
 skills/{skill-name}/
-├── SKILL.md                  # Main skill (frontmatter + body)
-├── assets/                   # Templates, version-specific patterns
-│   ├── template.py           # Code template
-│   ├── v16_patterns.md       # Version delta (v16 only)
-│   ├── v17_patterns.md       # Version delta (v17+)
-│   ├── v18_patterns.md       # Version delta (v18+)
-│   └── v19_patterns.md       # Version delta (v19+)
-└── references/               # Links to docs
-    └── docs.md
+├── SKILL.md                 # Main router & universal patterns
+├── assets/                  # Implementation templates
+│   ├── v16/                 # Odoo 16 specific code
+│   │   └── pattern.py       # (UID: ODSK-ASSET-{SKILL}-V16)
+│   ├── v17/                 # Odoo 17 specific code
+│   │   └── pattern.py       # (UID: ODSK-ASSET-{SKILL}-V17)
+│   ├── v18/                 # Odoo 18 specific code
+│   │   └── pattern.py       # (UID: ODSK-ASSET-{SKILL}-V18)
+│   └── v19/                 # Odoo 19 specific code
+│       └── pattern.py       # (UID: ODSK-ASSET-{SKILL}-V19)
+└── references/               # Deep-dive documentation
+    └── architecture.md      # (UID: ODSK-REF-{SKILL}-ARCH)
 ```
+
+### 5.3 ODSK Unified ID System
+
+- **Verification**: Allows the AI to positively verify it has loaded the correct context for the specific Odoo version.
+
+### 5.4 Architecture Requirements
+
+- **R-ARC-01**: Every skill MUST contain a `SKILL.md` file with a frontmatter defining its scope and unique ID.
+- **R-ARC-02**: Version-specific code MUST be placed in its corresponding `assets/v{N}/` directory.
+- **R-ARC-03**: All assets and references MUST implement the ODSK Unified ID System for AI verification.
+- **R-ARC-04**: The skill library MUST be structured to avoid circular dependencies between core skills (Tier 1).
+- **R-ARC-05**: Asset files MUST be small enough to be loaded into the AI context without exceeding 200 lines per file where possible.
 
 ### 5.3 Content Split Strategy
 
@@ -236,19 +287,22 @@ skills/{skill-name}/
 4. Add `assets/v19_to_v20_map.md` in `odoo-migration`
 5. Run `./skills/skill-sync/assets/sync.sh`
 
+### 6.4 Versioning Requirements
+
+- **R-VER-01**: The system MUST detect the Odoo version from `__manifest__.py` files automatically.
+- **R-VER-02**: If no manifest is found, the system MUST fallback to the project-level version configuration.
+- **R-VER-03**: Version-aware skills MUST provide "Upgrade Maps" for common features (e.g., v16 `name_get` to v17 `_compute_display_name`).
+- **R-VER-04**: Adding a new Odoo version MUST NOT require manual updates to the core `AGENTS.md` router beyond metadata.
+- **R-VER-05**: Technical claims about version differences MUST be backed by an ODSK reference ID.
+
 ---
 
-## 7. Auto-Invoke & Sync System
+### 7.1 Master Skill Router (AGENTS.md)
 
-### 7.1 AGENTS.md Hierarchy
+Unlike monorepos that split context per code layer, **odoo-skills** uses a single, unified `AGENTS.md` in the root. This ensures the AI has a global overview of the Odoo ecosystem regardless of which file it is editing.
 
-```
-odoo-skills/
-├── AGENTS.md              # Root router — all skills
-├── backend/AGENTS.md      # ORM, views, security, controllers
-├── frontend/AGENTS.md     # OWL, QWeb, assets
-└── devops/AGENTS.md       # Docker, debug, CI
-```
+- **Location**: `/AGENTS.md`
+- **Function**: Detects developer actions and auto-invokes the correct ODSK-uid from the library.
 
 ### 7.2 Auto-Invoke Table
 
@@ -272,15 +326,12 @@ odoo-skills/
 | Understanding version changes | `odoo-v{N}-changes` |
 ```
 
-### 7.3 sync.sh Scopes
+### 7.3 sync.sh Validation
 
-```bash
-# Scope → AGENTS.md path
-root      → AGENTS.md
-backend   → backend/AGENTS.md
-frontend  → frontend/AGENTS.md
-devops    → devops/AGENTS.md
-```
+The `sync.sh` script (located in `skills/skill-sync/assets/`) performs automated validation:
+- Checks that all referenced skills in `AGENTS.md` exist.
+- Validates ODSK UID uniqueness across the library.
+- Ensures versioned assets exist for all active Odoo versions.
 
 ### 7.4 setup.sh — Deploy to All AI Tools
 
@@ -290,6 +341,14 @@ devops    → devops/AGENTS.md
 # → Gemini CLI:     .gemini/skills/ symlink
 # → Codex:          .codex/skills/ symlink
 # → GitHub Copilot: .github/copilot-instructions.md
+
+### 7.6 Installer Experience Requirements (setup.sh)
+
+- **R-UX-01**: The installer MUST provide clear visual feedback for each step (checks, success, failure).
+- **R-UX-02**: The `setup.ps1` script MUST be parity-compatible with `setup.sh` for Windows users.
+- **R-UX-03**: The installer MUST detect if a port is blocked (e.g., Engram port 7437) and warn the user.
+- **R-UX-04**: Deployment MUST be atomic: if one symlink fails, the installer SHOULD offer a rollback.
+- **R-UX-05**: Command-line help (`--help`) MUST be available for all automation scripts.
 ```
 
 ---
@@ -301,6 +360,12 @@ Skills auto-invoke during `/sdd-apply` based on file context:
 - Creating `views/*.xml` → `odoo-views`
 - Creating `security/*.csv` → `odoo-security`
 - Creating `tests/test_*.py` → `odoo-testing`
+
+### 8.1 Integration Requirements
+
+- **R-INT-01**: Skills MUST be compatible with the standard SDD workflow phases (examine, plan, execute).
+- **R-INT-02**: The `AGENTS.md` router MUST prioritize SDD-specific rules during an active `/sdd-apply` session.
+- **R-INT-03**: Memory observations (Engram) generated during Odoo development MUST be tagged with the relevant ODSK ID for future recall.
 
 ---
 
@@ -365,19 +430,17 @@ Skills auto-invoke during `/sdd-apply` based on file context:
 
 ## 12. Success Metrics
 
-| Metric | Target |
-|---|---|
-| AI generates correct Odoo code for detected version | > 95% accuracy |
-| Skills cover common Odoo development tasks | > 80% coverage |
-| Time to add Odoo v20 support | < 1 hour |
-| Time to set up skills on new project | < 5 minutes |
-| Reduction in "fixing AI-generated Odoo code" | > 50% |
+### 12.1 Validation Requirements
+
+- **R-MET-01**: Success is defined by a "Zero-Correction" run: AI generates the code and Odoo starts without errors on the first try.
+- **R-MET-02**: Every Tier 1 skill MUST have a "Validation Module" (dummy module) tested in CI for versions 16, 17, and 18.
+- **R-MET-03**: User satisfaction (Geraldow's verdict) is the final gate for "Passed" status of any phase.
 
 ---
 
 ## 13. Open Questions
 
-1. **License**: Apache-2.0 or LGPL-3.0 (matching Odoo Community)?
+1. **License**: MIT (Confirmed) — allowing maximum adoption with attribution to Geraldow.
 2. **Enterprise content**: Include Enterprise-only patterns or only Community?
 3. **Odoo.sh**: Include Odoo.sh deployment patterns?
 4. **Localization**: Add l10n-specific skills (e.g., `odoo-l10n-pe` for Peru)?

@@ -1,6 +1,8 @@
 # odoo-skills
 
 > **Every Odoo version. Every module. Every AI assistant. One skill library.**
+>
+> by [Geraldow](https://github.com/Geraldow)
 
 AI Skills Ecosystem for Odoo development — teaches any AI coding assistant (Claude Code, Gemini, Codex, Cursor, Copilot) to write correct, version-aware, convention-following Odoo code across **v16, v17, v18, and v19**.
 
@@ -40,7 +42,7 @@ A structured library of AI skills — Markdown files that any AI assistant reads
 
 ```bash
 # 1. Clone in your Odoo project
-git clone https://github.com/Yven-Labs/odoo-skills.git .odoo-skills
+git clone https://github.com/Geraldow/odoo-skills.git .odoo-skills
 
 # 2. Set up for your AI tool
 ./odoo-skills/setup.sh --gemini    # Gemini CLI
@@ -60,24 +62,24 @@ That's it. Your AI assistant will now:
 
 ## Supported AI Tools
 
-| Tool | Support Level |
-|------|--------------|
-| Claude Code | ✅ Full |
-| Gemini CLI | ✅ Full |
-| Codex (OpenAI) | ✅ Full |
-| GitHub Copilot | ✅ Full |
-| Cursor | ✅ Full |
+| Tool           | Support Level |
+| -------------- | ------------- |
+| Claude Code    | ✅ Full        |
+| Gemini CLI     | ✅ Full        |
+| Codex (OpenAI) | ✅ Full        |
+| GitHub Copilot | ✅ Full        |
+| Cursor         | ✅ Full        |
 
 ---
 
 ## Supported Odoo Versions
 
-| Version | Status | Python |
-|---------|--------|--------|
-| Odoo 16 | ✅ Supported | 3.8+ |
-| Odoo 17 | ✅ Supported | 3.10+ |
-| Odoo 18 | ✅ Supported | 3.10+ |
-| Odoo 19 | ✅ Supported | 3.11+ |
+| Version | Status      | Python |
+| ------- | ----------- | ------ |
+| Odoo 16 | ✅ Supported | 3.8+   |
+| Odoo 17 | ✅ Supported | 3.10+  |
+| Odoo 18 | ✅ Supported | 3.10+  |
+| Odoo 19 | ✅ Supported | 3.11+  |
 
 ---
 
@@ -85,15 +87,15 @@ That's it. Your AI assistant will now:
 
 ### Core Skills (Phase 1 — MVP)
 
-| Skill | What it teaches |
-|-------|----------------|
-| [`odoo`](skills/odoo/) | Overview: stack, versions, commands |
-| [`odoo-module`](skills/odoo-module/) | Module structure, `__manifest__.py`, data files |
-| [`odoo-orm`](skills/odoo-orm/) | Models, fields, decorators, CRUD — all versions |
-| [`odoo-views`](skills/odoo-views/) | Form, tree, kanban, search — v16 attrs vs v17+ inline |
-| [`odoo-security`](skills/odoo-security/) | ACLs, record rules, groups — with templates |
-| [`odoo-testing`](skills/odoo-testing/) | TransactionCase, HttpCase, tours |
-| [`odoo-oca`](skills/odoo-oca/) | OCA conventions: naming, versioning, manifest |
+| Skill                                    | What it teaches                                       |
+| ---------------------------------------- | ----------------------------------------------------- |
+| [`odoo`](skills/odoo/)                   | Overview: stack, versions, commands                   |
+| [`odoo-module`](skills/odoo-module/)     | Module structure, `__manifest__.py`, data files       |
+| [`odoo-orm`](skills/odoo-orm/)           | Models, fields, decorators, CRUD — all versions       |
+| [`odoo-views`](skills/odoo-views/)       | Form, tree, kanban, search — v16 attrs vs v17+ inline |
+| [`odoo-security`](skills/odoo-security/) | ACLs, record rules, groups — with templates           |
+| [`odoo-testing`](skills/odoo-testing/)   | TransactionCase, HttpCase, tours                      |
+| [`odoo-oca`](skills/odoo-oca/)           | OCA conventions: naming, versioning, manifest         |
 
 See [PRD.md](PRD.md) for the complete skill roadmap (26 core + 6 optional skills).
 
@@ -103,17 +105,17 @@ See [PRD.md](PRD.md) for the complete skill roadmap (26 core + 6 optional skills
 
 Each skill contains:
 1. **`SKILL.md`** — Core patterns (80% version-agnostic)
-2. **`assets/v{N}_patterns.md`** — Version-specific deltas (20%)
-3. **`assets/template.py/.xml`** — Ready-to-use code templates
+2. **`assets/v{N}/`** — Implementation templates for each Odoo version (UID: ODSK-ASSET-...)
+3. **`references/`** — Deep-dive documentation and architectural decisions (UID: ODSK-REF-...)
 
 The `AGENTS.md` routing system auto-invokes the right skill:
 
 ```markdown
-| Action | Skill |
-|--------|-------|
-| Creating Odoo models or fields | `odoo-orm` |
-| Creating XML views | `odoo-views` |
-| Adding security rules | `odoo-security` |
+| Action                         | Skill           |
+| ------------------------------ | --------------- |
+| Creating Odoo models or fields | `odoo-orm`      |
+| Creating XML views             | `odoo-views`    |
+| Adding security rules          | `odoo-security` |
 ...
 ```
 
@@ -138,8 +140,8 @@ Works seamlessly with [Spec-Driven Development](https://github.com/Gentleman-Pro
 
 ## License
 
-Apache-2.0 — See [LICENSE](LICENSE) for details.
+MIT License — See [LICENSE](LICENSE) for details.
 
 ---
 
-Made with care by [Yven Labs](https://github.com/Yven-Labs) and [Gentleman Programming](https://github.com/Gentleman-Programming).
+Made with care by [Geraldow](https://github.com/Geraldow).
