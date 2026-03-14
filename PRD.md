@@ -2,9 +2,9 @@
 
 > **Every Odoo version. Every module. Every AI assistant. One skill library — and your AI codes Odoo like a senior developer.**
 
-**Version**: 0.1.0
+**Version**: 0.2.0
 **Author**: [Geraldow](https://github.com/Geraldow)
-**Date**: 2026-03-13
+**Date**: 2026-03-14
 **Status**: Draft
 
 ---
@@ -557,6 +557,18 @@ By adhering to the SDD (Spec-Driven Development) methodology, this project ensur
 - **R-QUAL-02**: Every Tier 1 skill MUST have a "Validation Module" (dummy module) tested in local development before release.
 - **R-QUAL-03**: Naming conventions in templates MUST strictly follow OCA (Odoo Community Association) standards.
 
+
+---
+
+## 12. Versioning Policy
+
+The odoo-skills project follows Semantic Versioning (SemVer) `MAJOR.MINOR.PATCH` to manage its evolution:
+
+- **MAJOR (X.0.0)**: Reserved for groundbreaking architectural changes, major Odoo version paradigm shifts, or the official v1.0.0 milestone.
+- **MINOR (0.Y.0)**: New functional skills (e.g., `odoo-accounting`), new deployment automation, or significant feature additions.
+- **PATCH (0.0.Z)**: Technical fixes, typo corrections, "hallucination" prevention in existing skills, or metadata updates.
+
+**Automation**: The `odoo-commit` skill automatically assists the developer in determining the correct version bump based on the current changes.
 
 ---
 

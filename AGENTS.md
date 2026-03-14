@@ -55,8 +55,11 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 | Following OCA conventions | `odoo-oca` |
 | Setting up Docker for Odoo | `odoo-docker` |
 | Debugging with Odoo shell or logging | `odoo-debug` |
-| Committing Odoo module changes | `odoo-commit` |
-| Creating pull request (Odoo scope) | `odoo-pr` |
+| Committing changes in an Odoo project | `odoo-commit` |
+| Creating a pull request for an Odoo module or project | `odoo-pr` |
+| Debugging CI failures in `.github/workflows/` | `odoo-ci` |
+| Working with release pipelines or version bumps | `odoo-ci` |
+| Updating or adding entries to `CHANGELOG.md` | `odoo-changelog` |
 | General Odoo architecture questions | `odoo` |
 | Understanding v16→v17 changes | `odoo-v17-changes` |
 | Understanding v17→v18 changes | `odoo-v18-changes` |
