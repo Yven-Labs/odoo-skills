@@ -86,3 +86,32 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 - **Author**: [Geraldow](https://github.com/Geraldow)
 - **Repository**: [https://github.com/Yven-Labs/odoo-skills](https://github.com/Yven-Labs/odoo-skills)
 - **License**: MIT
+
+---
+
+## 6. Agent Assignments
+
+This section defines which AI agent owns each skill and their branch convention. Only `claude-code` may propose PRs that modify this section.
+
+### Agent Roster
+
+| Agent | ID | Role | Skills Owned | Branch Pattern |
+|-------|----|------|--------------|----------------|
+| Claude Code | `claude-code` | Programming | [skills/odoo-commit/](skills/odoo-commit/), [skills/odoo-pr/](skills/odoo-pr/), [skills/odoo-ci/](skills/odoo-ci/), [skills/odoo-changelog/](skills/odoo-changelog/), skills/odoo-orm/, skills/odoo-module/ | `agent/claude-code/*` |
+| OpenCode | `opencode` | Programming | skills/odoo-controllers/, skills/odoo-testing/, skills/odoo-security/, skills/odoo-debug/ | `agent/opencode/*` |
+| Codex | `codex` | Programming | skills/odoo-data/, skills/odoo-wizards/, skills/odoo-cron/, skills/odoo-performance/, skills/odoo-migration/ | `agent/codex/*` |
+| Gemini CLI | `gemini-cli` | Documentation & design | skills/odoo-views/, skills/odoo-owl/, skills/odoo-qweb/, skills/odoo-v17-changes/, skills/odoo-v18-changes/, skills/odoo-docker/, skills/odoo-mail/ | `agent/gemini-cli/*` |
+| Geraldow | `geraldow` | Author & reviewer | All frozen files, PRD, README | `develop` (direct) |
+
+### Frozen Files
+
+These files MUST NOT be modified without an explicit PR approved by Geraldow:
+
+- `AGENTS.md` — PRs proposed by `claude-code` only
+- `README.md` — `geraldow` only
+- `PRD.md` — `geraldow` only
+- `CHANGELOG.md` — `claude-code` via `odoo-changelog` skill
+- `setup.sh`, `setup.ps1`, `sync.sh` — `geraldow` only
+- `CONTRIBUTING.md` — `claude-code` only
+
+See `CONTRIBUTING.md` for the full coordination workflow.

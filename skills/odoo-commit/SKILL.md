@@ -6,6 +6,7 @@ description: >
 license: MIT
 metadata:
   author: Geraldow
+  owner: claude-code
   version: "1.1.0"
   scope: [root, core, skills, installer, docs, ci]
   auto_invoke:
