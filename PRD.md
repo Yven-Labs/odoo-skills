@@ -2,7 +2,7 @@
 
 > **Every Odoo version. Every module. Every AI assistant. One skill library — and your AI codes Odoo like a senior developer.**
 
-**Version**: 0.1.0-draft
+**Version**: 0.1.0
 **Author**: [Geraldow](https://github.com/Geraldow)
 **Date**: 2026-03-13
 **Status**: Draft
