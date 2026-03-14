@@ -1,147 +1,209 @@
-# odoo-skills
+<div align="center">
 
-> **Every Odoo version. Every module. Every AI assistant. One skill library.**
->
-> by [Geraldow](https://github.com/Geraldow)
+<pre>
+    ███████        █████                       █████████  █████       ███  ████  ████ 
+  ███░░░░░███     ░░███                       ███░░░░░███░░███       ░░░  ░░███ ░░███ 
+ ███     ░░███  ███████   ██████   ██████    ░███    ░░░  ░███ █████ ████  ░███  ░███ 
+░███      ░███ ███░░███  ███░░███ ███░░███   ░░█████████  ░███░░███ ░░███  ░███  ░███ 
+░███      ░███░███ ░███ ░███ ░███░███ ░███    ░░░░░░░░███ ░██████░   ░███  ░███  ░███ 
+░░███     ███ ░███ ░███ ░███ ░███░███ ░███    ███    ░███ ░███░░███  ░███  ░███  ░███ 
+ ░░░███████░  ░░████████░░██████ ░░██████    ░░█████████  ████ █████ █████ █████ █████
+   ░░░░░░░     ░░░░░░░░  ░░░░░░   ░░░░░░      ░░░░░░░░░  ░░░░ ░░░░░ ░░░░░ ░░░░░ ░░░░░ 
+</pre>
 
-AI Skills Ecosystem for Odoo development — teaches any AI coding assistant (Claude Code, Gemini, Codex, Cursor, Copilot) to write correct, version-aware, convention-following Odoo code across **v16, v17, v18, and v19**.
+<h1>Odoo Skills Ecosystem</h1>
+
+<p><strong>Every Odoo version. Every module. Every AI assistant. One skill library.</strong></p>
+
+<p>
+  <a href="https://github.com/Yven-Labs/odoo-skills/releases">
+    <img src="https://img.shields.io/github/v/release/Yven-Labs/odoo-skills?color=714B67&label=release&style=flat-square" alt="Release">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License: MIT">
+  </a>
+  <img src="https://img.shields.io/badge/odoo-v16--v19-714B67?logo=odoo&logoColor=white&style=flat-square" alt="Odoo v16-v19">
+  <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey?style=flat-square" alt="Platform">
+</p>
+
+<br />
+
+</div>
+
+
+---
+
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [What It Does](#what-it-does)
+- [The Problem](#the-problem)
+- [The Solution](#the-solution)
+- [Quick Start](#quick-start)
+  - [1. Clone in your Odoo project](#1-clone-in-your-odoo-project)
+  - [2. Set up for your AI tool](#2-set-up-for-your-ai-tool)
+- [Supported AI Tools](#supported-ai-tools)
+- [Supported Odoo Versions](#supported-odoo-versions)
+- [Skill Library](#skill-library)
+  - [Tier 1: Core](#tier-1-core)
+  - [Tier 2: Essential](#tier-2-essential)
+  - [Tier 3: Advanced](#tier-3-advanced)
+- [How It Works](#how-it-works)
+- [Architecture](#architecture)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## What It Does
+
+This is an **AI Skills Ecosystem** for Odoo development. It takes any AI coding assistant (Claude Code, Gemini, Cursor, etc.) and injects it with deep knowledge of Odoo internals, version-specific breaking changes, and OCA best practices.
+
+It makes your AI code like a **Senior Odoo Architect**, ensuring that the output is not just "valid Python", but **correct Odoo code** for your specific version.
 
 ---
 
 ## The Problem
 
-AI assistants know Python. They **don't** know Odoo.
-
-Without this library, your AI will:
-- Use `name_get()` in Odoo 18 (deprecated since v17 — silently broken)
-- Write `attrs="{'invisible': ...}"` in v17+ (removed — hard crash)
-- Skip `ir.model.access.csv` entirely (no security = security hole)
-- Ignore OCA conventions (wrong naming, missing license, invalid version format)
-- Create monolithic modules instead of upgrade-safe, modular code
-
-**Result**: Code that *looks* correct but fails the moment it hits your target version.
+AI assistants are trained on public data but lack the specialized "delta" knowledge between Odoo versions. They often:
+- Use deprecated methods (e.g., `name_get` in v18).
+- Use removed syntax (e.g., `attrs` in v17+ views).
+- Miss security files (`ir.model.access.csv`).
+- Ignore OCA naming and modularity conventions.
 
 ---
 
 ## The Solution
 
-A structured library of AI skills — Markdown files that any AI assistant reads to understand:
-
-- ✅ ORM patterns (models, fields, decorators, recordsets) — version-aware
-- ✅ XML views (form, tree, kanban) — including v17's `attrs` removal
-- ✅ Security (ACLs, record rules, groups) — with templates
-- ✅ Testing (TransactionCase, tours) — correct patterns
-- ✅ OWL components — v16 legacy vs v17+ OWL 2
-- ✅ QWeb templates & PDF reports
-- ✅ OCA conventions — naming, versioning, manifest
-- ✅ And 20+ more skills covering the full Odoo development lifecycle
+A structured library of **30+ Skill Files** (Markdown + Assets) that provide:
+- **Version Awareness**: Automatic detection of target Odoo version via `__manifest__.py`.
+- **Validation**: Strict RFC-style requirements (R-XXX) for every generated file.
+- **Ready-to-use Templates**: Assets for v16, v17, v18, and v19.
+- **Safety**: Security-first generation (blocking `sudo()`, enforcing ACLs).
 
 ---
 
 ## Quick Start
 
+### 1. Clone in your Odoo project
 ```bash
-# 1. Clone in your Odoo project
-git clone https://github.com/Geraldow/odoo-skills.git .odoo-skills
-
-# 2. Set up for your AI tool
-./odoo-skills/setup.sh --gemini    # Gemini CLI
-./odoo-skills/setup.sh --claude    # Claude Code
-./odoo-skills/setup.sh --all       # All supported tools
-
-# Windows
-.\odoo-skills\setup.ps1 -All
+git clone https://github.com/Yven-Labs/odoo-skills.git .odoo-skills
 ```
 
-That's it. Your AI assistant will now:
-1. Detect the Odoo version from `__manifest__.py`
-2. Load the correct skill
-3. Apply version-specific patterns automatically
+### 2. Set up for your AI tool
+```bash
+./.odoo-skills/setup.sh --all     # Linux/macOS
+.\.odoo-skills\setup.ps1 -All      # Windows
+```
 
 ---
 
 ## Supported AI Tools
 
-| Tool           | Support Level |
-| -------------- | ------------- |
-| Claude Code    | ✅ Full        |
-| Gemini CLI     | ✅ Full        |
-| Codex (OpenAI) | ✅ Full        |
-| GitHub Copilot | ✅ Full        |
-| Cursor         | ✅ Full        |
+| Tool            | ID            | Support Level                     |
+| --------------- | ------------- | --------------------------------- |
+| Claude Code     | `claude-code` | ✅ Full (Skills + MCP)             |
+| OpenCode        | `opencode`    | ✅ Full (Skills + Commands)        |
+| Gemini CLI      | `gemini-cli`  | ✅ Full (Skills via system.md)     |
+| Cursor          | `cursor`      | ✅ Good (.cursorrules integration) |
+| VS Code Copilot | `vscode`      | ✅ Good (Workspace instructions)   |
 
 ---
 
 ## Supported Odoo Versions
 
-| Version | Status      | Python |
-| ------- | ----------- | ------ |
-| Odoo 16 | ✅ Supported | 3.8+   |
-| Odoo 17 | ✅ Supported | 3.10+  |
-| Odoo 18 | ✅ Supported | 3.10+  |
-| Odoo 19 | ✅ Supported | 3.11+  |
+| Version | Python | Status      |
+| ------- | ------ | ----------- |
+| Odoo 16 | 3.8+   | ✅ Supported |
+| Odoo 17 | 3.10+  | ✅ Supported |
+| Odoo 18 | 3.10+  | ✅ Supported |
+| Odoo 19 | 3.11+  | ✅ Supported |
 
 ---
 
 ## Skill Library
 
-### Core Skills (Phase 1 — MVP)
+### Tier 1: Core
+The foundation of Odoo development.
+| Skill            | ID              | Description                             |
+| ---------------- | --------------- | --------------------------------------- |
+| Odoo Overview    | `odoo`          | Stack, components, and version matrix   |
+| Module Structure | `odoo-module`   | `__manifest__.py`, directory standards  |
+| ORM Mastery      | `odoo-orm`      | Models, Fields, CRUD (name_get vs v17+) |
+| Smart Views      | `odoo-views`    | XML Views (handling attrs removal)      |
+| Security-First   | `odoo-security` | ACLs, Rules, and Groups                 |
+| Testing          | `odoo-testing`  | TransactionCase, HttpCase, and Tours    |
 
-| Skill                                    | What it teaches                                       |
-| ---------------------------------------- | ----------------------------------------------------- |
-| [`odoo`](skills/odoo/)                   | Overview: stack, versions, commands                   |
-| [`odoo-module`](skills/odoo-module/)     | Module structure, `__manifest__.py`, data files       |
-| [`odoo-orm`](skills/odoo-orm/)           | Models, fields, decorators, CRUD — all versions       |
-| [`odoo-views`](skills/odoo-views/)       | Form, tree, kanban, search — v16 attrs vs v17+ inline |
-| [`odoo-security`](skills/odoo-security/) | ACLs, record rules, groups — with templates           |
-| [`odoo-testing`](skills/odoo-testing/)   | TransactionCase, HttpCase, tours                      |
-| [`odoo-oca`](skills/odoo-oca/)           | OCA conventions: naming, versioning, manifest         |
+### Tier 2: Essential
+80% of daily development tasks.
+| Skill           | ID                 | Description                       |
+| --------------- | ------------------ | --------------------------------- |
+| Controllers     | `odoo-controllers` | Routing, Auth, JSON-RPC changes   |
+| OWL Components  | `odoo-owl`         | OWL 2.0 (v17+) vs Legacy          |
+| QWeb & PDF      | `odoo-qweb`        | Reports and Template rendering    |
+| Data & XML      | `odoo-data`        | Master data and XML ID management |
+| OCA Conventions | `odoo-oca`         | Strict OCA naming and formatting  |
+| Wizards         | `odoo-wizards`     | TransientModels and multi-step UI |
 
-See [PRD.md](PRD.md) for the complete skill roadmap (26 core + 6 optional skills).
+### Tier 3: Advanced
+Complex project requirements.
+| Skill          | ID                 | Description                               |
+| -------------- | ------------------ | ----------------------------------------- |
+| Mail & Chatter | `odoo-mail`        | Activities, Channels, and Threads         |
+| External API   | `odoo-api`         | REST (v18+), XML-RPC, JSON-RPC            |
+| Cron Jobs      | `odoo-cron`        | Scheduling and background tasks           |
+| Performance    | `odoo-performance` | N+1 avoidance, Prefetching, SQL           |
+| Migration      | `odoo-migration`   | Version-to-version upgrade maps           |
+| Assets & JS    | `odoo-assets`      | SCSS bundles and JS modules               |
+| Inheritance    | `odoo-inherit`     | Deep dives into `_inherit` vs `_inherits` |
 
 ---
 
 ## How It Works
 
-Each skill contains:
-1. **`SKILL.md`** — Core patterns (80% version-agnostic)
-2. **`assets/v{N}/`** — Implementation templates for each Odoo version (UID: ODSK-ASSET-...)
-3. **`references/`** — Deep-dive documentation and architectural decisions (UID: ODSK-REF-...)
-
-The `AGENTS.md` routing system auto-invokes the right skill:
-
-```markdown
-| Action                         | Skill           |
-| ------------------------------ | --------------- |
-| Creating Odoo models or fields | `odoo-orm`      |
-| Creating XML views             | `odoo-views`    |
-| Adding security rules          | `odoo-security` |
-...
-```
-
-After `setup.sh`, your AI reads `AGENTS.md` → detects action → loads skill → applies correct patterns for your version.
+1. **Auto-Invocation**: The `AGENTS.md` router detects your actions (e.g., editing `models/*.py`).
+2. **Context Loading**: The AI assistant loads the corresponding `SKILL.md`.
+3. **Version Check**: The AI reads your `__manifest__.py` to identify the target Odoo version.
+4. **Implementation**: The AI selects the correct snippet from `assets/v{N}/` and applies it.
 
 ---
 
-## SDD Integration
+## Architecture
 
-Works seamlessly with [Spec-Driven Development](https://github.com/Gentleman-Programming/agent-teams-lite):
+```bash
+odoo-skills/
+├── .github/workflows/    # CI/CD (Validation & Release)
+├── skills/               # The Skill Library
+│   ├── odoo-orm/         # Tier 1 Skill Folder
+│   │   ├── SKILL.md      # Logic & Patterns
+│   │   ├── assets/       # Version-specific code
+│   │   └── references/   # Deep-dives
+│   └── ...               # 30+ Skills
+├── AGENTS.md             # Master Router
+├── setup.sh              # Unix Installer
+├── setup.ps1             # Windows Installer
+├── PRD.md                # Technical Blueprint
+└── README.md             # This guide
+```
 
-```
-/sdd-apply Task 2: Create support ticket model
-→ AI detects models/*.py context
-→ Auto-invokes odoo-orm
-→ Reads __manifest__.py: v18
-→ Applies v18 patterns (_compute_display_name, Command objects)
-→ Writes correct Odoo 18 code
-```
+---
+
+## Contributing
+
+1. Create a branch from `develop`: `git checkout -b feat/skill-name`.
+2. Implement the skill following the `ODSK` ID system.
+3. Run `sync.sh` to validate the library.
+4. Create a PR to `develop`.
+5. Merge to `main` for automatic release.
 
 ---
 
 ## License
 
-MIT License — See [LICENSE](LICENSE) for details.
+MIT License — Copyright (c) 2026 [Geraldow](https://github.com/Geraldow)
 
 ---
 
-Made with care by [Geraldow](https://github.com/Geraldow).
+<div align="center">
+  <p>Made with care by <a href="https://github.com/Geraldow">Geraldow</a>.</p>
+</div>
