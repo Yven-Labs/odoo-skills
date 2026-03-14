@@ -1,0 +1,138 @@
+name: CI — Skill Library Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  push:
+    branches:
+      - develop
+
+jobs:
+  validate-skills:
+    name: Validate Skill Library Integrity
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check skill directories are listed in AGENTS.md
+        run: |
+          set -euo pipefail
+
+          echo "🔍 Checking that all skills/ dirs are referenced in AGENTS.md..."
+          MISSING=0
+
+          if [ -d "skills" ]; then
+            for skill_dir in skills/*/; do
+              skill_name=$(basename "$skill_dir")
+              if ! grep -q "$skill_name" AGENTS.md; then
+                echo "  ❌ MISSING in AGENTS.md: $skill_name"
+                MISSING=$((MISSING + 1))
+              else
+                echo "  ✅ Found: $skill_name"
+              fi
+            done
+          else
+            echo "  ℹ️  No skills/ directory yet — skipping check."
+          fi
+
+          if [ "$MISSING" -gt 0 ]; then
+            echo ""
+            echo "❌ $MISSING skill(s) are not referenced in AGENTS.md."
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ All skills are referenced in AGENTS.md."
+
+      - name: Check every skill has a SKILL.md
+        run: |
+          set -euo pipefail
+
+          echo "🔍 Checking every skill has a SKILL.md file..."
+          MISSING=0
+
+          if [ -d "skills" ]; then
+            for skill_dir in skills/*/; do
+              skill_name=$(basename "$skill_dir")
+              if [ ! -f "$skill_dir/SKILL.md" ]; then
+                echo "  ❌ MISSING SKILL.md in: $skill_dir"
+                MISSING=$((MISSING + 1))
+              else
+                echo "  ✅ Found: $skill_dir/SKILL.md"
+              fi
+            done
+          else
+            echo "  ℹ️  No skills/ directory yet — skipping check."
+          fi
+
+          if [ "$MISSING" -gt 0 ]; then
+            echo ""
+            echo "❌ $MISSING skill(s) are missing their SKILL.md."
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ All skills have a SKILL.md."
+
+      - name: Check for duplicate ODSK IDs
+        run: |
+          set -euo pipefail
+
+          echo "🔍 Checking for duplicate ODSK IDs across the library..."
+
+          if [ -d "skills" ]; then
+            IDS=$(grep -roh "ODSK-[A-Z0-9_\-]*" skills/ 2>/dev/null || true)
+
+            if [ -z "$IDS" ]; then
+              echo "  ℹ️  No ODSK IDs found yet — skipping duplicate check."
+              exit 0
+            fi
+
+            DUPLICATES=$(echo "$IDS" | sort | uniq -d)
+
+            if [ -n "$DUPLICATES" ]; then
+              echo "  ❌ Duplicate ODSK IDs found:"
+              echo "$DUPLICATES"
+              exit 1
+            fi
+
+            echo "  ✅ No duplicate ODSK IDs found."
+          else
+            echo "  ℹ️  No skills/ directory yet — skipping check."
+          fi
+
+      - name: Check Markdown code blocks have language identifiers
+        run: |
+          set -euo pipefail
+
+          echo "🔍 Checking for code blocks without language identifiers..."
+          ISSUES=0
+
+          # Find ``` without a language tag — matches ``` followed immediately by newline
+          while IFS= read -r file; do
+            if grep -Pn "^```\s*$" "$file" > /tmp/found.txt 2>/dev/null; then
+              echo "  ❌ $file — code block(s) missing language:"
+              cat /tmp/found.txt
+              ISSUES=$((ISSUES + 1))
+            fi
+          done < <(find skills/ -name "*.md" 2>/dev/null || true)
+
+          if [ "$ISSUES" -gt 0 ]; then
+            echo ""
+            echo "❌ $ISSUES file(s) have code blocks without language identifiers."
+            exit 1
+          fi
+
+          echo "✅ All code blocks have language identifiers."
+
+      - name: Summary
+        if: always()
+        run: |
+          echo ""
+          echo "════════════════════════════════════════"
+          echo "  odoo-skills CI Validation Complete"
+          echo "════════════════════════════════════════"
