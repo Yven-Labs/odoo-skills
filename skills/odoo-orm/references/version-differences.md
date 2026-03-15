@@ -1,7 +1,5 @@
 # ORM Version Differences — v16 / v17 / v18
 
-> Author: [Geraldow](https://github.com/Geraldow) | odoo-skills | MIT License
-
 ## Breaking Changes Summary
 
 | Feature | v16 | v17 | v18 |

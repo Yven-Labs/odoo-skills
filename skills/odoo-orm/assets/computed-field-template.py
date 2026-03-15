@@ -1,9 +1,5 @@
-# =============================================================================
-# Computed Field Templates — Odoo v17 / v18
-# Author: Geraldow | https://github.com/Yven-Labs/odoo-skills
-# =============================================================================
-# Patterns: compute, depends, store, inverse, related
-# =============================================================================
+# Odoo ORM - Computed Field Patterns
+# Reference for odoo-orm skill
 
 from odoo import api, fields, models
 
@@ -12,18 +8,20 @@ class ComputedFieldExamples(models.Model):
     _name = 'example.model'
     _description = 'Computed Field Examples'
 
-    # -------------------------------------------------------------------------
-    # Pattern 1 — Basic computed (not stored)
+    # =============================================================================
+    # PATTERN 1: BASIC COMPUTED (NOT STORED)
     # Recalculated every time the field is read.
-    # Use when: value changes often and storage cost is not worth it.
-    # -------------------------------------------------------------------------
+    # Use when: value changes too often to justify a DB column, or is only
+    # needed for display — never for search, filter, or group-by.
+    # =============================================================================
+
     first_name = fields.Char(string='First Name')
     last_name = fields.Char(string='Last Name')
 
     full_name = fields.Char(
         string='Full Name',
         compute='_compute_full_name',
-        # store=False  ← default, not stored in DB
+        # store=False is the default — not persisted in DB
     )
 
     @api.depends('first_name', 'last_name')
@@ -31,17 +29,18 @@ class ComputedFieldExamples(models.Model):
         for rec in self:
             rec.full_name = f'{rec.first_name or ""} {rec.last_name or ""}'.strip()
 
-    # -------------------------------------------------------------------------
-    # Pattern 2 — Stored computed
-    # Stored in DB. Recalculated only when dependencies change.
-    # Use when: value is queried often, or used in search/group by.
-    # -------------------------------------------------------------------------
+    # =============================================================================
+    # PATTERN 2: STORED COMPUTED
+    # Persisted in DB. Recalculated only when its @api.depends fields change.
+    # Use when: the value is used in domain filters, group-by, or is queried often.
+    # =============================================================================
+
     line_ids = fields.One2many('example.model.line', 'parent_id', string='Lines')
 
     amount_total = fields.Float(
         string='Total Amount',
         compute='_compute_amount_total',
-        store=True,                  # ← persisted in DB
+        store=True,       # persisted — Odoo invalidates it when line_ids change
         digits=(16, 2),
     )
 
@@ -50,11 +49,13 @@ class ComputedFieldExamples(models.Model):
         for rec in self:
             rec.amount_total = sum(rec.line_ids.mapped('price_subtotal'))
 
-    # -------------------------------------------------------------------------
-    # Pattern 3 — Computed with inverse (read-write computed)
-    # Allows setting the field manually, triggering the inverse method.
-    # Use when: you want a "virtual" field that writes back to real fields.
-    # -------------------------------------------------------------------------
+    # =============================================================================
+    # PATTERN 3: COMPUTED WITH INVERSE (READ-WRITE COMPUTED)
+    # Allows setting the field manually; the inverse method writes back to
+    # the underlying fields. Use when you want a "virtual" field the user
+    # can edit directly (e.g. editing gross amount to back-calculate net).
+    # =============================================================================
+
     amount_net = fields.Float(string='Net Amount')
     tax_percent = fields.Float(string='Tax %', default=18.0)
 
@@ -71,22 +72,25 @@ class ComputedFieldExamples(models.Model):
             rec.amount_gross = rec.amount_net * (1 + rec.tax_percent / 100)
 
     def _inverse_amount_gross(self):
-        # Called when user sets amount_gross directly
+        # Called when the user writes directly to amount_gross in the UI
         for rec in self:
             if rec.tax_percent != -100:
                 rec.amount_net = rec.amount_gross / (1 + rec.tax_percent / 100)
 
-    # -------------------------------------------------------------------------
-    # Pattern 4 — Related field (shortcut through a relation)
-    # No compute method needed — Odoo handles it automatically.
-    # Use when: you need to surface a field from a related model.
-    # -------------------------------------------------------------------------
+    # =============================================================================
+    # PATTERN 4: RELATED FIELD
+    # Shortcut through a relation — no compute method needed.
+    # Odoo maintains it automatically. store=True enables search and group-by.
+    # Use when: you need a field from a related model on this model's views or
+    # search filters.
+    # =============================================================================
+
     partner_id = fields.Many2one('res.partner', string='Partner')
 
     partner_email = fields.Char(
         string='Partner Email',
         related='partner_id.email',
-        store=True,      # store=True allows search; store=False is read-only display
+        store=True,       # store=True: searchable; store=False: display only
         readonly=True,
     )
     partner_country_id = fields.Many2one(
@@ -96,10 +100,12 @@ class ComputedFieldExamples(models.Model):
         readonly=True,
     )
 
-    # -------------------------------------------------------------------------
-    # Pattern 5 — Depends on nested path
-    # Use dot notation for multi-level dependencies.
-    # -------------------------------------------------------------------------
+    # =============================================================================
+    # PATTERN 5: MULTI-LEVEL DEPENDS PATH
+    # Use dot notation to declare dependencies across multiple relations.
+    # Odoo walks the chain and invalidates the computed field if ANY node changes.
+    # =============================================================================
+
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
 
     company_currency_symbol = fields.Char(
