@@ -1,3 +1,11 @@
+## [0.7.1] - 2026-03-15
+
+### 🐞 Fixed
+
+- auto-update CHANGELOG.md on every release
+- auto-update CHANGELOG.md on every release
+---
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
