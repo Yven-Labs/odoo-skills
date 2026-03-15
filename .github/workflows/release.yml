@@ -118,9 +118,9 @@ jobs:
           TODAY=$(date -u +%Y-%m-%d)
 
           if [ -z "$PREV_TAG" ]; then
-            COMMITS=$(git log --pretty=format:"%s" | head -30)
+            COMMITS=$(git log --no-merges --pretty=format:"%s" | head -30)
           else
-            COMMITS=$(git log "${PREV_TAG}..HEAD" --pretty=format:"%s")
+            COMMITS=$(git log "${PREV_TAG}..HEAD" --no-merges --pretty=format:"%s")
           fi
 
           # Categorize commits — skip merge commits and chore
@@ -177,10 +177,18 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
 
-          # Prepend the new entry to CHANGELOG.md
+          # Insert new entry after the CHANGELOG preamble (after the first ---)
           ENTRY=$(cat /tmp/changelog_entry.txt)
-          EXISTING=$(cat CHANGELOG.md)
-          printf "%s\n---\n\n%s" "$ENTRY" "$EXISTING" > CHANGELOG.md
+          # Find the line number of the first --- separator (end of preamble)
+          SPLIT=$(grep -n "^---$" CHANGELOG.md | head -1 | cut -d: -f1)
+          if [ -n "$SPLIT" ]; then
+            HEAD_LINES=$(head -n "$SPLIT" CHANGELOG.md)
+            TAIL_LINES=$(tail -n +$((SPLIT + 1)) CHANGELOG.md)
+            printf "%s\n\n%s\n\n---\n%s" "$HEAD_LINES" "$ENTRY" "$TAIL_LINES" > CHANGELOG.md
+          else
+            # No preamble found — prepend directly
+            printf "%s\n---\n\n%s" "$ENTRY" "$(cat CHANGELOG.md)" > CHANGELOG.md
+          fi
 
           # Commit and push back to main
           git add CHANGELOG.md
