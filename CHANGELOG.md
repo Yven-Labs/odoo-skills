@@ -1,25 +1,18 @@
-## [0.7.1] - 2026-03-15
-
-### 🐞 Fixed
-
-- auto-update CHANGELOG.md on every release
-- auto-update CHANGELOG.md on every release
----
-
-## [0.7.2] - 2026-03-15
-
-### 🐞 Fixed
-
-- add --no-merges flag and fix CHANGELOG insert position
-
----
-
 # Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [0.7.2] - 2026-03-15
+
+### 🐞 Fixed
+
+- Add `--no-merges` flag to `git log` in `release.yml` to prevent duplicate CHANGELOG entries from merge commits [(#22)](https://github.com/Yven-Labs/odoo-skills/pull/22)
+- Fix CHANGELOG insert position to use `# Changelog` header as anchor instead of first `---` separator [(#22)](https://github.com/Yven-Labs/odoo-skills/pull/22)
 
 ---
 
@@ -47,9 +40,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🚀 Added
 
-- `odoo-orm` skill: multi-version detection from `__manifest__.py` with `[v17+]` tags on Critical Rules [(#16)](https://github.com/Yven-Labs/odoo-skills/pull/16)
-- `supported_versions`, `default_version`, and `detect_from` metadata fields in `odoo-orm` SKILL.md [(#16)](https://github.com/Yven-Labs/odoo-skills/pull/16)
-- `Version Detection` section in `odoo-orm` SKILL.md with agent instructions for parsing Odoo version [(#16)](https://github.com/Yven-Labs/odoo-skills/pull/16)
+- \`odoo-orm\` skill: multi-version detection from \`__manifest__.py\` with \`[v17+]\` tags on Critical Rules [(#16)](https://github.com/Yven-Labs/odoo-skills/pull/16)
+- \`supported_versions\`, \`default_version\`, and \`detect_from\` metadata fields in \`odoo-orm\` SKILL.md [(#16)](https://github.com/Yven-Labs/odoo-skills/pull/16)
+- \`Version Detection\` section in \`odoo-orm\` SKILL.md with agent instructions for parsing Odoo version [(#16)](https://github.com/Yven-Labs/odoo-skills/pull/16)
 
 ---
 
@@ -57,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🔄 Changed
 
-- `odoo-orm` skill assets and references restructured with 2-line headers, ALL CAPS section separators, and GOOD/BAD contrast patterns [(#14)](https://github.com/Yven-Labs/odoo-skills/pull/14)
+- \`odoo-orm\` skill assets and references restructured with 2-line headers, ALL CAPS section separators, and GOOD/BAD contrast patterns [(#14)](https://github.com/Yven-Labs/odoo-skills/pull/14)
 
 ---
 
@@ -65,8 +58,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🚀 Added
 
-- `odoo-orm` skill with model template, computed field patterns, x2many Command API examples, field-types reference, and version-differences reference [(#11)](https://github.com/Yven-Labs/odoo-skills/pull/11)
-- `odoo-module` skill for `__manifest__.py` scaffolding and module structure conventions [(#12)](https://github.com/Yven-Labs/odoo-skills/pull/12)
+- \`odoo-orm\` skill with model template, computed field patterns, x2many Command API examples, field-types reference, and version-differences reference [(#11)](https://github.com/Yven-Labs/odoo-skills/pull/11)
+- \`odoo-module\` skill for \`__manifest__.py\` scaffolding and module structure conventions [(#12)](https://github.com/Yven-Labs/odoo-skills/pull/12)
 
 ---
 
@@ -82,7 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🚀 Added
 
-- Multi-agent coordination workflow documentation in `AGENTS.md` [(#6)](https://github.com/Yven-Labs/odoo-skills/pull/6)
+- Multi-agent coordination workflow documentation in \`AGENTS.md\` [(#6)](https://github.com/Yven-Labs/odoo-skills/pull/6)
 
 ---
 
@@ -90,7 +83,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🚀 Added
 
-- Automatic version computation from conventional commits in `release.yml` — replaces `PRD.md` as version source of truth [(#3)](https://github.com/Yven-Labs/odoo-skills/pull/3)
+- Automatic version computation from conventional commits in \`release.yml\` — replaces \`PRD.md\` as version source of truth [(#3)](https://github.com/Yven-Labs/odoo-skills/pull/3)
 
 ### 🔄 Changed
 
@@ -98,7 +91,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🐞 Fixed
 
-- Skill ID detection in `sync.sh` refined to target labels only, avoiding false positives on doc mentions [(#3)](https://github.com/Yven-Labs/odoo-skills/pull/3)
+- Skill ID detection in \`sync.sh\` refined to target labels only, avoiding false positives on doc mentions [(#3)](https://github.com/Yven-Labs/odoo-skills/pull/3)
 
 ---
 
@@ -106,22 +99,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🚀 Added
 
-- `odoo-commit` skill for standardized commit workflow with Odoo-specific scopes [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
-- `odoo-pr` skill with professional PR template and Odoo v17/v18 compatibility checklist [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
-- `odoo-ci` skill for GitHub Actions pipeline navigation and release automation [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
-- `odoo-changelog` skill based on keepachangelog.com conventions [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
-- Versioning Policy (Section 12) added to `PRD.md` [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- \`odoo-commit\` skill for standardized commit workflow with Odoo-specific scopes [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- \`odoo-pr\` skill with professional PR template and Odoo v17/v18 compatibility checklist [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- \`odoo-ci\` skill for GitHub Actions pipeline navigation and release automation [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- \`odoo-changelog\` skill based on keepachangelog.com conventions [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- Versioning Policy (Section 12) added to \`PRD.md\` [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
 
 ### 🔄 Changed
 
-- Realigned `odoo-skills` as fully standalone project independent from Gentleman Programming ecosystem [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
-- Simplified gentle-ai reference to a productivity recommendation in `README.md` and `PRD.md` [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
-- Redesigned `PRD.md` architecture diagrams (Section 8.1.1, 8.1.2) to remove hard Engram dependencies [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- Realigned \`odoo-skills\` as fully standalone project independent from Gentleman Programming ecosystem [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- Simplified gentle-ai reference to a productivity recommendation in \`README.md\` and \`PRD.md\` [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- Redesigned \`PRD.md\` architecture diagrams (Section 8.1.1, 8.1.2) to remove hard Engram dependencies [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
 
 ### 🐞 Fixed
 
-- Escape backticks in Markdown validation script in `ci.yml` to prevent Bash EOF error [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
-- Removed stray empty code block in `PRD.md` Section 7.4 [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- Escape backticks in Markdown validation script in \`ci.yml\` to prevent Bash EOF error [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
+- Removed stray empty code block in \`PRD.md\` Section 7.4 [(#2)](https://github.com/Yven-Labs/odoo-skills/pull/2)
 
 ---
 
@@ -129,8 +122,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🚀 Added
 
-- Initial project infrastructure: `AGENTS.md`, `README.md`, `PRD.md` [(#1)](https://github.com/Yven-Labs/odoo-skills/pull/1)
-- `setup.sh` and `setup.ps1` installers with strict error handling and CLI flags [(#1)](https://github.com/Yven-Labs/odoo-skills/pull/1)
-- `sync.sh` for skill library synchronization validation [(#1)](https://github.com/Yven-Labs/odoo-skills/pull/1)
+- Initial project infrastructure: \`AGENTS.md\`, \`README.md\`, \`PRD.md\` [(#1)](https://github.com/Yven-Labs/odoo-skills/pull/1)
+- \`setup.sh\` and \`setup.ps1\` installers with strict error handling and CLI flags [(#1)](https://github.com/Yven-Labs/odoo-skills/pull/1)
+- \`sync.sh\` for skill library synchronization validation [(#1)](https://github.com/Yven-Labs/odoo-skills/pull/1)
 - GitHub Actions CI pipeline for skill library integrity validation [(#1)](https://github.com/Yven-Labs/odoo-skills/pull/1)
-- GitHub Actions release pipeline using `PRD.md` version as source of truth [(#1)](https://github.com/Yven-Labs/odoo-skills/pull/1)
+- GitHub Actions release pipeline using \`PRD.md\` version as source of truth [(#1)](https://github.com/Yven-Labs/odoo-skills/pull/1)
