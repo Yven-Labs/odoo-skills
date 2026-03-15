@@ -95,12 +95,12 @@ This section defines which AI agent owns each skill and their branch convention.
 
 ### Agent Roster
 
-| Agent | ID | Role | Skills Owned | Branch Pattern |
-|-------|----|------|--------------|----------------|
-| Claude Code | `claude-code` | Programming | [skills/odoo-commit/](skills/odoo-commit/), [skills/odoo-pr/](skills/odoo-pr/), [skills/odoo-ci/](skills/odoo-ci/), [skills/odoo-changelog/](skills/odoo-changelog/), skills/odoo-orm/, skills/odoo-module/ | `agent/claude-code/*` |
-| OpenCode | `opencode` | Programming | skills/odoo-controllers/, skills/odoo-testing/, skills/odoo-security/, skills/odoo-debug/ | `agent/opencode/*` |
-| Codex | `codex` | Programming | skills/odoo-data/, skills/odoo-wizards/, skills/odoo-cron/, skills/odoo-performance/, skills/odoo-migration/ | `agent/codex/*` |
-| Gemini CLI | `gemini-cli` | Documentation & design | skills/odoo-views/, skills/odoo-owl/, skills/odoo-qweb/, skills/odoo-v17-changes/, skills/odoo-v18-changes/, skills/odoo-docker/, skills/odoo-mail/ | `agent/gemini-cli/*` |
+| Agent | ID | Role | Skill Category | Branch Pattern |
+|-------|----|------|----------------|----------------|
+| Claude Code | `claude-code` | Programming | All programming & infrastructure skills | `agent/claude-code/*` |
+| OpenCode | `opencode` | Programming | All programming & infrastructure skills | `agent/opencode/*` |
+| Codex | `codex` | Programming | All programming & infrastructure skills | `agent/codex/*` |
+| Gemini CLI | `gemini-cli` | Documentation & design | XML views, OWL, QWeb, Markdown guides | `agent/gemini-cli/*` |
 | Geraldow | `geraldow` | Author & reviewer | All frozen files, PRD, README | `develop` (direct) |
 
 ### Frozen Files
