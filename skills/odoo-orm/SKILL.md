@@ -9,9 +9,11 @@ description: >
 license: MIT
 metadata:
   author: Geraldow
-  owner: claude-code
   version: "1.0.0"
   scope: [root, core]
+  supported_versions: ["17", "18"]
+  default_version: "18"
+  detect_from: "__manifest__.py"
   auto_invoke:
     - "Creating Odoo models or fields"
     - "Defining computed fields or constraints"
@@ -34,11 +36,21 @@ Load this skill when:
 
 ---
 
+## Version Detection
+
+Before applying any rule:
+- Search for `__manifest__.py` in the current directory
+- Extract the `version` field value (e.g., '17.0.1.0.0')
+- Parse the first segmenas the Odoo major version (17, 18, etc.)
+- Apply only rules tagged `[v17+]`, `[v18+]`, etc. that match
+
+---
+
 ## Critical Rules
 
 These rules prevent **silent failures** and **version crashes**:
 
-### NEVER use `name_get()` in Odoo v17+
+### [v17+] NEVER use `name_get()`
 ```python
 # ❌ WRONG — deprecated since v17, causes AttributeError in v18
 def name_get(self):
@@ -56,7 +68,7 @@ def _compute_display_name(self):
         rec.display_name = f'[{rec.code}] {rec.name}'
 ```
 
-### NEVER use `(0, 0, {...})` tuple syntax for x2many in v17+
+### [v17+] NEVER use `(0, 0, {...})` tuple syntax for x2many
 ```python
 # ❌ WRONG — old tuple syntax, error-prone and implicit
 vals['line_ids'] = [(0, 0, {'name': 'line1', 'qty': 1})]
@@ -66,7 +78,7 @@ from odoo import Command
 vals['line_ids'] = [Command.create({'name': 'line1', 'qty': 1})]
 ```
 
-### NEVER use `attrs` in XML for v17+
+### [v17+] NEVER use `attrs` in XML
 ```xml
 <!-- ❌ WRONG — attrs removed in v17 -->
 <field name="date" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
@@ -75,7 +87,7 @@ vals['line_ids'] = [Command.create({'name': 'line1', 'qty': 1})]
 <field name="date" invisible="state != 'draft'"/>
 ```
 
-### NEVER use `type="json"` in controllers for v17+
+### [v17+] NEVER use `type="json"` in controllers
 ```python
 # ❌ WRONG — renamed in v17
 @http.route('/api/endpoint', type='json', auth='user')
@@ -219,11 +231,11 @@ def unlink(self):
 
 ## Assets
 
-| File | When to load |
-|------|-------------|
-| `assets/model-template.py` | Starting a new model from scratch |
-| `assets/computed-field-template.py` | Adding computed fields with dependencies |
-| `assets/x2many-commands.py` | Working with One2many or Many2many writes |
+| File                                | When to load                              |
+| ----------------------------------- | ----------------------------------------- |
+| `assets/model-template.py`          | Starting a new model from scratch         |
+| `assets/computed-field-template.py` | Adding computed fields with dependencies  |
+| `assets/x2many-commands.py`         | Working with One2many or Many2many writes |
 
 ---
 
@@ -239,15 +251,9 @@ def unlink(self):
 
 ## References
 
-| File | Content |
-|------|---------|
-| `references/field-types.md` | All field types with parameters and version notes |
-| `references/version-differences.md` | ORM changes across v16 / v17 / v18 |
+| File                                | Content                                           |
+| ----------------------------------- | ------------------------------------------------- |
+| `references/field-types.md`         | All field types with parameters and version notes |
+| `references/version-differences.md` | ORM changes across v16 / v17 / v18                |
 
 ---
-
-## Metadata
-
-- **Skill ID**: ODSK-ORM-CORE
-- **Author**: [Geraldow](https://github.com/Geraldow)
-- **Repo**: https://github.com/Yven-Labs/odoo-skills
