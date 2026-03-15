@@ -1,28 +1,23 @@
-# =============================================================================
-# Odoo Model Template — v17 / v18 compatible
-# Author: Geraldow | https://github.com/Yven-Labs/odoo-skills
-# =============================================================================
-# Usage: Copy this file as a starting point for any new Odoo model.
-#        Replace placeholders (PREFIX, ModelName, etc.) with real values.
-# =============================================================================
+# Odoo ORM - Model Template
+# Reference for odoo-orm skill
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
 class ModelName(models.Model):
-    # -------------------------------------------------------------------------
-    # Model definition
-    # -------------------------------------------------------------------------
+    # =============================================================================
+    # MODEL DEFINITION
+    # =============================================================================
     _name = 'prefix.model.name'       # e.g. 'sale.order', 'account.move'
     _description = 'Human-readable description'
-    _order = 'name asc, id desc'      # default sort order
-    # _inherit = 'mail.thread'         # uncomment to add Chatter
-    # _rec_name = 'name'               # field used as display name (default)
+    _order = 'name asc, id desc'      # secondary sort by id keeps stable ordering
+    # _inherit = 'mail.thread'         # uncomment to enable Chatter + tracking
+    # _rec_name = 'name'               # field shown as display name (default: name)
 
-    # -------------------------------------------------------------------------
-    # Fields
-    # -------------------------------------------------------------------------
+    # =============================================================================
+    # FIELDS
+    # =============================================================================
     name = fields.Char(
         string='Name',
         required=True,
@@ -40,13 +35,13 @@ class ModelName(models.Model):
         string='Status',
         default='draft',
         required=True,
-        tracking=True,   # requires _inherit = 'mail.thread'
+        tracking=True,   # logs changes in chatter — requires mail.thread
     )
     date = fields.Date(string='Date', default=fields.Date.today)
     partner_id = fields.Many2one(
         comodel_name='res.partner',
         string='Partner',
-        ondelete='restrict',
+        ondelete='restrict',   # prevent deleting a partner that is still in use
     )
     company_id = fields.Many2one(
         comodel_name='res.company',
@@ -56,7 +51,7 @@ class ModelName(models.Model):
     currency_id = fields.Many2one(
         comodel_name='res.currency',
         related='company_id.currency_id',
-        store=True,
+        store=True,            # store=True allows search and group-by on currency
     )
     amount_total = fields.Monetary(
         string='Total',
@@ -71,27 +66,30 @@ class ModelName(models.Model):
     )
     notes = fields.Html(string='Notes', sanitize=True)
 
-    # -------------------------------------------------------------------------
-    # Computed fields
-    # -------------------------------------------------------------------------
+    # =============================================================================
+    # COMPUTED FIELDS
+    # =============================================================================
+
     @api.depends('line_ids.price_subtotal')
     def _compute_amount_total(self):
         for rec in self:
             rec.amount_total = sum(rec.line_ids.mapped('price_subtotal'))
 
-    # -------------------------------------------------------------------------
-    # Constraints
-    # -------------------------------------------------------------------------
+    # =============================================================================
+    # CONSTRAINTS
+    # =============================================================================
+
     @api.constrains('date')
     def _check_date(self):
         for rec in self:
             if rec.date and rec.date < fields.Date.today():
                 raise ValidationError(_('Date cannot be in the past.'))
 
-    # -------------------------------------------------------------------------
-    # ORM overrides
-    # -------------------------------------------------------------------------
-    @api.model_create_multi           # v14+ — accepts list of dicts
+    # =============================================================================
+    # ORM OVERRIDES
+    # =============================================================================
+
+    @api.model_create_multi           # v14+ — receives a list of dicts, not a single dict
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('name', _('New')) == _('New'):
@@ -101,7 +99,7 @@ class ModelName(models.Model):
         return super().create(vals_list)
 
     def write(self, vals):
-        # Add pre-write logic here if needed
+        # Add pre-write validation or side effects here if needed
         return super().write(vals)
 
     def unlink(self):
@@ -112,9 +110,10 @@ class ModelName(models.Model):
                 )
         return super().unlink()
 
-    # -------------------------------------------------------------------------
-    # Actions / business logic
-    # -------------------------------------------------------------------------
+    # =============================================================================
+    # ACTIONS / BUSINESS LOGIC
+    # =============================================================================
+
     def action_confirm(self):
         self.write({'state': 'confirm'})
 

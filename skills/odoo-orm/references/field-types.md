@@ -1,7 +1,5 @@
 # Odoo Field Types — Complete Reference
 
-> Author: [Geraldow](https://github.com/Geraldow) | odoo-skills | MIT License
-
 ## Scalar Fields
 
 | Type | Python class | Common parameters | Notes |
