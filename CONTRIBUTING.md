@@ -26,41 +26,45 @@ All contributors — human and AI — follow the same rules defined in this docu
 
 ## 2. Skill Ownership
 
-Each skill is owned by one contributor. Only the owner may open PRs that modify files inside that skill's folder.
+Skills are grouped by **category**, not by individual agent. Any programming agent (`claude-code`, `opencode`, `codex`) may work on any programming skill. Only `gemini-cli` handles documentation & design skills.
 
-### Programming skills (Python / backend)
+### Programming skills (Python / backend / infrastructure)
 
-| Skill | Owner | Description |
-|-------|-------|-------------|
-| `odoo-commit` | `claude-code` | Git commit conventions |
-| `odoo-pr` | `claude-code` | Pull Request workflow |
-| `odoo-ci` | `claude-code` | CI/CD and GitHub Actions |
-| `odoo-changelog` | `claude-code` | CHANGELOG management |
-| `odoo-orm` | `claude-code` | Models, fields, ORM patterns |
-| `odoo-module` | `claude-code` | Module structure and manifest |
-| `odoo-controllers` | `opencode` | HTTP routes and JSON-RPC controllers |
-| `odoo-testing` | `opencode` | Python tests for Odoo |
-| `odoo-security` | `opencode` | Access rights and security rules |
-| `odoo-debug` | `opencode` | Debugging tools and shell usage |
-| `odoo-data` | `codex` | Data and demo XML files |
-| `odoo-wizards` | `codex` | TransientModel wizards |
-| `odoo-cron` | `codex` | Scheduled actions |
-| `odoo-performance` | `codex` | ORM optimization and N+1 patterns |
-| `odoo-migration` | `codex` | Module migration between Odoo versions |
+**Eligible agents**: `claude-code`, `opencode`, `codex`
 
-### Documentation & design skills (.md, .mdx, XML views, diagrams)
+| Skill | Description |
+|-------|-------------|
+| `odoo-commit` | Git commit conventions |
+| `odoo-pr` | Pull Request workflow |
+| `odoo-ci` | CI/CD and GitHub Actions |
+| `odoo-changelog` | CHANGELOG management |
+| `odoo-orm` | Models, fields, ORM patterns |
+| `odoo-module` | Module structure and manifest |
+| `odoo-controllers` | HTTP routes and JSON-RPC controllers |
+| `odoo-testing` | Python tests for Odoo |
+| `odoo-security` | Access rights and security rules |
+| `odoo-debug` | Debugging tools and shell usage |
+| `odoo-data` | Data and demo XML files |
+| `odoo-wizards` | TransientModel wizards |
+| `odoo-cron` | Scheduled actions |
+| `odoo-performance` | ORM optimization and N+1 patterns |
+| `odoo-migration` | Module migration between Odoo versions |
+| `odoo-docker` | Docker setup for Odoo |
+| `odoo-mail` | mail.thread / Chatter integration |
 
-| Skill | Owner | Description |
-|-------|-------|-------------|
-| `odoo-views` | `gemini-cli` | XML views (form, tree, kanban, search) |
-| `odoo-owl` | `gemini-cli` | OWL components (v17+) |
-| `odoo-qweb` | `gemini-cli` | QWeb templates and PDF reports |
-| `odoo-v17-changes` | `gemini-cli` | v16→v17 migration guide |
-| `odoo-v18-changes` | `gemini-cli` | v17→v18 migration guide |
-| `odoo-docker` | `gemini-cli` | Docker setup for Odoo |
-| `odoo-mail` | `gemini-cli` | mail.thread / Chatter integration |
+### Documentation & design skills (XML views, OWL, QWeb, Markdown)
 
-> If you need a skill assigned to you, open an Issue with the label `skill-request`.
+**Eligible agent**: `gemini-cli` only
+
+| Skill | Description |
+|-------|-------------|
+| `odoo-views` | XML views (form, tree, kanban, search) |
+| `odoo-owl` | OWL components (v17+) |
+| `odoo-qweb` | QWeb templates and PDF reports |
+| `odoo-v17-changes` | v16→v17 migration guide |
+| `odoo-v18-changes` | v17→v18 migration guide |
+
+> If you need a new skill category, open an Issue with the label `skill-request`.
 
 ---
 
@@ -172,7 +176,7 @@ Before opening a PR for a new skill, verify:
 
 ## 7. Code of Conduct
 
-- Respect ownership boundaries — do not modify another agent's skill files
+- Respect category boundaries — programming agents do not modify documentation & design skills, and vice versa
 - Keep PRs focused — one skill per PR
 - If you discover a bug in another agent's skill, open an Issue rather than fixing it directly
 - All contributions are released under the MIT License
