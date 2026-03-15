@@ -6,6 +6,14 @@
 - auto-update CHANGELOG.md on every release
 ---
 
+## [0.7.2] - 2026-03-15
+
+### 🐞 Fixed
+
+- add --no-merges flag and fix CHANGELOG insert position
+
+---
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
