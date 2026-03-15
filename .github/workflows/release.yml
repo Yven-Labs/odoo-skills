@@ -177,10 +177,15 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
 
-          # Insert new entry after the CHANGELOG preamble (after the first ---)
+          # Insert new entry after the preamble --- (the one that follows # Changelog)
           ENTRY=$(cat /tmp/changelog_entry.txt)
-          # Find the line number of the first --- separator (end of preamble)
-          SPLIT=$(grep -n "^---$" CHANGELOG.md | head -1 | cut -d: -f1)
+          # Find the --- that comes after the "# Changelog" header line
+          HEADER_LINE=$(grep -n "^# Changelog" CHANGELOG.md | head -1 | cut -d: -f1)
+          if [ -n "$HEADER_LINE" ]; then
+            SPLIT=$(awk -v start="$HEADER_LINE" 'NR > start && /^---$/ {print NR; exit}' CHANGELOG.md)
+          else
+            SPLIT=$(grep -n "^---$" CHANGELOG.md | head -1 | cut -d: -f1)
+          fi
           if [ -n "$SPLIT" ]; then
             HEAD_LINES=$(head -n "$SPLIT" CHANGELOG.md)
             TAIL_LINES=$(tail -n +$((SPLIT + 1)) CHANGELOG.md)
