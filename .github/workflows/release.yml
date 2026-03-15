@@ -108,22 +108,84 @@ jobs:
               AGENTS.md README.md LICENSE
           fi
 
-      - name: Generate release notes
+      - name: Generate CHANGELOG entry
         if: steps.tag_check.outputs.SKIP == 'false'
         run: |
           set -euo pipefail
 
+          VERSION="${{ steps.version.outputs.VERSION }}"
           PREV_TAG="${{ steps.version.outputs.PREV_TAG }}"
+          TODAY=$(date -u +%Y-%m-%d)
 
           if [ -z "$PREV_TAG" ]; then
-            NOTES=$(git log --oneline --no-decorate | head -20)
+            COMMITS=$(git log --pretty=format:"%s" | head -30)
           else
-            NOTES=$(git log "${PREV_TAG}..HEAD" --oneline --no-decorate)
+            COMMITS=$(git log "${PREV_TAG}..HEAD" --pretty=format:"%s")
           fi
 
-          echo "$NOTES" > /tmp/release_notes.txt
-          echo "Notes preview:"
-          cat /tmp/release_notes.txt
+          # Categorize commits — skip merge commits and chore
+          ADDED=""
+          CHANGED=""
+          FIXED=""
+
+          while IFS= read -r line; do
+            [[ "$line" =~ ^[Mm]erge ]] && continue
+            if [[ "$line" =~ ^feat ]]; then
+              MSG=$(echo "$line" | sed -E 's/^feat\([^)]*\): //;s/^feat: //')
+              ADDED="${ADDED}- ${MSG}\n"
+            elif [[ "$line" =~ ^fix ]]; then
+              MSG=$(echo "$line" | sed -E 's/^fix\([^)]*\): //;s/^fix: //')
+              FIXED="${FIXED}- ${MSG}\n"
+            elif [[ "$line" =~ ^(docs|refactor|style|perf) ]]; then
+              MSG=$(echo "$line" | sed -E 's/^[a-z]+\([^)]*\): //;s/^[a-z]+: //')
+              CHANGED="${CHANGED}- ${MSG}\n"
+            fi
+          done <<< "$COMMITS"
+
+          # Build entry — fallback if all commits were chore/merge
+          ENTRY="## [${VERSION}] - ${TODAY}\n\n"
+          SECTIONS=0
+
+          if [ -n "$ADDED" ]; then
+            ENTRY="${ENTRY}### 🚀 Added\n\n${ADDED}\n"
+            SECTIONS=$((SECTIONS + 1))
+          fi
+          if [ -n "$CHANGED" ]; then
+            ENTRY="${ENTRY}### 🔄 Changed\n\n${CHANGED}\n"
+            SECTIONS=$((SECTIONS + 1))
+          fi
+          if [ -n "$FIXED" ]; then
+            ENTRY="${ENTRY}### 🐞 Fixed\n\n${FIXED}\n"
+            SECTIONS=$((SECTIONS + 1))
+          fi
+          if [ "$SECTIONS" -eq 0 ]; then
+            ENTRY="${ENTRY}### 🔄 Changed\n\n- Maintenance and internal improvements\n"
+          fi
+
+          printf "%b" "$ENTRY" > /tmp/changelog_entry.txt
+          echo "Generated CHANGELOG entry:"
+          cat /tmp/changelog_entry.txt
+
+      - name: Update CHANGELOG.md
+        if: steps.tag_check.outputs.SKIP == 'false'
+        run: |
+          set -euo pipefail
+
+          VERSION="${{ steps.version.outputs.VERSION }}"
+
+          # Configure git identity for CI commit
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          # Prepend the new entry to CHANGELOG.md
+          ENTRY=$(cat /tmp/changelog_entry.txt)
+          EXISTING=$(cat CHANGELOG.md)
+          printf "%s\n---\n\n%s" "$ENTRY" "$EXISTING" > CHANGELOG.md
+
+          # Commit and push back to main
+          git add CHANGELOG.md
+          git commit -m "chore(release): update CHANGELOG.md for v${VERSION}"
+          git push origin main
 
       - name: Create GitHub Release
         if: steps.tag_check.outputs.SKIP == 'false'
@@ -131,7 +193,7 @@ jobs:
         with:
           tag_name: v${{ steps.version.outputs.VERSION }}
           name: "odoo-skills v${{ steps.version.outputs.VERSION }}"
-          body_path: /tmp/release_notes.txt
+          body_path: /tmp/changelog_entry.txt
           files: dist/odoo-skills-v${{ steps.version.outputs.VERSION }}.zip
           draft: false
           prerelease: false
