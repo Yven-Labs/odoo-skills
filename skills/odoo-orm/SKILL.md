@@ -73,7 +73,7 @@ def _compute_display_name(self):
 # ❌ WRONG — old tuple syntax, error-prone and implicit
 vals['line_ids'] = [(0, 0, {'name': 'line1', 'qty': 1})]
 
-# ✅ CORRECT — explicit Command API (available since v16, required style in v17+)
+# ✅ CORRECT — explicit Command API (required style in v17+)
 from odoo import Command
 vals['line_ids'] = [Command.create({'name': 'line1', 'qty': 1})]
 ```
@@ -225,7 +225,7 @@ def unlink(self):
     return super().unlink()
 ```
 
-> **Note**: Use `@api.model_create_multi` (not `@api.model`) in v16+ for batch creates.
+> **Note**: Use `@api.model_create_multi` (not `@api.model`) in v17+ for batch creates.
 
 ---
 
@@ -254,6 +254,6 @@ def unlink(self):
 | File                                | Content                                           |
 | ----------------------------------- | ------------------------------------------------- |
 | `references/field-types.md`         | All field types with parameters and version notes |
-| `references/version-differences.md` | ORM changes across v16 / v17 / v18                |
+| `references/version-differences.md` | ORM changes across v17 / v18                      |
 
 ---
