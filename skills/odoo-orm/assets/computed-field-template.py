@@ -117,3 +117,35 @@ class ComputedFieldExamples(models.Model):
     def _compute_currency_symbol(self):
         for rec in self:
             rec.company_currency_symbol = rec.company_id.currency_id.symbol or ''
+
+    # =============================================================================
+    # PATTERN 6: COMPUTED FIELD DEPENDING ON MANY2MANY
+    # Use @api.depends on the Many2many field itself. Odoo invalidates the
+    # computed field whenever tags are added, removed, or the tag records change.
+    # Use when: you need to derive a value from the set of linked records
+    # (e.g. check membership, count items, or aggregate a field on linked records).
+    # =============================================================================
+
+    tag_ids = fields.Many2many('example.tag', string='Tags')
+
+    is_tagged = fields.Boolean(
+        string='Has Tags',
+        compute='_compute_is_tagged',
+        # store=False — changes too often to justify a DB column;
+        # only needed for display logic, not search or group-by
+    )
+    tag_count = fields.Integer(
+        string='Tag Count',
+        compute='_compute_tag_count',
+        store=True,   # store=True — useful for filtering "show only records with tags"
+    )
+
+    @api.depends('tag_ids')
+    def _compute_is_tagged(self):
+        for rec in self:
+            rec.is_tagged = bool(rec.tag_ids)
+
+    @api.depends('tag_ids')
+    def _compute_tag_count(self):
+        for rec in self:
+            rec.tag_count = len(rec.tag_ids)

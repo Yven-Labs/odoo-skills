@@ -64,6 +64,13 @@ class ModelName(models.Model):
         inverse_name='parent_id',
         string='Lines',
     )
+    tag_ids = fields.Many2many(
+        comodel_name='prefix.model.tag',
+        relation='prefix_model_tag_rel',  # explicit table name — avoids conflicts if you
+        column1='model_id',               # have multiple Many2many to the same comodel
+        column2='tag_id',
+        string='Tags',
+    )
     notes = fields.Html(string='Notes', sanitize=True)
 
     # =============================================================================
@@ -89,7 +96,7 @@ class ModelName(models.Model):
     # ORM OVERRIDES
     # =============================================================================
 
-    @api.model_create_multi           # v14+ — receives a list of dicts, not a single dict
+    @api.model_create_multi           # v17+ — receives a list of dicts, not a single dict
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('name', _('New')) == _('New'):
