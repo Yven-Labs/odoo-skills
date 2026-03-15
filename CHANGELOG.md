@@ -15,6 +15,85 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.7.1] - 2026-03-15
+
+### 🐞 Fixed
+
+- CI release pipeline now auto-updates `CHANGELOG.md` on every release using conventional commit categorization [(#20)](https://github.com/Yven-Labs/odoo-skills/pull/20)
+
+---
+
+## [0.7.0] - 2026-03-15
+
+### 🚀 Added
+
+- Many2many field examples added to `model-template.py` and `computed-field-template.py` with explicit `relation`, `column1`, `column2` params [(#18)](https://github.com/Yven-Labs/odoo-skills/pull/18)
+
+### 🔄 Changed
+
+- `odoo-orm` skill assets and references restricted to v17/v18 only — all v16 references removed [(#18)](https://github.com/Yven-Labs/odoo-skills/pull/18)
+
+---
+
+## [0.6.0] - 2026-03-15
+
+### 🚀 Added
+
+- `odoo-orm` skill: multi-version detection from `__manifest__.py` with `[v17+]` tags on Critical Rules [(#16)](https://github.com/Yven-Labs/odoo-skills/pull/16)
+- `supported_versions`, `default_version`, and `detect_from` metadata fields in `odoo-orm` SKILL.md [(#16)](https://github.com/Yven-Labs/odoo-skills/pull/16)
+- `Version Detection` section in `odoo-orm` SKILL.md with agent instructions for parsing Odoo version [(#16)](https://github.com/Yven-Labs/odoo-skills/pull/16)
+
+---
+
+## [0.5.1] - 2026-03-15
+
+### 🔄 Changed
+
+- `odoo-orm` skill assets and references restructured with 2-line headers, ALL CAPS section separators, and GOOD/BAD contrast patterns [(#14)](https://github.com/Yven-Labs/odoo-skills/pull/14)
+
+---
+
+## [0.5.0] - 2026-03-14
+
+### 🚀 Added
+
+- `odoo-orm` skill with model template, computed field patterns, x2many Command API examples, field-types reference, and version-differences reference [(#11)](https://github.com/Yven-Labs/odoo-skills/pull/11)
+- `odoo-module` skill for `__manifest__.py` scaffolding and module structure conventions [(#12)](https://github.com/Yven-Labs/odoo-skills/pull/12)
+
+---
+
+## [0.4.1] - 2026-03-14
+
+### 🔄 Changed
+
+- Simplified agent ownership model: all programming agents are interchangeable; Gemini CLI assigned to views/OWL/QWeb/Markdown only [(#8)](https://github.com/Yven-Labs/odoo-skills/pull/8)
+
+---
+
+## [0.4.0] - 2026-03-14
+
+### 🚀 Added
+
+- Multi-agent coordination workflow documentation in `AGENTS.md` [(#6)](https://github.com/Yven-Labs/odoo-skills/pull/6)
+
+---
+
+## [0.3.0] - 2026-03-14
+
+### 🚀 Added
+
+- Automatic version computation from conventional commits in `release.yml` — replaces `PRD.md` as version source of truth [(#3)](https://github.com/Yven-Labs/odoo-skills/pull/3)
+
+### 🔄 Changed
+
+- Unified Skill ID terminology across all skill files and local sync script [(#3)](https://github.com/Yven-Labs/odoo-skills/pull/3)
+
+### 🐞 Fixed
+
+- Skill ID detection in `sync.sh` refined to target labels only, avoiding false positives on doc mentions [(#3)](https://github.com/Yven-Labs/odoo-skills/pull/3)
+
+---
+
 ## [0.2.0] - 2026-03-14
 
 ### 🚀 Added
