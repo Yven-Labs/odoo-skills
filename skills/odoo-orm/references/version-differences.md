@@ -1,32 +1,32 @@
-# ORM Version Differences — v16 / v17 / v18
+# ORM Version Differences — v17 / v18
 
 ## Breaking Changes Summary
 
-| Feature | v16 | v17 | v18 |
-|---------|-----|-----|-----|
-| `name_get()` | ✅ Works | ⚠️ Deprecated | ❌ Removed |
-| `display_name` computed | Optional | Recommended | Required if custom |
-| `attrs=` in XML views | ✅ Works | ❌ Removed | ❌ Removed |
-| Inline Python expressions in views | Optional | ✅ Required | ✅ Required |
-| `Command` API | ✅ Available | ✅ Recommended | ✅ Recommended |
-| Tuple syntax `(0,0,{})` | ✅ Works | ⚠️ Discouraged | ⚠️ Discouraged |
-| `@api.model_create_multi` | ✅ Available | ✅ Recommended | ✅ Recommended |
-| `type="json"` in controllers | ✅ Works | ❌ Renamed | ❌ Renamed |
-| `type="jsonrpc"` in controllers | ❌ Not exists | ✅ Required | ✅ Required |
-| `mail.channel` model | ✅ Works | ❌ Renamed | ❌ Renamed |
-| `discuss.channel` model | ❌ Not exists | ✅ Required | ✅ Required |
+| Feature | v17 | v18 |
+|---------|-----|-----|
+| `name_get()` | ⚠️ Deprecated | ❌ Removed |
+| `display_name` computed | Recommended | Required if custom |
+| `attrs=` in XML views | ❌ Removed | ❌ Removed |
+| Inline Python expressions in views | ✅ Required | ✅ Required |
+| `Command` API | ✅ Recommended | ✅ Recommended |
+| Tuple syntax `(0,0,{})` | ⚠️ Discouraged | ⚠️ Discouraged |
+| `@api.model_create_multi` | ✅ Recommended | ✅ Recommended |
+| `type="json"` in controllers | ❌ Renamed | ❌ Renamed |
+| `type="jsonrpc"` in controllers | ✅ Required | ✅ Required |
+| `mail.channel` model | ❌ Renamed | ❌ Renamed |
+| `discuss.channel` model | ✅ Required | ✅ Required |
 
 ---
 
 ## name_get() → display_name
 
-### v16 (still works)
+### ❌ WRONG (deprecated v17, removed v18)
 ```python
 def name_get(self):
     return [(rec.id, f'[{rec.code}] {rec.name}') for rec in self]
 ```
 
-### v17+ (correct approach)
+### ✅ CORRECT (v17+)
 ```python
 # Option A — simple: use _rec_name
 _rec_name = 'name'
@@ -44,14 +44,14 @@ def _compute_display_name(self):
 
 ## XML View Conditionals
 
-### v16 (attrs — removed in v17)
+### ❌ WRONG — attrs removed in v17
 ```xml
 <field name="date_end"
        attrs="{'invisible': [('type', '!=', 'fixed')],
                'required': [('type', '=', 'fixed')]}"/>
 ```
 
-### v17+ (inline Python expressions)
+### ✅ CORRECT (v17+)
 ```xml
 <field name="date_end"
        invisible="type != 'fixed'"
@@ -62,7 +62,7 @@ def _compute_display_name(self):
 
 ## x2many Syntax
 
-### v16 (tuples — still work but discouraged)
+### ❌ WRONG — old tuple syntax (discouraged v17+)
 ```python
 order.write({
     'line_ids': [
@@ -73,7 +73,7 @@ order.write({
 })
 ```
 
-### v16+ (Command API — recommended)
+### ✅ CORRECT — Command API (v17+)
 ```python
 from odoo import Command
 
@@ -90,12 +90,12 @@ order.write({
 
 ## Controller Route Type
 
-### v16
+### ❌ WRONG (renamed in v17)
 ```python
 @http.route('/api/endpoint', type='json', auth='user')
 ```
 
-### v17+
+### ✅ CORRECT (v17+)
 ```python
 @http.route('/api/endpoint', type='jsonrpc', auth='user')
 ```
@@ -104,12 +104,12 @@ order.write({
 
 ## Messaging / Chatter Model
 
-### v16
+### ❌ WRONG (renamed in v17)
 ```python
 partner_id = fields.Many2one('mail.channel')
 ```
 
-### v17+
+### ✅ CORRECT (v17+)
 ```python
 partner_id = fields.Many2one('discuss.channel')
 ```
@@ -118,15 +118,7 @@ partner_id = fields.Many2one('discuss.channel')
 
 ## create() Override
 
-### v13 and earlier
-```python
-@api.model
-def create(self, vals):
-    # vals is a single dict
-    return super().create(vals)
-```
-
-### v14+ (batch-aware)
+### ✅ CORRECT — batch-aware (v17+)
 ```python
 @api.model_create_multi
 def create(self, vals_list):
@@ -138,7 +130,7 @@ def create(self, vals_list):
 
 ---
 
-## OCA Naming Conventions (All Versions)
+## OCA Naming Conventions (v17 / v18)
 
 | Element | Convention | Example |
 |---------|-----------|---------|

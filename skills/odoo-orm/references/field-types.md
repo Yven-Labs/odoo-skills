@@ -30,7 +30,7 @@
 | Type | Python class | Notes |
 |------|-------------|-------|
 | `Reference` | `fields.Reference` | Dynamic M2o — stores model name + ID. Rarely used |
-| `Properties` | `fields.Properties` | v16.3+ — flexible key-value store. Used in project/tasks |
+| `Properties` | `fields.Properties` | Flexible key-value store. Used in project/tasks |
 
 ## Common Parameters (All Fields)
 
@@ -54,10 +54,10 @@
 
 ## Version Notes
 
-| Feature | v16 | v17 | v18 |
-|---------|-----|-----|-----|
-| `fields.Image` | ✅ | ✅ | ✅ |
-| `fields.Properties` | ✅ (16.3+) | ✅ | ✅ |
-| `tracking=True` on Selection | ✅ | ✅ | ✅ |
-| `index='trigram'` (full-text) | ✅ | ✅ | ✅ |
-| `translate=True` on Html | ✅ | ✅ | ✅ |
+| Feature | v17 | v18 |
+|---------|-----|-----|
+| `fields.Image` | ✅ | ✅ |
+| `fields.Properties` | ✅ | ✅ |
+| `tracking=True` on Selection | ✅ | ✅ |
+| `index='trigram'` (full-text) | ✅ | ✅ |
+| `translate=True` on Html | ✅ | ✅ |
