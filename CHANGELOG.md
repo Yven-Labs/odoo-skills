@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.7.4] - 2026-03-16
+
+### 🐞 Fixed
+
+- correct AGENTS.md reference check in sync.sh
+
+---
+
 ## [0.7.3] - 2026-03-15
 
 ### 🐞 Fixed
