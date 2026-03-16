@@ -22,7 +22,7 @@ echo -e "Checking skill references in AGENTS.md..."
 missing_skills=0
 for skill_path in "$SKILLS_DIR"/*/; do
     skill_name=$(basename "$skill_path")
-    if ! grep -q "skills/$skill_name/" "$AGENTS_FILE"; then
+    if ! grep -q "\`$skill_name\`" "$AGENTS_FILE"; then
         echo -e "${RED}[MISSING]${NC} Skill '$skill_name' is not referenced in AGENTS.md"
         missing_skills=$((missing_skills + 1))
     fi
