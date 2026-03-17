@@ -4,7 +4,7 @@
 
 | Resource | URL |
 |----------|-----|
-| OCA Coding Guidelines | https://github.com/OCA/odoo-community.org/blob/master/website/Ede/Contribute/develop.rst |
+| OCA Coding Guidelines | https://github.com/OCA/odoo-community.org/blob/master/website/Contribution/CONTRIBUTING.rst |
 | OCA Maintainer Tools | https://github.com/OCA/maintainer-tools |
 | OCA Pre-commit Config | https://github.com/OCA/oca-addons-repo-template |
 | Odoo Guidelines (official) | https://www.odoo.com/documentation/17.0/contributing/development.html |
