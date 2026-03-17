@@ -44,7 +44,7 @@ from odoo.addons.my_module.utils import helper_function
 
 ## Manifest Version Format
 
-```
+```text
 {odoo_version}.{major}.{minor}.{patch}
 ```
 
@@ -82,7 +82,7 @@ After breaking change: `17.0.2.0.0`
 
 ## Folder Structure (OCA Standard)
 
-```
+```text
 my_module/
 ├── __init__.py
 ├── __manifest__.py

@@ -197,7 +197,7 @@ class SaleReport(models.Model):
 
 Every module MUST organize files as:
 
-```
+```text
 my_module/
 ├── __init__.py
 ├── __manifest__.py
