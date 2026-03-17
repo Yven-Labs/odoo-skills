@@ -137,7 +137,7 @@ Module-specific skills are created ONLY when a module has **unique development p
 
 | #   | Skill           | What it teaches                                      | Version Impact                                                                         |
 | --- | --------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| 1   | `odoo`          | Overview: stack, components, versions, Python matrix | Version matrix                                                                         |
+| 1   | `odoo-overview` | Overview: stack, components, versions, Python matrix | Version matrix                                                                         |
 | 2   | `odoo-module`   | Module structure, `__manifest__.py`, data files      | v17+ changes                                                                           |
 | 3   | `odoo-orm`      | Models, fields, decorators, recordsets, CRUD         | ⚠️ Heavy: name_get→_compute_display_name, Command objects, ir_property→JSONB, group_ids |
 | 4   | `odoo-views`    | Form, tree, kanban, search, inheritance              | ⚠️ Heavy: attrs removed v17                                                             |

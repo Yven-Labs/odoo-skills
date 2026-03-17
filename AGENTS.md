@@ -1,7 +1,7 @@
 # odoo-skills — Code Review Rules & Skill Router
 
 > **Every Odoo version. Every module. Every AI assistant. One skill library.**
-> 
+>
 > Created by [Geraldow](https://github.com/Geraldow)
 > License: [MIT](LICENSE)
 
@@ -17,7 +17,31 @@ This is the central routing and rules file for the Odoo AI Skills Ecosystem. It 
 
 ---
 
-## 2. Universal Rules
+## 2. Available Skills
+
+Use these skills for detailed patterns on-demand:
+
+### Odoo Development Skills
+
+| Skill             | Description                                          | URL                                                      |
+| ----------------- | ---------------------------------------------------- | -------------------------------------------------------- |
+| `odoo-overview`   | Stack overview, version matrix, component map        | [SKILL.md](skills/odoo-overview/SKILL.md)                |
+| `odoo-module`     | Module structure, `__manifest__.py`, data files      | [SKILL.md](skills/odoo-module/SKILL.md)                  |
+| `odoo-orm`        | Models, fields, decorators, recordsets, CRUD         | [SKILL.md](skills/odoo-orm/SKILL.md)                     |
+| `odoo-oca`        | OCA conventions: naming, versioning, manifest        | [SKILL.md](skills/odoo-oca/SKILL.md)                     |
+
+### DevOps & Workflow Skills
+
+| Skill             | Description                                          | URL                                                      |
+| ----------------- | ---------------------------------------------------- | -------------------------------------------------------- |
+| `odoo-commit`     | Conventional commits for Odoo projects               | [SKILL.md](skills/odoo-commit/SKILL.md)                  |
+| `odoo-pr`         | Pull request template and conventions                | [SKILL.md](skills/odoo-pr/SKILL.md)                      |
+| `odoo-ci`         | CI checks, GitHub Actions, release pipelines         | [SKILL.md](skills/odoo-ci/SKILL.md)                      |
+| `odoo-changelog`  | CHANGELOG.md entries and format                      | [SKILL.md](skills/odoo-changelog/SKILL.md)               |
+
+---
+
+## 3. Universal Rules
 
 REJECT if:
 - Hardcoded secrets, tokens, API keys, or credentials.
@@ -27,65 +51,56 @@ REJECT if:
 
 ---
 
-## 3. Auto-invoke Skill Table (Master Router)
+## 4. Auto-invoke Skill Table (Master Router)
 
 When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
-| Action | Skill |
-|--------|-------|
-| Creating Odoo models or fields | `odoo-orm` |
-| Defining computed fields or constrains | `odoo-orm` |
-| Using recordset operations | `odoo-orm` |
-| Creating XML form/tree/kanban views | `odoo-views` |
-| Inheriting or extending views | `odoo-views` |
-| Adding security groups or access rules | `odoo-security` |
-| Creating `ir.model.access.csv` | `odoo-security` |
-| Writing Python tests for Odoo | `odoo-testing` |
-| Creating HTTP controllers / routes | `odoo-controllers` |
-| Creating OWL components (v17+) | `odoo-owl` |
-| Creating QWeb templates or PDF reports | `odoo-qweb` |
-| Creating TransientModel wizards | `odoo-wizards` |
-| Adding mail.thread to model (Chatter) | `odoo-mail` |
-| Creating scheduled actions (cron) | `odoo-cron` |
-| Optimizing ORM performance / N+1 | `odoo-performance` |
-| Migrating module to new Odoo version | `odoo-migration` |
-| Creating `__manifest__.py` | `odoo-module` |
-| Creating new Odoo module from scratch | `odoo-module` |
-| Creating data/demo XML files | `odoo-data` |
-| Following OCA conventions | `odoo-oca` |
-| Setting up Docker for Odoo | `odoo-docker` |
-| Debugging with Odoo shell or logging | `odoo-debug` |
-| Committing changes in an Odoo project | `odoo-commit` |
-| Creating a pull request for an Odoo module or project | `odoo-pr` |
-| Debugging CI failures in `.github/workflows/` | `odoo-ci` |
-| Working with release pipelines or version bumps | `odoo-ci` |
-| Updating or adding entries to `CHANGELOG.md` | `odoo-changelog` |
-| General Odoo architecture questions | `odoo` |
-| Understanding v16→v17 changes | `odoo-v17-changes` |
-| Understanding v17→v18 changes | `odoo-v18-changes` |
+| Action                                                | Skill              |
+| ----------------------------------------------------- | ------------------ |
+| Creating Odoo models or fields                        | `odoo-orm`         |
+| Defining computed fields or constrains                | `odoo-orm`         |
+| Using recordset operations                            | `odoo-orm`         |
+| Creating XML form/tree/kanban views                   | `odoo-views`       |
+| Inheriting or extending views                         | `odoo-views`       |
+| Adding security groups or access rules                | `odoo-security`    |
+| Creating `ir.model.access.csv`                        | `odoo-security`    |
+| Writing Python tests for Odoo                         | `odoo-testing`     |
+| Creating HTTP controllers / routes                    | `odoo-controllers` |
+| Creating OWL components (v17+)                        | `odoo-owl`         |
+| Creating QWeb templates or PDF reports                | `odoo-qweb`        |
+| Creating TransientModel wizards                       | `odoo-wizards`     |
+| Adding mail.thread to model (Chatter)                 | `odoo-mail`        |
+| Creating scheduled actions (cron)                     | `odoo-cron`        |
+| Optimizing ORM performance / N+1                      | `odoo-performance` |
+| Migrating module to new Odoo version                  | `odoo-migration`   |
+| Creating `__manifest__.py`                            | `odoo-module`      |
+| Creating new Odoo module from scratch                 | `odoo-module`      |
+| Creating data/demo XML files                          | `odoo-data`        |
+| Following OCA conventions                             | `odoo-oca`         |
+| Setting up Docker for Odoo                            | `odoo-docker`      |
+| Debugging with Odoo shell or logging                  | `odoo-debug`       |
+| Committing changes in an Odoo project                 | `odoo-commit`      |
+| Creating a pull request for an Odoo module or project | `odoo-pr`          |
+| Debugging CI failures in `.github/workflows/`         | `odoo-ci`          |
+| Working with release pipelines or version bumps       | `odoo-ci`          |
+| Updating or adding entries to `CHANGELOG.md`          | `odoo-changelog`   |
+| General Odoo architecture questions                   | `odoo-overview`    |
+| Understanding v16→v17 changes                         | `odoo-v17-changes` |
+| Understanding v17→v18 changes                         | `odoo-v18-changes` |
 
 ---
 
-## 4. Odoo Code Review Standards
+## 5. Odoo Code Review Standards
 
-### 4.1 Backend (Python & Security)
-- **Atribución Geraldow**: Ensure any derivative works mention Geraldow (GitHub: Geraldow).
+### 5.1 Backend (Python & Security)
 - **ORM**: Use `Command` objects for x2many fields in Odoo 17+.
 - **Security**: Every new model MUST have an entry in `ir.model.access.csv`.
 - **Naming**: Follow OCA naming conventions (lowercase, underscore).
 
-### 4.2 Frontend (OWL & XML)
+### 5.2 Frontend (OWL & XML)
 - **Views**: For Odoo 17+, use inline Python expressions instead of the `attrs` attribute.
 - **OWL**: Reactivity must use signals/hooks as per Odoo version requirements.
 - **QWeb**: Use `t-out` instead of `t-raw` for v17+.
-
----
-
-## 5. Metadata
-
-- **Author**: [Geraldow](https://github.com/Geraldow)
-- **Repository**: [https://github.com/Yven-Labs/odoo-skills](https://github.com/Yven-Labs/odoo-skills)
-- **License**: MIT
 
 ---
 
@@ -95,13 +110,13 @@ This section defines which AI agent owns each skill and their branch convention.
 
 ### Agent Roster
 
-| Agent | ID | Role | Skill Category | Branch Pattern |
-|-------|----|------|----------------|----------------|
-| Claude Code | `claude-code` | Programming | All programming & infrastructure skills | `agent/claude-code/*` |
-| OpenCode | `opencode` | Programming | All programming & infrastructure skills | `agent/opencode/*` |
-| Codex | `codex` | Programming | All programming & infrastructure skills | `agent/codex/*` |
-| Gemini CLI | `gemini-cli` | Documentation & design | XML views, OWL, QWeb, Markdown guides | `agent/gemini-cli/*` |
-| Geraldow | `geraldow` | Author & reviewer | All frozen files, PRD, README | `develop` (direct) |
+| Agent       | ID            | Role                   | Skill Category                          | Branch Pattern        |
+| ----------- | ------------- | ---------------------- | --------------------------------------- | --------------------- |
+| Claude Code | `claude-code` | Programming            | All programming & infrastructure skills | `agent/claude-code/*` |
+| OpenCode    | `opencode`    | Programming            | All programming & infrastructure skills | `agent/opencode/*`    |
+| Codex       | `codex`       | Programming            | All programming & infrastructure skills | `agent/codex/*`       |
+| Gemini CLI  | `gemini-cli`  | Documentation & design | XML views, OWL, QWeb, Markdown guides   | `agent/gemini-cli/*`  |
+| Geraldow    | `geraldow`    | Author & reviewer      | All frozen files, PRD, README           | `develop` (direct)    |
 
 ### Frozen Files
 
