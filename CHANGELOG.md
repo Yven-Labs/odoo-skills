@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.8.0] - 2026-03-17
+
+### 🚀 Added
+
+- add odoo-oca skill — OCA naming conventions and guidelines
+
+### 🐞 Fixed
+
+- correct broken OCA Coding Guidelines URL
+- add missing language identifiers to code blocks
+
+---
+
 ## [0.7.4] - 2026-03-16
 
 ### 🐞 Fixed
