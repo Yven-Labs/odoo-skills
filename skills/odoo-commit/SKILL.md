@@ -38,14 +38,16 @@ type(scope): concise description
 
 ### Types
 
-| Type       | Use When                                            |
-| :--------- | :-------------------------------------------------- |
-| `feat`     | New skill added or major new functionality          |
-| `fix`      | Correcting a technical error in a skill or script   |
-| `docs`     | Changes to PRD.md, README.md, or reference files    |
-| `chore`    | Version bumps, CI maintenance, metadata updates     |
-| `refactor` | Restructuring skill files without changing behavior |
-| `style`    | Markdown formatting fixes, no content change        |
+| Type       | Use When                           |
+| ---------- | ---------------------------------- |
+| `feat`     | New feature or functionality       |
+| `fix`      | Bug fix                            |
+| `docs`     | Documentation only                 |
+| `chore`    | Maintenance, dependencies, configs |
+| `refactor` | Code change without feature/fix    |
+| `test`     | Adding or updating tests           |
+| `perf`     | Performance improvement            |
+| `style`    | Formatting, no code change         |
 
 ### Scopes
 
@@ -105,9 +107,15 @@ git diff --stat HEAD
 git log -3 --oneline
 ```
 
-2. **Draft message**: Choose type and scope, write concise title, add 2–5 bullets.
+2. **Draft commit message**
+   - Choose appropriate type and scope
+   - Write concise title (< 72 chars)
+   - Add 2-5 bullet points for significant changes
 
-3. **Present to user**: Show files to be committed, the proposed message, and wait for explicit confirmation.
+3. **Present to user for confirmation**
+   - Show files to be committed
+   - Show proposed message
+   - Wait for explicit confirmation
 
 4. **Execute**:
 ```bash
@@ -153,11 +161,3 @@ If you are contributing to the `odoo-skills` library itself:
 3. Run `sync.sh` (when available) to validate UID uniqueness.
 
 For standard Odoo project commits (models, views, security, etc.), this check does NOT apply.
-
----
-
-## Metadata
-
-- **Skill ID**: ODSK-SKL-COMMIT
-- **Author**: [Geraldow](https://github.com/Geraldow)
-- **Repo**: https://github.com/Yven-Labs/odoo-skills
