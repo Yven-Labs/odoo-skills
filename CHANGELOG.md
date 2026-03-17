@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.10.0] - 2026-03-17
+
+### 🚀 Added
+
+- add unified installer with agent auto-detection
+
+---
+
+## [0.9.0] - 2026-03-17
+
+### 🚀 Added
+
+- add odoo-overview skill — stack overview and version matrix
+
+### 🔄 Changed
+
+- rename odoo skill to odoo-overview in Tier 1 table
+- restructure AGENTS.md — add Available Skills table
+
+---
+
+## [0.8.0] - 2026-03-17
+
+### 🚀 Added
+
+- add odoo-oca skill — OCA naming conventions and guidelines
+
+### 🐞 Fixed
+
+- correct broken OCA Coding Guidelines URL
+- add missing language identifiers to code blocks
+
+---
+
+## [0.7.4] - 2026-03-16
+
+### 🐞 Fixed
+
+- correct AGENTS.md reference check in sync.sh
+
+---
+
 ## [0.7.3] - 2026-03-15
 
 ### 🐞 Fixed
