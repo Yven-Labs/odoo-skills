@@ -1,0 +1,36 @@
+# Odoo Skills Ecosystem — VS Code Copilot
+
+Add this to `.github/copilot-instructions.md` in your Odoo project root.
+
+<!-- BEGIN:odoo-skills -->
+## Odoo Skills Ecosystem
+
+This project uses the [odoo-skills](https://github.com/Geraldow/odoo-skills) library for AI-assisted Odoo development (v17/v18).
+
+### Auto-invoke Rules
+
+When working on Odoo code, ALWAYS check the `AGENTS.md` auto-invoke table before writing code. Key mappings:
+
+| Context | Skill |
+|---------|-------|
+| Models, fields, ORM | `odoo-orm` |
+| XML views | `odoo-views` |
+| Security rules | `odoo-security` |
+| Module structure | `odoo-module` |
+| OCA conventions | `odoo-oca` |
+| General architecture | `odoo-overview` |
+
+### Version Policy
+
+- Supported: Odoo **17** and **18** only
+- Default: Odoo **18** unless project specifies otherwise
+- Detect version from `__manifest__.py` → first segment of `version` field
+
+### Critical Rules (v17+)
+
+- Use inline expressions, NOT `attrs` in XML views
+- Use `Command` objects for x2many writes, NOT tuples
+- Use `_compute_display_name`, NOT `name_get()`
+- Use `type='jsonrpc'` in controllers, NOT `type='json'`
+- Every new model MUST have `ir.model.access.csv`
+<!-- END:odoo-skills -->
