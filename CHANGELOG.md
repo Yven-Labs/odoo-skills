@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.10.0] - 2026-03-17
+
+### 🚀 Added
+
+- add unified installer with agent auto-detection
+
+---
+
 ## [0.9.0] - 2026-03-17
 
 ### 🚀 Added
