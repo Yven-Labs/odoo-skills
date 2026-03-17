@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.10.1] - 2026-03-17
+
+### 🔄 Changed
+
+- improve odoo-commit skill with clearer types and workflow steps
+
+---
+
 ## [0.10.0] - 2026-03-17
 
 ### 🚀 Added
