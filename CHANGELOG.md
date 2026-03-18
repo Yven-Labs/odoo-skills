@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.11.0] - 2026-03-18
+
+### 🚀 Added
+
+- expand examples into complete drop-in orchestrator files
+
+### 🔄 Changed
+
+- fix tagline, remove double separator and footer
+
+---
+
 ## [0.10.1] - 2026-03-17
 
 ### 🔄 Changed
