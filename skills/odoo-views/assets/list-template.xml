@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Odoo Views Skill — List (Tree) View Template (v17/v18) -->
+<!-- Replace every occurrence of:
+       prefix.model  →  your actual model name (e.g. sale.order)
+-->
+<odoo>
+    <record id="view_prefix_model_list" model="ir.ui.view">
+        <field name="name">prefix.model.list</field>
+        <field name="model">prefix.model</field>
+        <field name="arch" type="xml">
+
+            <!-- ============================================================
+                 <list> is the preferred tag in v17/v18. <tree> is an alias.
+                 decoration-*: row-level colorization
+                 ✅ NO @colors / @fonts — removed in v17
+                 ============================================================ -->
+            <list string="Models"
+                  decoration-danger="state == 'cancel'"
+                  decoration-success="state == 'done'"
+                  decoration-warning="state == 'confirm' and date &lt; current_date"
+                  decoration-muted="active == False"
+                  multi_edit="1">
+
+                <!-- Drag handle for manual reordering (requires sequence field) -->
+                <field name="sequence" widget="handle"/>
+
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date"/>
+
+                <!-- Monetary field with footer aggregate -->
+                <field name="amount_total"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id'}"
+                       sum="Total Amount"/>
+                <!-- currency_id must be in the view to allow monetary widget to work -->
+                <field name="currency_id" column_invisible="1"/>
+
+                <!-- Badge widget for state — with per-cell decoration -->
+                <field name="state"
+                       widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-warning="state == 'confirm'"
+                       decoration-danger="state == 'cancel'"/>
+
+                <!-- optional="hide": column hidden by default, user can show it -->
+                <field name="user_id" optional="hide"/>
+                <field name="company_id" optional="hide" groups="base.group_multi_company"/>
+
+            </list>
+
+        </field>
+    </record>
+</odoo>
