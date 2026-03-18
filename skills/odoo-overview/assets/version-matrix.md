@@ -4,37 +4,55 @@
 
 | Odoo Version | Python Min | Python Max | Recommended |
 |-------------|-----------|-----------|-------------|
+| 16.0 | 3.7 | 3.10 | 3.10 |
 | 17.0 | 3.10 | 3.12 | 3.10 |
 | 18.0 | 3.10 | 3.12 | 3.12 |
 
 ---
 
-## Breaking Changes: v17 vs v18
+## Breaking Changes: v16 → v17 → v18
 
-### What v17 already changed (from prior versions)
-
-These patterns are **WRONG** in both v17 and v18:
+### v16 → v17 (breaking — affects all v16 modules being ported)
 
 #### `attrs` attribute REMOVED from XML views
 
 ```xml
-<!-- WRONG — crashes on v17+ -->
+<!-- ❌ WRONG — worked in v16, crashes on v17+ -->
 <field name="amount" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
-<field name="notes" attrs="{'required': [('type', '=', 'service')]}"/>
 
-<!-- CORRECT — inline Python expressions -->
+<!-- ✅ CORRECT (v17+) — inline Python expressions -->
 <field name="amount" invisible="state != 'draft'"/>
-<field name="notes" required="type == 'service'"/>
+```
+
+#### `states` attribute REMOVED from buttons/fields
+
+```xml
+<!-- ❌ WRONG — worked in v16, removed in v17 -->
+<button name="action_confirm" states="draft,sent" string="Confirm" type="object"/>
+
+<!-- ✅ CORRECT (v17+) -->
+<button name="action_confirm" string="Confirm" type="object"
+        invisible="state not in ('draft', 'sent')"/>
+```
+
+#### `@colors` / `@fonts` REMOVED from list/tree views
+
+```xml
+<!-- ❌ WRONG — worked in v16 -->
+<tree colors="red:state=='cancel';green:state=='done'">
+
+<!-- ✅ CORRECT (v17+) -->
+<list decoration-danger="state == 'cancel'" decoration-success="state == 'done'">
 ```
 
 #### `name_get()` deprecated (v17) / removed (v18)
 
 ```python
-# WRONG — deprecated in v17, removed in v18
+# ❌ WRONG — worked in v16, deprecated v17, removed v18
 def name_get(self):
     return [(r.id, f"[{r.code}] {r.name}") for r in self]
 
-# CORRECT — override _compute_display_name
+# ✅ CORRECT (v17+)
 def _compute_display_name(self):
     for rec in self:
         rec.display_name = f"[{rec.code}] {rec.name}"
@@ -43,50 +61,41 @@ def _compute_display_name(self):
 #### `type="json"` renamed in controllers
 
 ```python
-# WRONG — renamed in v17
+# ❌ WRONG — worked in v16, renamed in v17
 @http.route('/api/data', type='json', auth='user')
-def get_data(self, **kwargs):
-    return {'status': 'ok'}
 
-# CORRECT
+# ✅ CORRECT (v17+)
 @http.route('/api/data', type='jsonrpc', auth='user')
-def get_data(self, **kwargs):
-    return {'status': 'ok'}
 ```
 
 #### `mail.channel` renamed to `discuss.channel`
 
 ```python
-# WRONG — renamed in v17
+# ❌ WRONG — worked in v16
 channel = self.env['mail.channel'].create({...})
 
-# CORRECT
+# ✅ CORRECT (v17+)
 channel = self.env['discuss.channel'].create({...})
 ```
 
-#### `Command` objects replace tuples for x2many
+#### Tuple syntax for x2many — use `Command` API
 
 ```python
-# WRONG — deprecated tuple syntax
-record.write({'tag_ids': [(4, tag_id)]})
+# ❌ WRONG — v16 tuple syntax
 record.write({'line_ids': [(0, 0, {'name': 'New'})]})
-record.write({'tag_ids': [(3, tag_id)]})
-record.write({'line_ids': [(5, 0, 0)]})
 
-# CORRECT — Command objects
+# ✅ CORRECT (v17+)
 from odoo.fields import Command
-record.write({'tag_ids': [Command.link(tag_id)]})
 record.write({'line_ids': [Command.create({'name': 'New'})]})
-record.write({'tag_ids': [Command.unlink(tag_id)]})
-record.write({'line_ids': [Command.clear()]})
 ```
 
-#### Record rule defaults changed
+#### Assets declaration changed (manifest)
 
 ```python
-# Before v17 — record rules apply to all CRUD by default
-# v17+ — record rules apply to read by default, must explicitly set:
-#   perm_read, perm_write, perm_create, perm_unlink
+# ❌ WRONG — v16 `qweb` key removed in v17
+'qweb': ['static/src/xml/my_template.xml'],
+
+# ✅ CORRECT (v17+) — ir.asset records in data XML
 ```
 
 ---
@@ -97,7 +106,7 @@ record.write({'line_ids': [Command.clear()]})
 
 ```python
 # v17 — company-dependent fields stored in ir_property table
-# v18 — stored directly as JSONB columns on the model's table
+# v18 — stored directly as JSONB columns on the model table
 # Impact: direct SQL queries on ir_property will break
 ```
 
@@ -114,7 +123,7 @@ user.group_ids = [Command.link(group_id)]
 #### `search_fetch()` method added
 
 ```python
-# v17 — search then read (2 queries)
+# v17 — 2 queries
 records = self.search(domain)
 data = records.read(['name', 'state'])
 
@@ -126,22 +135,28 @@ records = self.search_fetch(domain, ['name', 'state'])
 
 ## Feature Availability Matrix
 
-| Feature | v17 | v18 |
-|---------|:---:|:---:|
-| `attrs` in XML | No | No |
-| Inline view expressions | Yes | Yes |
-| `name_get()` | Deprecated | No |
-| `_compute_display_name` | Yes | Yes |
-| `type="json"` controller | No | No |
-| `type="jsonrpc"` controller | Yes | Yes |
-| `mail.channel` | No | No |
-| `discuss.channel` | Yes | Yes |
-| Tuple x2many syntax | Deprecated | No |
-| `Command` objects | Yes | Yes |
-| `ir_property` table | Yes | No |
-| JSONB company fields | No | Yes |
-| `groups_id` | Yes | No |
-| `group_ids` | No | Yes |
-| `search_fetch()` | No | Yes |
-| OWL 2 | Yes | Yes |
-| `t-out` | Yes | Yes |
+| Feature | v16 | v17 | v18 |
+|---------|:---:|:---:|:---:|
+| `attrs` in XML | ✅ | ❌ | ❌ |
+| Inline view expressions | ❌ | ✅ | ✅ |
+| `states` on buttons/fields | ✅ | ❌ | ❌ |
+| `@colors`/`@fonts` in list | ✅ | ❌ | ❌ |
+| `decoration-*` in list | ✅ | ✅ | ✅ |
+| `name_get()` | ✅ | ⚠️ Deprecated | ❌ |
+| `_compute_display_name` | ✅ | ✅ | ✅ |
+| `type="json"` controller | ✅ | ❌ | ❌ |
+| `type="jsonrpc"` controller | ❌ | ✅ | ✅ |
+| `mail.channel` | ✅ | ❌ | ❌ |
+| `discuss.channel` | ❌ | ✅ | ✅ |
+| Tuple x2many `(0,0,{})` | ✅ | ⚠️ Deprecated | ❌ |
+| `Command` objects | ⚠️ Partial | ✅ | ✅ |
+| `qweb` manifest key | ✅ | ❌ | ❌ |
+| `ir.asset` bundles | ❌ | ✅ | ✅ |
+| `ir_property` table | ✅ | ✅ | ❌ |
+| JSONB company fields | ❌ | ❌ | ✅ |
+| `groups_id` on res.users | ✅ | ✅ | ❌ |
+| `group_ids` on res.users | ❌ | ❌ | ✅ |
+| `search_fetch()` | ❌ | ❌ | ✅ |
+| OWL 2 | ❌ | ✅ | ✅ |
+| `t-out` | ❌ | ✅ | ✅ |
+| Record rule default (read-only) | ❌ | ✅ | ✅ |

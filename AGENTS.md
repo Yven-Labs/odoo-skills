@@ -85,8 +85,8 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 | Working with release pipelines or version bumps       | `odoo-ci`          |
 | Updating or adding entries to `CHANGELOG.md`          | `odoo-changelog`   |
 | General Odoo architecture questions                   | `odoo-overview`    |
-| Understanding v16→v17 changes                         | `odoo-v17-changes` |
-| Understanding v17→v18 changes                         | `odoo-v18-changes` |
+| Understanding v16→v17 changes                         | `odoo-overview`    |
+| Understanding v17→v18 changes                         | `odoo-overview`    |
 
 ---
 

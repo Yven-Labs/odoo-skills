@@ -202,6 +202,7 @@ For each path, Odoo looks for subdirectories containing `__manifest__.py`. If th
 3. **Wrong version format** — `"1.0.0"` or `"17.1.0.0"` instead of `"17.0.1.0.0"`.
 4. **`auto_install: True` on a non-bridge module** — installs on every DB that has the dependency.
 5. **Module invisible in Apps** — folder not in `addons_path`, or module list not updated after creation.
+6. **[v16→v17] Using `qweb` key in manifest** — removed in v17. Replace with `ir.asset` records in a data XML file bundled via `web.assets_backend` or `web.assets_frontend`.
 
 ---
 
