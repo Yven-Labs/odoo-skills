@@ -136,7 +136,7 @@ irm https://raw.githubusercontent.com/Gentleman-Programming/gentle-ai/main/scrip
 | ----------- | ------ | ---------------------- |
 | **Odoo 17** | 3.10+  | ✅ Supported (Priority) |
 | **Odoo 18** | 3.10+  | ✅ Supported (Priority) |
-| Odoo 16     | 3.8+   | 🚧 Planned (Phase 4)    |
+| Odoo 16     | 3.7+   | 🚧 Planned (Phase 4)    |
 | Odoo 19     | 3.11+  | 🚧 Planned (Phase 4)    |
 
 ---

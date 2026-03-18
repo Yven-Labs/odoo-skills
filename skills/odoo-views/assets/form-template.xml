@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Odoo Views Skill — Form View Template (v17/v18) -->
+<!-- Replace every occurrence of:
+       prefix.model  →  your actual model name (e.g. sale.order)
+       module_name   →  your module technical name (e.g. sale_custom)
+-->
+<odoo>
+    <record id="view_prefix_model_form" model="ir.ui.view">
+        <field name="name">prefix.model.form</field>
+        <field name="model">prefix.model</field>
+        <field name="arch" type="xml">
+            <form string="Model Name">
+
+                <!-- ============================================================
+                     HEADER — status buttons + statusbar widget
+                     ✅ Use invisible= (inline expression), NOT states= attribute
+                     ============================================================ -->
+                <header>
+                    <button name="action_confirm"
+                            string="Confirm"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_send"
+                            string="Send by Email"
+                            type="object"
+                            invisible="state not in ('draft', 'confirm')"/>
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            class="btn-danger"
+                            confirm="Are you sure you want to cancel this record?"
+                            invisible="state in ('done', 'cancel')"/>
+                    <button name="action_reset_to_draft"
+                            string="Reset to Draft"
+                            type="object"
+                            invisible="state != 'cancel'"/>
+                    <!-- statusbar_visible: list only the states you want shown in the bar -->
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,confirm,done"/>
+                </header>
+
+                <!-- ============================================================
+                     SHEET — main form body
+                     ============================================================ -->
+                <sheet>
+
+                    <!-- Smart buttons (optional) — counters linking to related records -->
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button"
+                                type="object"
+                                name="action_view_lines"
+                                icon="fa-list">
+                            <field name="line_count" widget="statinfo" string="Lines"/>
+                        </button>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"
+                                   placeholder="Reference..."
+                                   readonly="state != 'draft'"/>
+                        </h1>
+                    </div>
+
+                    <!-- Two-column layout using nested <group> -->
+                    <group>
+                        <group string="General">
+                            <field name="partner_id"/>
+                            <!-- ✅ inline invisible — NOT attrs -->
+                            <field name="partner_ref"
+                                   invisible="not partner_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group string="Settings">
+                            <!-- groups= restricts field visibility by Odoo group -->
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <!-- invisible="1" hides field but keeps value accessible -->
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount_total" widget="monetary"/>
+                        </group>
+                    </group>
+
+                    <!-- Notebook — tabbed pages for secondary content -->
+                    <notebook>
+                        <page string="Order Lines" name="page_lines">
+                            <field name="line_ids">
+                                <!-- editable="bottom" allows inline editing -->
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="qty"/>
+                                    <field name="price_unit"/>
+                                    <field name="price_subtotal"/>
+                                    <!-- ✅ inline invisible on column -->
+                                    <field name="discount"
+                                           invisible="not parent.show_discount"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="page_notes">
+                            <field name="notes" placeholder="Internal notes..."/>
+                        </page>
+                    </notebook>
+
+                </sheet>
+
+                <!-- Chatter — ONLY add if model inherits mail.thread + mail.activity.mixin -->
+                <chatter/>
+
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Odoo Views Skill — Kanban View Template (v17/v18) -->
+<!-- Replace every occurrence of:
+       prefix.model  →  your actual model name (e.g. sale.order)
+       module_name   →  your module technical name (e.g. sale_custom)
+-->
+<odoo>
+    <record id="view_prefix_model_kanban" model="ir.ui.view">
+        <field name="name">prefix.model.kanban</field>
+        <field name="model">prefix.model</field>
+        <field name="arch" type="xml">
+
+            <!-- ============================================================
+                 default_group_by: group cards by this field on open
+                 quick_create="false": disables the inline quick-create form
+                 ============================================================ -->
+            <kanban default_group_by="state"
+                    quick_create="false"
+                    class="o_kanban_small_column">
+
+                <!-- Fields to load — list ALL fields used in the template -->
+                <field name="id"/>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="partner_id"/>
+                <field name="date"/>
+                <field name="amount_total"/>
+                <field name="currency_id"/>
+                <field name="user_id"/>
+                <field name="color"/>  <!-- integer field for card color picker -->
+
+                <!-- ============================================================
+                     PROGRESSBAR — shown at top of each column
+                     field: the field to count/sum
+                     colors: maps field values to Bootstrap color names
+                     ============================================================ -->
+                <progressbar field="state"
+                             colors='{"done": "success", "cancel": "danger", "confirm": "warning"}'/>
+
+                <!-- ============================================================
+                     CARD TEMPLATE
+                     ✅ Use t-attf-class with f-string syntax (v17+)
+                     ✅ Use oe_kanban_color_X helper classes for colored left border
+                     ============================================================ -->
+                <templates>
+                    <t t-name="card">
+
+                        <!-- Color left border — driven by color integer field -->
+                        <!-- oe_kanban_color_0 to oe_kanban_color_11 -->
+                        <t t-att-class="'oe_kanban_color_' + record.color.raw_value"/>
+
+                        <!-- Card top ribbon (optional) -->
+                        <div class="oe_kanban_top_color"/>
+
+                        <!-- Card body -->
+                        <div class="oe_kanban_card oe_kanban_global_click">
+
+                            <!-- Header row -->
+                            <div class="o_kanban_record_top mb-0">
+                                <div class="o_kanban_record_headings">
+                                    <!-- Main title -->
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <!-- Priority stars widget (requires priority field) -->
+                                <!-- <field name="priority" widget="priority"/> -->
+                            </div>
+
+                            <!-- Body content -->
+                            <div class="o_kanban_record_body">
+                                <field name="partner_id"/>
+                                <div>
+                                    <span class="text-muted">
+                                        <field name="date"/>
+                                    </span>
+                                </div>
+                                <!-- Monetary display -->
+                                <div t-if="record.amount_total.raw_value">
+                                    <field name="amount_total" widget="monetary"/>
+                                </div>
+                            </div>
+
+                            <!-- Footer row: tags + avatar -->
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <!-- Activity button (requires mail.activity.mixin) -->
+                                    <field name="activity_ids" widget="kanban_activity"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <!-- Responsible user avatar -->
+                                    <field name="user_id"
+                                           widget="many2one_avatar_user"
+                                           readonly="1"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                </templates>
+
+            </kanban>
+        </field>
+    </record>
+</odoo>

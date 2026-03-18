@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Odoo Views Skill — Search View Template (v17/v18) -->
+<!-- Replace every occurrence of:
+       prefix.model  →  your actual model name (e.g. sale.order)
+-->
+<odoo>
+    <record id="view_prefix_model_search" model="ir.ui.view">
+        <field name="name">prefix.model.search</field>
+        <field name="model">prefix.model</field>
+        <field name="arch" type="xml">
+            <search string="Search Models">
+
+                <!-- ============================================================
+                     SEARCH FIELDS — appear in the search bar as autocomplete
+                     ============================================================ -->
+
+                <!-- Default text search — searches the field value -->
+                <field name="name" string="Reference"/>
+
+                <!-- Many2one — use operator="child_of" for hierarchical models -->
+                <field name="partner_id"/>
+
+                <!-- Search with custom filter domain when user types -->
+                <field name="name"
+                       string="Reference or Description"
+                       filter_domain="['|', ('name', 'ilike', self), ('description', 'ilike', self)]"/>
+
+                <!-- ============================================================
+                     FILTERS — predefined domain shortcuts
+                     ============================================================ -->
+
+                <filter string="My Records"
+                        name="filter_my_records"
+                        domain="[('user_id', '=', uid)]"/>
+                <filter string="Draft"
+                        name="filter_draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed"
+                        name="filter_confirm"
+                        domain="[('state', '=', 'confirm')]"/>
+                <filter string="Done"
+                        name="filter_done"
+                        domain="[('state', '=', 'done')]"/>
+
+                <!-- Date filter using date_filter_field -->
+                <filter string="This Month"
+                        name="filter_this_month"
+                        domain="[('date', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
+                                 ('date', '&lt;=', (context_today() + relativedelta(day=31)).strftime('%Y-%m-%d'))]"/>
+
+                <!-- Separator — visual divider between filter groups -->
+                <separator/>
+
+                <!-- Archived records (active=False) — always needs separator before it -->
+                <filter string="Archived"
+                        name="filter_archived"
+                        domain="[('active', '=', False)]"/>
+
+                <!-- ============================================================
+                     GROUP BY — controls how records are aggregated
+                     ============================================================ -->
+
+                <group expand="0" string="Group By">
+                    <filter string="Status"
+                            name="groupby_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Partner"
+                            name="groupby_partner"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter string="Responsible"
+                            name="groupby_user"
+                            context="{'group_by': 'user_id'}"/>
+                    <!-- Date group by with granularity options -->
+                    <filter string="Date: Month"
+                            name="groupby_date_month"
+                            context="{'group_by': 'date:month'}"/>
+                    <filter string="Date: Week"
+                            name="groupby_date_week"
+                            context="{'group_by': 'date:week'}"/>
+                    <filter string="Date: Year"
+                            name="groupby_date_year"
+                            context="{'group_by': 'date:year'}"/>
+                </group>
+
+                <!-- ============================================================
+                     DEFAULT SEARCH — applied when the view opens
+                     Use searchpanel for sidebar facets (optional)
+                     ============================================================ -->
+                <!-- Uncomment to apply a default filter on view open:
+                <searchpanel>
+                    <field name="state" select="multi" icon="fa-filter"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </searchpanel>
+                -->
+
+            </search>
+        </field>
+    </record>
+</odoo>
