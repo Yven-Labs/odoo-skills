@@ -13,7 +13,7 @@
 
 <h1>Odoo Skills Ecosystem</h1>
 
-<p><strong>Every Odoo version. Every module. Every AI assistant. One skill library.</strong></p>
+<p><strong>Odoo v17 &amp; v18. Every module. Every AI assistant. One skill library.</strong></p>
 
 <p>
   <a href="https://github.com/Yven-Labs/odoo-skills/releases">
@@ -80,8 +80,6 @@ A structured library of **30+ Skill Files** (Markdown + Assets) that provide:
 - **Validation**: Strict RFC-style requirements (R-XXX) for every generated file.
 - **Ready-to-use Templates**: Assets for v16, v17, v18, and v19.
 - **Safety**: Security-first generation (blocking `sudo()`, enforcing ACLs).
-
----
 
 ---
 
@@ -225,7 +223,3 @@ odoo-skills/
 MIT License — Copyright (c) 2026
 
 ---
-
-<div align="center">
-  <p>Made with care by <a href="https://github.com/Geraldow">Geraldow</a>.</p>
-</div>
