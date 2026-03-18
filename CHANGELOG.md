@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.12.0] - 2026-03-18
+
+### 🚀 Added
+
+- add odoo-views skill with form, list, search, and kanban views
+
+### 🔄 Changed
+
+- extend version compatibility coverage to v16 across skills
+
+---
+
 ## [0.11.0] - 2026-03-18
 
 ### 🚀 Added
