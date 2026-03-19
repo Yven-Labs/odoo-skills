@@ -13,7 +13,7 @@
 
 <h1>Odoo Skills Ecosystem</h1>
 
-<p><strong>Odoo v17 &amp; v18. Every module. Every AI assistant. One skill library.</strong></p>
+<p><strong>Odoo v16, v17 &amp; v18. Every module. Every AI assistant. One skill library.</strong></p>
 
 <p>
   <a href="https://github.com/Yven-Labs/odoo-skills/releases">
@@ -22,7 +22,7 @@
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License: MIT">
   </a>
-  <img src="https://img.shields.io/badge/odoo-v17--v18-714B67?logo=odoo&logoColor=white&style=flat-square" alt="Odoo v17-v18">
+  <img src="https://img.shields.io/badge/odoo-v16--v18-714B67?logo=odoo&logoColor=white&style=flat-square" alt="Odoo v16-v18">
   <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey?style=flat-square" alt="Platform">
 </p>
 
@@ -134,9 +134,9 @@ irm https://raw.githubusercontent.com/Gentleman-Programming/gentle-ai/main/scrip
 
 | Version     | Python | Status                 |
 | ----------- | ------ | ---------------------- |
+| **Odoo 16** | 3.7+   | ✅ Supported            |
 | **Odoo 17** | 3.10+  | ✅ Supported (Priority) |
 | **Odoo 18** | 3.10+  | ✅ Supported (Priority) |
-| Odoo 16     | 3.7+   | 🚧 Planned (Phase 4)    |
 | Odoo 19     | 3.11+  | 🚧 Planned (Phase 4)    |
 
 ---
