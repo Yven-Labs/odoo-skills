@@ -197,7 +197,7 @@ jobs:
 
           # Commit and push back to main
           git add CHANGELOG.md
-          git commit -m "chore(release): update CHANGELOG.md for v${VERSION}"
+          git commit -m "chore(release): update CHANGELOG.md for v${VERSION} [skip ci]"
           git push origin main
 
       - name: Create GitHub Release
