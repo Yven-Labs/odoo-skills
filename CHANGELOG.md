@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.14.0] - 2026-03-20
+
+### 🚀 Added
+
+- add Odoo Architect persona to all agent examples (#41)
+
+### 🐞 Fixed
+
+- add workflow_dispatch and sync develop (#43)
+- prevent release workflow re-trigger loop (#39)
+
+---
+
 ## [0.13.0] - 2026-03-19
 
 ### 🔄 Changed
