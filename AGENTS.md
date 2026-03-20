@@ -1,11 +1,4 @@
-# odoo-skills — Code Review Rules & Skill Router
-
-> **Every Odoo version. Every module. Every AI assistant. One skill library.**
->
-> Created by [Geraldow](https://github.com/Geraldow)
-> License: [MIT](LICENSE)
-
----
+# Repository Guidelines
 
 ## 1. How to Use This Guide
 
@@ -23,21 +16,23 @@ Use these skills for detailed patterns on-demand:
 
 ### Odoo Development Skills
 
-| Skill             | Description                                          | URL                                                      |
-| ----------------- | ---------------------------------------------------- | -------------------------------------------------------- |
-| `odoo-overview`   | Stack overview, version matrix, component map        | [SKILL.md](skills/odoo-overview/SKILL.md)                |
-| `odoo-module`     | Module structure, `__manifest__.py`, data files      | [SKILL.md](skills/odoo-module/SKILL.md)                  |
-| `odoo-orm`        | Models, fields, decorators, recordsets, CRUD         | [SKILL.md](skills/odoo-orm/SKILL.md)                     |
-| `odoo-oca`        | OCA conventions: naming, versioning, manifest        | [SKILL.md](skills/odoo-oca/SKILL.md)                     |
+| Skill           | Description                                     | URL                                       |
+| --------------- | ----------------------------------------------- | ----------------------------------------- |
+| `odoo-overview` | Stack overview, version matrix, component map   | [SKILL.md](skills/odoo-overview/SKILL.md) |
+| `odoo-module`   | Module structure, `__manifest__.py`, data files | [SKILL.md](skills/odoo-module/SKILL.md)   |
+| `odoo-orm`      | Models, fields, decorators, recordsets, CRUD    | [SKILL.md](skills/odoo-orm/SKILL.md)      |
+| `odoo-views`    | Form, list, search, kanban views (v16/v17/v18)  | [SKILL.md](skills/odoo-views/SKILL.md)    |
+| `odoo-security` | ir.model.access.csv, ir.rule, res.groups        | [SKILL.md](skills/odoo-security/SKILL.md) |
+| `odoo-oca`      | OCA conventions: naming, versioning, manifest   | [SKILL.md](skills/odoo-oca/SKILL.md)      |
 
 ### DevOps & Workflow Skills
 
-| Skill             | Description                                          | URL                                                      |
-| ----------------- | ---------------------------------------------------- | -------------------------------------------------------- |
-| `odoo-commit`     | Conventional commits for Odoo projects               | [SKILL.md](skills/odoo-commit/SKILL.md)                  |
-| `odoo-pr`         | Pull request template and conventions                | [SKILL.md](skills/odoo-pr/SKILL.md)                      |
-| `odoo-ci`         | CI checks, GitHub Actions, release pipelines         | [SKILL.md](skills/odoo-ci/SKILL.md)                      |
-| `odoo-changelog`  | CHANGELOG.md entries and format                      | [SKILL.md](skills/odoo-changelog/SKILL.md)               |
+| Skill            | Description                                  | URL                                        |
+| ---------------- | -------------------------------------------- | ------------------------------------------ |
+| `odoo-commit`    | Conventional commits for Odoo projects       | [SKILL.md](skills/odoo-commit/SKILL.md)    |
+| `odoo-pr`        | Pull request template and conventions        | [SKILL.md](skills/odoo-pr/SKILL.md)        |
+| `odoo-ci`        | CI checks, GitHub Actions, release pipelines | [SKILL.md](skills/odoo-ci/SKILL.md)        |
+| `odoo-changelog` | CHANGELOG.md entries and format              | [SKILL.md](skills/odoo-changelog/SKILL.md) |
 
 ---
 
@@ -64,6 +59,7 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 | Inheriting or extending views                         | `odoo-views`       |
 | Adding security groups or access rules                | `odoo-security`    |
 | Creating `ir.model.access.csv`                        | `odoo-security`    |
+| Defining `ir.rule` record rules                       | `odoo-security`    |
 | Writing Python tests for Odoo                         | `odoo-testing`     |
 | Creating HTTP controllers / routes                    | `odoo-controllers` |
 | Creating OWL components (v17+)                        | `odoo-owl`         |
@@ -130,3 +126,52 @@ These files MUST NOT be modified without an explicit PR approved by Geraldow:
 - `CONTRIBUTING.md` — `claude-code` only
 
 See `CONTRIBUTING.md` for the full coordination workflow.
+
+---
+
+## 7. Project Overview
+
+odoo-skills is an AI skill library for Odoo development — a curated collection of patterns, templates, and guardrails for AI assistants working on Odoo modules.
+
+| Component    | Location          | Purpose                                      |
+| ------------ | ----------------- | -------------------------------------------- |
+| Skills       | `skills/`         | Skill definitions (SKILL.md + assets + refs) |
+| Examples     | `examples/`       | Drop-in orchestration configs per AI tool    |
+| Scripts      | `scripts/`        | setup.sh / setup.ps1 / sync.sh installers   |
+| CI Workflows | `.github/workflows/` | PR validation + automated releases        |
+
+**Supported Odoo Versions:** v16 · v17 · v18
+**Python:** 3.7+ (v16) · 3.10+ (v17/v18)
+
+---
+
+## 8. Development Setup
+
+```bash
+# Install skills into your project (Linux/macOS)
+bash <(curl -fsSL https://raw.githubusercontent.com/Yven-Labs/odoo-skills/main/scripts/setup.sh)
+
+# Install skills into your project (Windows PowerShell)
+irm https://raw.githubusercontent.com/Yven-Labs/odoo-skills/main/scripts/setup.ps1 | iex
+
+# Sync skills after upstream updates
+bash sync.sh
+```
+
+---
+
+## 9. Commit & PR Guidelines
+
+Follow conventional-commit style: `<type>[scope]: <description>`
+
+**Types:** `feat`, `fix`, `docs`, `chore`, `perf`, `refactor`, `style`, `test`
+
+**Branch workflow:**
+1. Create feature branch from `develop`: `git checkout -b feat/<name>`
+2. PR `feat/<name>` → `develop` (squash merge)
+3. PR `develop` → `main` (squash merge, triggers release)
+
+Before creating a PR:
+1. Invoke `odoo-pr` skill for the PR template
+2. Invoke `odoo-changelog` skill to add a CHANGELOG entry
+3. Ensure all CI checks pass (`CI — Skill Library Validation`)
