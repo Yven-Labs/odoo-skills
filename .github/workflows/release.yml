@@ -1,7 +1,9 @@
 name: Release — Publish Skill Library
 
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
       - main
   workflow_dispatch:
@@ -13,6 +15,7 @@ jobs:
   release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
 
     steps:
       - name: Checkout repository
