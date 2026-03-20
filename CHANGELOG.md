@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.14.1] - 2026-03-20
+
+### 🐞 Fixed
+
+- use pull_request closed event to fix squash merge trigger (#45)
+
+---
+
 ## [0.14.0] - 2026-03-20
 
 ### 🚀 Added
