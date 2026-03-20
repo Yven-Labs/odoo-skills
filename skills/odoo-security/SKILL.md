@@ -37,11 +37,11 @@ Load this skill when:
 
 Read `__manifest__.py` and parse the `version` field: `"17.0.1.0.0"` → major version `17`.
 
-| Version | Key Security Change |
-|---|---|
-| **v16** | `ir.rule` has a `global` boolean field |
+| Version | Key Security Change                                                    |
+| ------- | ---------------------------------------------------------------------- |
+| **v16** | `ir.rule` has a `global` boolean field                                 |
 | **v17** | `global` field removed — a rule with no groups is automatically global |
-| **v18** | Same as v17 |
+| **v18** | Same as v17                                                            |
 
 ---
 
@@ -106,7 +106,7 @@ my_module/
 
 ### Column order (positional — never reorder)
 
-```
+```csv
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 ```
 
@@ -120,13 +120,13 @@ access_sale_custom_order_manager,sale_custom.order manager,model_sale_custom_ord
 
 ### Column reference
 
-| Column | Value Pattern | Notes |
-|---|---|---|
-| `id` | `access_<model_underscore>_<group>` | Must be unique |
-| `name` | `<module>.<model> <group>` | Human-readable only |
+| Column        | Value Pattern                       | Notes                             |
+| ------------- | ----------------------------------- | --------------------------------- |
+| `id`          | `access_<model_underscore>_<group>` | Must be unique                    |
+| `name`        | `<module>.<model> <group>`          | Human-readable only               |
 | `model_id:id` | `model_<model_dots_as_underscores>` | `sale.order` → `model_sale_order` |
-| `group_id:id` | `<module>.group_<module>_<role>` | Module prefix is required |
-| `perm_*` | `1` or `0` | Integer — never `True`/`False` |
+| `group_id:id` | `<module>.group_<module>_<role>`    | Module prefix is required         |
+| `perm_*`      | `1` or `0`                          | Integer — never `True`/`False`    |
 
 ---
 
@@ -224,21 +224,21 @@ access_sale_custom_order_manager,sale_custom.order manager,model_sale_custom_ord
 
 ### Available context variables in `domain_force`
 
-| Variable | Type | Description |
-|---|---|---|
-| `user` | `res.users` recordset | Current logged-in user |
-| `time` | Python `time` module | For date-based conditions |
-| `company_ids` | `list[int]` | IDs of user's allowed companies |
+| Variable      | Type                  | Description                     |
+| ------------- | --------------------- | ------------------------------- |
+| `user`        | `res.users` recordset | Current logged-in user          |
+| `time`        | Python `time` module  | For date-based conditions       |
+| `company_ids` | `list[int]`           | IDs of user's allowed companies |
 
 ---
 
 ## Assets
 
-| File | Use Case |
-|---|---|
-| [`assets/access-template.csv`](assets/access-template.csv) | Drop-in `ir.model.access.csv` with two-tier permissions |
-| [`assets/groups-template.xml`](assets/groups-template.xml) | Module category + User/Manager group definitions |
-| [`assets/record-rule-template.xml`](assets/record-rule-template.xml) | Own-records rule + multi-company rule (v17+ syntax) |
+| File                                                                 | Use Case                                                |
+| -------------------------------------------------------------------- | ------------------------------------------------------- |
+| [`assets/access-template.csv`](assets/access-template.csv)           | Drop-in `ir.model.access.csv` with two-tier permissions |
+| [`assets/groups-template.xml`](assets/groups-template.xml)           | Module category + User/Manager group definitions        |
+| [`assets/record-rule-template.xml`](assets/record-rule-template.xml) | Own-records rule + multi-company rule (v17+ syntax)     |
 
 ---
 
@@ -348,7 +348,7 @@ Setting up ACL without record rules means all users with access see **all rows**
 
 ## References
 
-| Resource | Description |
-|---|---|
-| [`references/security-attributes.md`](references/security-attributes.md) | Full compatibility table v16/v17/v18, CSV column reference, base groups |
-| [Odoo Security Documentation](https://www.odoo.com/documentation/17.0/developer/reference/backend/security.html) | Official access rights and record rules reference |
+| Resource                                                                                                         | Description                                                             |
+| ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [`references/security-attributes.md`](references/security-attributes.md)                                         | Full compatibility table v16/v17/v18, CSV column reference, base groups |
+| [Odoo Security Documentation](https://www.odoo.com/documentation/17.0/developer/reference/backend/security.html) | Official access rights and record rules reference                       |
