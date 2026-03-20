@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.15.0] - 2026-03-20
+
+### 🚀 Added
+
+- add odoo-security skill for v16/v17/v18 (#47)
+
+---
+
 ## [0.14.1] - 2026-03-20
 
 ### 🐞 Fixed
