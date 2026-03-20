@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        noupdate="1" is required for record rules.
+        It prevents rules from being overwritten on --update,
+        preserving any UI customizations made by administrators.
+    -->
+    <data noupdate="1">
+
+        <!-- ✅ v17/v18 — "Own records only" rule (user sees only their own records) -->
+        <record id="rule_<model_name>_own_records" model="ir.rule">
+            <field name="name"><Model Name>: Own Records</field>
+            <field name="model_id" ref="model_<model_name>"/>
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('<module_name>.group_<module_name>_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <!--
+            ❌ v16 only — global field was REMOVED in v17.
+            In v17+, a rule with no groups is automatically global.
+
+        <record id="rule_<model_name>_global_example" model="ir.rule">
+            <field name="name"><Model Name>: Global Rule (v16 only)</field>
+            <field name="model_id" ref="model_<model_name>"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="global" eval="True"/>
+        </record>
+        -->
+
+        <!-- ✅ v16/v17/v18 — Multi-company isolation rule -->
+        <record id="rule_<model_name>_company" model="ir.rule">
+            <field name="name"><Model Name>: Multi-Company</field>
+            <field name="model_id" ref="model_<model_name>"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
