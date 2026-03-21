@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.17.0] - 2026-03-21
+
+### 🚀 Added
+
+- add prd-generator and rfc-generator skills (#51)
+
+---
+
 ## [0.16.0] - 2026-03-21
 
 ### 🚀 Added
