@@ -10,6 +10,7 @@ metadata:
   author: Geraldow
   version: "2.0.0"
   scope: [root]
+  skill_id: ODSK-SKL-RFC
 ---
 
 # RFC Generator Skill
