@@ -8,7 +8,7 @@ Technical reference for creating Jira artifacts from the rfc-generator using the
 
 Verify that the Atlassian MCP is available before initiating any write operation:
 
-```
+```text
 mcp__atlassian__atlassianUserInfo
   → Responds with user data: MCP configured ✅
   → Authentication error or tool not found: MCP not available ❌
@@ -48,7 +48,7 @@ If MCP is not available, inform the user and deliver the RFC as Markdown:
 
 ## Creation Order (Mandatory)
 
-```
+```text
 1. Create the Epic
    └─ mcp__atlassian__createJiraIssue (issuetype: "Epic")
    └─ Save the "id" field from the returned object → epic_id
@@ -107,7 +107,7 @@ Expected result: object with field `"id"` (e.g. `"10042"`) — this is the `epic
 
 If the `parent` field does not work to link Epic → Story in your Jira instance, run:
 
-```
+```text
 mcp__atlassian__getJiraIssueTypeMetaWithFields
   projectKey: "[PROJECT_KEY]"
   issueType: "Story"
@@ -121,7 +121,7 @@ Search the result for the `Epic Link` or `Parent` field to obtain the correct `f
 
 Before creating an Epic, verify whether one with the same name already exists in the project:
 
-```
+```text
 mcp__atlassian__searchJiraIssuesUsingJql
   jql: "project = \"OSK\" AND issuetype = Epic AND summary ~ \"Maintenance Contract Management\""
   maxResults: 5

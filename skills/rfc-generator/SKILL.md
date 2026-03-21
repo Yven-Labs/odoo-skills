@@ -81,7 +81,7 @@ After generating the RFC, offer the Jira export following this exact flow:
 
 ### Step 1 — Verify MCP Availability
 
-```
+```text
 mcp__atlassian__atlassianUserInfo
   → Responds with user data: MCP available ✅ → continue
   → Fails: MCP not configured ❌ → deliver RFC as Markdown and inform the user
@@ -98,7 +98,7 @@ Search in this priority order:
 
 Before creating, search whether an Epic with the same name already exists:
 
-```
+```text
 mcp__atlassian__searchJiraIssuesUsingJql
 JQL: project = "[PROJECT_KEY]" AND issuetype = Epic AND summary ~ "[Epic Title]"
 ```
@@ -113,7 +113,7 @@ If it already exists → present the user with options:
 **YOU MUST display the complete summary of tickets to be created and WAIT FOR EXPLICIT CONFIRMATION from the user before executing any creation in Jira.**
 
 Summary format:
-```
+```text
 [N] tickets will be created in project [PROJECT_KEY]:
 
 • [Epic] [PROJECT_KEY]-E01: [Epic Title]
@@ -150,7 +150,7 @@ RFCs MUST include diagrams in the Roadmap (dependencies between Stories) and in 
 | `logic` | `#F5F5F5` light gray | `#1A1A1A` black | T003 — Logic |
 | `qa` | `#EEEEEE` very light gray | `#616161` gray | T004 — QA |
 
-```
+```text
 classDef foundation fill:#1A1A1A,color:#FFFFFF,stroke:#1A1A1A,font-weight:bold
 classDef frontend   fill:#424242,color:#FFFFFF,stroke:#424242
 classDef logic      fill:#F5F5F5,color:#1A1A1A,stroke:#9E9E9E

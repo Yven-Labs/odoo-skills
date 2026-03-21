@@ -84,7 +84,7 @@ Generated PRDs MUST include Mermaid diagrams in §3 and §4. This guide ensures 
 | `secundario` | `#EEEEEE` light gray | `#616161` medium gray | Support data, alternative paths |
 | `borde` | `#FFFFFF` white | `#1A1A1A` black | Start and end nodes |
 
-```
+```text
 classDef critico    fill:#1A1A1A,color:#FFFFFF,stroke:#1A1A1A,font-weight:bold
 classDef importante fill:#424242,color:#FFFFFF,stroke:#424242
 classDef normal     fill:#F5F5F5,color:#1A1A1A,stroke:#9E9E9E
