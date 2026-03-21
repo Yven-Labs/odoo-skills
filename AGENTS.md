@@ -23,6 +23,7 @@ Use these skills for detailed patterns on-demand:
 | `odoo-orm`      | Models, fields, decorators, recordsets, CRUD    | [SKILL.md](skills/odoo-orm/SKILL.md)      |
 | `odoo-views`    | Form, list, search, kanban views (v16/v17/v18)  | [SKILL.md](skills/odoo-views/SKILL.md)    |
 | `odoo-security` | ir.model.access.csv, ir.rule, res.groups        | [SKILL.md](skills/odoo-security/SKILL.md) |
+| `odoo-testing`  | TDD workflow: TransactionCase, HttpCase, @tagged | [SKILL.md](skills/odoo-testing/SKILL.md) |
 | `odoo-oca`      | OCA conventions: naming, versioning, manifest   | [SKILL.md](skills/odoo-oca/SKILL.md)      |
 
 ### DevOps & Workflow Skills
