@@ -26,6 +26,13 @@ Use these skills for detailed patterns on-demand:
 | `odoo-testing`  | TDD workflow: TransactionCase, HttpCase, @tagged | [SKILL.md](skills/odoo-testing/SKILL.md) |
 | `odoo-oca`      | OCA conventions: naming, versioning, manifest   | [SKILL.md](skills/odoo-oca/SKILL.md)      |
 
+### Document Generation Skills
+
+| Skill           | Description                                          | URL                                         |
+| --------------- | ---------------------------------------------------- | ------------------------------------------- |
+| `prd-generator` | Converts meeting notes into Odoo-native PRDs         | [SKILL.md](skills/prd-generator/SKILL.md)   |
+| `rfc-generator` | Transforms approved PRDs into technical RFCs + Jira  | [SKILL.md](skills/rfc-generator/SKILL.md)   |
+
 ### DevOps & Workflow Skills
 
 | Skill            | Description                                  | URL                                        |
@@ -76,6 +83,8 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 | Following OCA conventions                             | `odoo-oca`         |
 | Setting up Docker for Odoo                            | `odoo-docker`      |
 | Debugging with Odoo shell or logging                  | `odoo-debug`       |
+| Generating a PRD from meeting notes or client briefs  | `prd-generator`    |
+| Creating a technical RFC from an approved PRD         | `rfc-generator`    |
 | Committing changes in an Odoo project                 | `odoo-commit`      |
 | Creating a pull request for an Odoo module or project | `odoo-pr`          |
 | Debugging CI failures in `.github/workflows/`         | `odoo-ci`          |
