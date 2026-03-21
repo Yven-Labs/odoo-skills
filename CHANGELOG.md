@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.16.0] - 2026-03-21
+
+### 🚀 Added
+
+- add odoo-testing skill with TDD workflow (#49)
+
+---
+
 ## [0.15.0] - 2026-03-20
 
 ### 🚀 Added
